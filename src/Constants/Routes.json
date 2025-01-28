@@ -1,0 +1,26 @@
+{
+  "USER": {
+    "PRODUCT": "user/product",
+    "REVIEW": "user/product/review",
+    "ORDER": "user/order",
+    "CONTACT": "user/contact",
+    "PAYMENT": "user/payment",
+    "CART": "user/cart/",
+    "USER": "user/user"
+  },
+  "ADMIN": {
+    "PRODUCT": "admin/product",
+    "REVIEW": "admin/product/review",
+    "ORDER": "admin/order",
+    "CONTACT": "admin/contact",
+    "USER": "admin/user"
+  },
+  "AUTHENTICATION": {
+    "REGISTER": "authentication/register",
+    "LOGIN": "authentication/login",
+    "LOGOUT": "authentication/logout",
+    "FORGOTPASSWORD": "authentication/forgot/password",
+    "RESETPASSWORD": "authentication/reset/password",
+    "VERIFYACCOUNT": "authentication/verify/account"
+  }
+}
