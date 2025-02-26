@@ -1,13 +1,17 @@
 import ProductGrid from "../components/ProductGrid";
 import SearchBar from "../components/SearchBar";
+import MobileNavigation from "../layouts/MobileNavigation";
 import Navigation from "../layouts/Navigation";
+import Footer from "../layouts/Footer";
 
 export default function Shop() {
   return (
-    <div className="lg:mx-24 md:mx-16 sm:mx-12 mx-8  ">
+    <div className="">
+      <MobileNavigation />
       <Navigation />
       <SearchBar />
       <ProductGrid />
+      <Footer />
     </div>
   );
 }

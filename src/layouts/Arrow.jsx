@@ -1,7 +1,9 @@
-export default function Arrow() {
+import { ArrowUpRight } from "lucide-react";
+
+export default function Arrow({ size }) {
   return (
-    <button className="bg-black inline-block mx-1.5 rounded-full -rotate-45  h-8 w-8 text-white text-xl">
-      &rarr;
-    </button>
+    <span className="bg-black inline-flex items-center justify-center rounded-full">
+      <ArrowUpRight color="white" size={size} />
+    </span>
   );
 }

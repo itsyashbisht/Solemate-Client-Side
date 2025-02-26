@@ -1,23 +1,34 @@
-import userImage from "../../public/User.png";
-import { Heart, ShoppingCart } from "lucide-react";
+import { Link } from "react-router-dom";
+import User from "../../public/User.png";
 
 export default function Navigation() {
   return (
-    <nav className="mt-4 font-pop">
-      <ul className="flex gap-x-5 items-center font-normal">
-        <li>
-          <div className="flex items-center gap-x-3">
-            <img className="h-10 w-10 rounded-full" src={userImage} alt="" />
-            <span>Hello, User</span>
-          </div>
-        </li>
-        <li className="mx-auto uppercase font-semibold text-xl">Solemate</li>
-        <li className="flex rounded-full bg-gray-100 px-2.5 py-2.5">
-          <Heart strokeWidth={1.5} size={20} />
-        </li>
-        <li className="flex rounded-full bg-gray-100 px-2.5 py-2.5">
-          <ShoppingCart size={20} strokeWidth={1.5} />
-        </li>
+    <nav className="py-5 mx-12 md:block hidden">
+      <ul className="flex gap-x-8 uppercase text-xl font-bold items-center justify-evenly">
+        <Link to="/" className="mr-auto text-2xl uppercase font-sans">
+          Solemate
+        </Link>
+        <Link
+          className="hover:underline transition-all duration-300"
+          to="/shop"
+        >
+          Shop
+        </Link>
+        <Link
+          className="hover:underline transition-all duration-300"
+          to="/about"
+        >
+          About
+        </Link>
+        <Link
+          className="hover:underline transition-all duration-300"
+          to="/cart"
+        >
+          Cart
+        </Link>
+        <Link to="authentication/login">
+          <img src={User} alt="" className="h-9 w-9 rounded-full" />
+        </Link>
       </ul>
     </nav>
   );
