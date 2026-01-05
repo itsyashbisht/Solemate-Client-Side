@@ -6,11 +6,13 @@ export const productService = {
     return REQUEST.post(ROUTES.PRODUCT.CREATE, payload);
   },
 
-  getProductById(payload) {
-    return REQUEST.get(ROUTES.PRODUCT.PRODUCT_BY_ID, payload);
+  getProductById(productId) {
+    return REQUEST.get(
+      ROUTES.PRODUCT.PRODUCT_BY_ID.replace(":productID", productId)
+    );
   },
 
-  deletProduct(productId) {
+  deleteProduct(productId) {
     return REQUEST.delete(
       ROUTES.PRODUCT.DELETE.replaceAll(":productID", productId)
     );

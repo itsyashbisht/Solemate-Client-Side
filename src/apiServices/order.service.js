@@ -2,7 +2,7 @@
 import REQUEST from "./axois";
 import ROUTES from "../Constants/Routes.json";
 
-export const orderServices = {
+export const orderService = {
   // CREATE ORDER
   createOrder(payload) {
     return REQUEST.post(ROUTES.ORDER.CREATE_ORDER, payload);
@@ -33,7 +33,8 @@ export const orderServices = {
 
   updateOrderStatus(orderId, payload) {
     return REQUEST.patch(
-      ROUTES.ORDER.UPDATE_ORDER_STATUS.replace(":orderId", orderId)
+      ROUTES.ORDER.UPDATE_ORDER_STATUS.replace(":orderId", orderId),
+      payload
     );
   },
 };

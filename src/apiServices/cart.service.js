@@ -1,7 +1,7 @@
 import REQUEST from "../apiServices/axois";
 import ROUTES from "../Constants/Routes.json";
 
-export const cartServices = {
+export const cartService = {
   // GET USER CART.
   getCart() {
     return REQUEST.get(ROUTES.CART.GET_CART);
