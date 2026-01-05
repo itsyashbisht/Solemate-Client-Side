@@ -3,7 +3,7 @@ import {
   createORDER,
   getMyORDERS,
   getOrderDETAILS,
-} from "../Services/OrderServices";
+} from "../apiServices/order.service";
 
 const userOrderSlice = createSlice({
   name: "order",

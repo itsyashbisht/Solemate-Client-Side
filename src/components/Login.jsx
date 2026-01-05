@@ -2,16 +2,20 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { loginAsync } from "../Slices/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [email, setEmail] = useState(" ");
+  const [password, setPassword] = useState(" ");
 
   // STATES FROM AUTH REDUCER SLICE
   const { status, error } = useSelector((state) => state.auth);
 
   function handleLogin(e) {
     e.preventDefault();
+    console.log(e.target.value);
     const result = dispatch(loginAsync(e.target.value));
 
     if (result.meta.requestStatus === "fulfilled") {
@@ -33,7 +37,7 @@ export default function Login() {
           </label>
           <input
             type="email"
-            value={formData.email}
+            value={email}
             placeholder="example@.com"
             className="rounded-md text-sm py-2 px-5 bg-gray-100"
             id="emailID"
@@ -44,7 +48,7 @@ export default function Login() {
             Password
           </label>
           <input
-            value={formData.password}
+            value={password}
             type="password"
             id="password"
             placeholder="Password"

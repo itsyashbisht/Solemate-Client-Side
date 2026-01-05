@@ -1,14 +1,14 @@
 // CUSTOM IMPORTS
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./Pages/Home";
-import Shop from "./Pages/Shop";
-import Cart from "./Pages/Cart";
 import AppLayout from "./AppLayout";
-import LoginPage from "./Pages/LoginPage";
-import Register from "./Pages/Register";
-import AdminRoutes from "./Routes/AdminRoutes";
 import About from "./Pages/About";
+import Cart from "./Pages/Cart";
+import Home from "./Pages/Home";
+import LoginPage from "./Pages/LoginPage";
 import ProductDetails from "./Pages/PorductDetails";
+import Register from "./Pages/Register";
+import Shop from "./Pages/Shop";
+import AdminRoutes from "./Routes/AdminRoutes";
 import UserRoutes from "./Routes/UserRoutes";
 
 // ROUTING

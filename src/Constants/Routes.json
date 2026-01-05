@@ -1,26 +1,41 @@
 {
   "USER": {
-    "PRODUCT": "user/product",
-    "REVIEW": "user/product/review",
-    "ORDER": "user/order",
-    "CONTACT": "user/contact",
-    "PAYMENT": "user/payment",
-    "CART": "user/cart/",
-    "USER": "user/user"
+    "REGISTER": "/user/register",
+    "LOGIN": "/user/login",
+    "LOGOUT": "/user/logout",
+    "UPDATE_DETAILS": "/user/update-details",
+    "CHANGE_PASSWORD": "/user/change-password"
   },
-  "ADMIN": {
-    "PRODUCT": "admin/product",
-    "REVIEW": "admin/product/review",
-    "ORDER": "admin/order",
-    "CONTACT": "admin/contact",
-    "USER": "admin/user"
+  "PRODUCT": {
+    "GET_ALL_PRODUCT": "/product/products",
+    "PRODUCT_BY_ID": "/product/:productId",
+    "CREATE": "/product/create",
+    "DELETE": "/product/delete/:productId",
+    "UPDATE_DETAILS": "/product/update/:productId",
+    "UPDATE_IMAGES": "/product/update/:productId/image"
   },
-  "AUTHENTICATION": {
-    "REGISTER": "authentication/register",
-    "LOGIN": "authentication/login",
-    "LOGOUT": "authentication/logout",
-    "FORGOTPASSWORD": "authentication/forgot/password",
-    "RESETPASSWORD": "authentication/reset/password",
-    "VERIFYACCOUNT": "authentication/verify/account"
+  "REVIEW": {
+    "ADD": "/review/:productId/add-review",
+    "REMOVE": "/review/remove/:reviewId",
+    "REVIEWS_BY_PRODUCT_ID": "/review/:productId/reviews",
+    "REVIEW_BY_ID": "/review/:reviewId"
+  },
+  "CART": {
+    "GET_CART": "/cart/",
+    "ADD_ITEM": "/cart/addItem/:productId",
+    "REMOVE_ITEM": "/cart/removeItem/:productId",
+    "UPDATE_ITEM_QUANTITY": "/cart/update-item-quantity/:productId",
+    "CLEAR_CART": "/cart/clear-cart"
+  },
+  "ORDER": {
+    "GET_MY_ORDERS": "/order/orders",
+    "CREATE_ORDER": "/order/create-order",
+    "GET_ORDER_BY_ID": "/order/:orderId",
+    "CANCEL_ORDER": "/order/cancel-order/:orderId",
+    "GET_ALL_ORDERS": "/order/all-orders",
+    "UPDATE_ORDER_STATUS": "/order/update-order-status/:orderId"
+  },
+  "PAYMENT": {
+    "VERIFY": "/payment/verify"
   }
 }

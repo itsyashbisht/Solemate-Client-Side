@@ -15,7 +15,6 @@ const bestSHOES = [
     price: 129.5,
     imageURL: Shoe4,
   },
-
   {
     name: "MIDNIGHT GLIDE",
     price: 129.5,

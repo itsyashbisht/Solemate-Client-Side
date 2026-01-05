@@ -1,0 +1,37 @@
+import REQUEST from "../apiServices/axois";
+import ROUTES from "../Constants/Routes.json";
+
+export const cartServices = {
+  // GET USER CART.
+  getCart() {
+    return REQUEST.get(ROUTES.CART.GET_CART);
+  },
+
+  // ADD ITEM TO CART.
+  addItem(productId, payload) {
+    return REQUEST.post(
+      ROUTES.CART.ADD_ITEM.replace(":productId", productId),
+      payload
+    );
+  },
+
+  // REMOVE ITEM FROM CART.
+  removeItem(productId) {
+    return REQUEST.delete(
+      ROUTES.CART.REMOVE_ITEM.replace(":productId", productId)
+    );
+  },
+
+  // UPDATE ITEM QUANTITY.
+  updateItemQuantity(productId, payload) {
+    return REQUEST.patch(
+      ROUTES.CART.UPDATE_ITEM_QUANTITY.replace(":productId", productId),
+      payload
+    );
+  },
+
+  // CLEAR CART.
+  clearCart() {
+    return REQUEST.delete(ROUTES.CART.CLEAR_CART);
+  },
+};

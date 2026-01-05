@@ -7,7 +7,7 @@ function AdminRoutes() {
   return isAuthenticated && role === "admin" ? (
     <Outlet />
   ) : (
-    <Navigate to="authentication/login" replace />
+    <Navigate to="user/login" replace />
   );
 }
 

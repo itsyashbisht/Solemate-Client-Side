@@ -7,7 +7,7 @@ function UserRoutes() {
   return isAuthenticated && role === "user" ? (
     <Outlet />
   ) : (
-    <Navigate to="authentication/login" replace />
+    <Navigate to="/user/login" replace />
   );
 }
 

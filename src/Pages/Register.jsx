@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { registerAsync } from "../Slices/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+// import { useState } from "react";
 
 function Register() {
   // STATE FOR USER CREDENTIALS
@@ -35,7 +35,7 @@ function Register() {
           </label>
           <input
             type="email"
-            value={formData.email}
+            value={form.email}
             placeholder="example@.com"
             className="rounded-md text-sm py-2 px-5 bg-gray-100"
             id="emailID"
@@ -46,7 +46,7 @@ function Register() {
             Password
           </label>
           <input
-            value={formData.password}
+            value={form.password}
             type="password"
             id="password"
             placeholder="Password"

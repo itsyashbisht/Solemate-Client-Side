@@ -3,7 +3,7 @@ import {
   deleteORDER,
   getAllORDERS,
   updateOrderSTATUS,
-} from "../Services/OrderServices";
+} from "../apiServices/order.service";
 
 const adminOrderSlice = createSlice({
   name: "adminOrder",
