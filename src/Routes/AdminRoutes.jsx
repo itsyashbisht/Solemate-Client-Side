@@ -2,13 +2,17 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
 function AdminRoutes() {
-  const { isAuthenticated, role } = useSelector((state) => state.auth);
+  const { loading, isAuthenticated, user } = useSelector((state) => state.auth);
 
-  return isAuthenticated && role === "admin" ? (
-    <Outlet />
-  ) : (
-    <Navigate to="user/login" replace />
-  );
+  if (loading) return <div>Loading... </div>;
+
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+
+  if (user?.role !== "ADMIN") {
+    return <Navigate to="/unauthorized" replace />;
+  }
+
+  return <Outlet />;
 }
 
 export default AdminRoutes;

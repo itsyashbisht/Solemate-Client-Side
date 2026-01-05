@@ -9,7 +9,7 @@ import ProductDetails from "./Pages/PorductDetails";
 import Register from "./Pages/Register";
 import Shop from "./Pages/Shop";
 import AdminRoutes from "./Routes/AdminRoutes";
-import UserRoutes from "./Routes/UserRoutes";
+import ProtectedRoute from "./Routes/UserRoutes";
 
 // ROUTING
 const ROUTER = createBrowserRouter([
@@ -20,35 +20,34 @@ const ROUTER = createBrowserRouter([
     children: [
       {
         index: true,
-        path: "/",
         element: <Home />,
       },
       {
-        path: "/login",
+        path: "login",
         element: <LoginPage />,
       },
       {
-        path: "/register",
+        path: "register",
         element: <Register />,
       },
       {
-        path: "/shop",
+        path: "shop",
         element: <Shop />,
       },
       {
-        path: "/about",
+        path: "about",
         element: <About />,
       },
       {
-        path: "/shop/product/:id",
+        path: "shop/product/:id",
         element: <ProductDetails />,
       },
       {
         // ROUTES FOR LOGGED IN USER.
-        element: <UserRoutes />,
+        element: <ProtectedRoute />,
         children: [
           {
-            path: "/cart",
+            path: "cart",
             element: <Cart />,
           },
         ],
@@ -58,8 +57,8 @@ const ROUTER = createBrowserRouter([
         element: <AdminRoutes />,
         children: [
           {
-            path: "/cart",
-            element: <Cart />,
+            path: "admin/dashboard",
+            // element: <Cart />,
           },
         ],
       },

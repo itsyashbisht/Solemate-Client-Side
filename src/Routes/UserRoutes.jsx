@@ -1,14 +1,19 @@
-import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function UserRoutes() {
-  const { isAuthenticated, role } = useSelector((state) => state.auth);
+const ProtectedRoute = () => {
+  const { isAuthenticated, loading } = useSelector((state) => state.auth);
 
-  return isAuthenticated && role === "user" ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/user/login" replace />
-  );
-}
+  // WHILE AUTH IS RESOLVING
+  if (loading) {
+    return <div>Loading ...</div>;
+  }
 
-export default UserRoutes;
+  // IF NOT LOGGED IN -> RIDIRECT
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+
+  // ELSE -> ALLOW ACCES AS USER
+  return <Outlet />;
+};
+
+export default ProtectedRoute;
