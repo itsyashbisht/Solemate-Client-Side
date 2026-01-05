@@ -14,7 +14,7 @@ export const authService = {
     return REQUEST.post(ROUTES.USER.LOGOUT);
   },
 
-  forgotPassword(payload) {
+  changePassword(payload) {
     return REQUEST.post(ROUTES.USER.CHANGE_PASSWORD, payload);
   },
 };

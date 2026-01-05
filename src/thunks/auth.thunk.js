@@ -43,11 +43,11 @@ export const logoutUser = createAsyncThunk(
 );
 
 // FORGOT / CHANGE PASSWORD
-export const forgotPassword = createAsyncThunk(
-  "auth/forgotPassword",
+export const changePassword = createAsyncThunk(
+  "auth/changePassword",
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await authService.forgotPassword(payload);
+      const response = await authService.changePassword(payload);
       return response.data;
     } catch (error) {
       return rejectWithValue(
