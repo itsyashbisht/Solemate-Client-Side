@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { orderService } from "../../apiServices/order.service";
+import { orderService } from "../apiServices/order.service";
 
 export const createOrder = createAsyncThunk(
   "order/createOrder",

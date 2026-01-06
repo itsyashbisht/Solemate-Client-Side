@@ -1,5 +1,5 @@
 // CUSTOM IMPORTS
-import REQUEST from "./axois";
+import REQUEST from "../apiServices/axois";
 import ROUTES from "../Constants/Routes.json";
 
 export const orderService = {

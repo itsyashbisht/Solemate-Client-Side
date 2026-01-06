@@ -4,7 +4,7 @@ import {
   deleteReview,
   getAllReviewsOfProduct,
   getReviewById,
-} from "./review.thunks";
+} from "../thunks/review.thunk";
 
 const initialState = {
   reviews: [],

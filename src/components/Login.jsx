@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { loginAsync } from "../Slices/AuthSlice";
+import { loginUser } from "../thunks/auth.thunk";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
@@ -16,7 +16,7 @@ export default function Login() {
   function handleLogin(e) {
     e.preventDefault();
     console.log(e.target.value);
-    const result = dispatch(loginAsync(e.target.value));
+    const result = dispatch(loginUser(e.target.value));
 
     if (result.meta.requestStatus === "fulfilled") {
       const role = result.payload.role;

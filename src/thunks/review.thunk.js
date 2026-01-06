@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { reviewService } from "../../apiServices/review.service";
+import { reviewService } from "../apiServices/review.service";
 
 // ADD REVIEW
 export const addReview = createAsyncThunk(

@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import ProductCard from "./ProductCard";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../Slices/ProductsSlice";
+import { getAllProducts } from "../thunks/product.thunk";
 
 export default function ProductGrid() {
   const dispatch = useDispatch();
   const { products, status, error } = useSelector((state) => state.product);
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(getAllProducts());
   }, [dispatch]);
 
   return (
