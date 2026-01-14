@@ -2,7 +2,6 @@ import { toast } from "react-toastify";
 import { registerUser } from "../thunks/auth.thunk";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { useState } from "react";
 
 function Register() {
   // STATE FOR USER CREDENTIALS

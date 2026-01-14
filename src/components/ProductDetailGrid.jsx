@@ -8,7 +8,7 @@ import { getProductById } from "../thunks/product.thunk";
 export default function ProductDetailGrid() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { productDetails, status, error } = useSelector(
+  const { currentProduct, status, error } = useSelector(
     (state) => state.product
   );
 
@@ -20,7 +20,7 @@ export default function ProductDetailGrid() {
     <div className="grid grid-cols-2 mt-10 font-pop">
       <div className="rounded-lg grid grid-cols-[4fr_1fr] gap-x-3 mx-5 my-5 w-[480px] h-[480px] justify-self-center overflow-hidden ">
         <img
-          src={productDetails.Image}
+          src={currentProduct.Image}
           alt=""
           className="object-cover rounded-lg"
         />
@@ -64,12 +64,12 @@ export default function ProductDetailGrid() {
       </div>
       <div className="grid grid-cols-1 gap-4 ">
         <div className="self-end">
-          <p className="text-xl font-semibold">{productDetails.Name}</p>
-          <p className="text-gray-400 text-sm">{productDetails.Type}</p>
+          <p className="text-xl font-semibold">{currentProduct.Name}</p>
+          <p className="text-gray-400 text-sm">{currentProduct.Type}</p>
         </div>
         <div>
           <p className="font-semibold text-lg">
-            PRICE:₹ {productDetails.Price}
+            PRICE:₹ {currentProduct.Price}
           </p>
           <p className="text-gray-400 text-sm">Inclusive of all taxes</p>
         </div>
