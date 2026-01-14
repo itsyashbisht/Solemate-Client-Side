@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { paymentService } from "../../apiServices/payment.service";
+import { paymentService } from "../apiServices/payment.service";
 
 export const verifyPayment = createAsyncThunk(
   "payment/verify",

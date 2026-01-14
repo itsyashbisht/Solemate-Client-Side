@@ -1,4 +1,4 @@
-import REQUEST from "../ROUTESServices/axois";
+import REQUEST from "../apiServices/axois";
 import ROUTES from "../Constants/Routes.json";
 
 export const authService = {

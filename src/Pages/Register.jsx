@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { registerAsync } from "../Slices/AuthSlice";
+import { registerUser } from "../thunks/auth.thunk";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { useState } from "react";
@@ -14,7 +14,7 @@ function Register() {
 
   function handleRegisterUser(e) {
     e.preventDefault();
-    const result = dispatch(registerAsync(e.target.value));
+    const result = dispatch(registerUser(e.target.value));
 
     if (result.meta.requestStatus === "fulfilled") {
       const role = result.payload.role;

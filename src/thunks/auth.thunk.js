@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { authService } from "@/services/auth.service";
+import { authService } from "../apiServices/auth.service";
 
 // REGISTER USER
 export const registerUser = createAsyncThunk(

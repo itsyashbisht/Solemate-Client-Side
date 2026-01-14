@@ -3,7 +3,7 @@ import ProductImage from "../../public/Product.png";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchProductDetails } from "../Slices/ProductsSlice";
+import { getProductById } from "../thunks/product.thunk";
 
 export default function ProductDetailGrid() {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function ProductDetailGrid() {
   );
 
   useEffect(() => {
-    dispatch(fetchProductDetails(id));
+    dispatch(getProductById(id));
   }, [id, dispatch]);
 
   return (
