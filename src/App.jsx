@@ -10,6 +10,7 @@ import Register from "./Pages/Register";
 import Shop from "./Pages/Shop";
 import AdminRoutes from "./Routes/AdminRoutes";
 import ProtectedRoute from "./Routes/UserRoutes";
+import ContactPage from "./Pages/contact";
 
 // ROUTING
 const ROUTER = createBrowserRouter([
@@ -37,6 +38,10 @@ const ROUTER = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "contact",
+        element: <ContactPage />,
       },
       {
         path: "shop/product/:id",

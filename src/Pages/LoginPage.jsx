@@ -11,7 +11,7 @@ function LoginPage() {
     >
       <div
         className="absolute inset-0
-      bg-black/25 min-h-screen backdrop-blur-md"
+      bg-black/25 min-h-screen backdrop-blur-sm"
       ></div>
       <Login />
     </div>

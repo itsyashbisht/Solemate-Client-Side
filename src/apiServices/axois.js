@@ -3,7 +3,7 @@ import axios from "axios";
 // API CONSTANTS
 const BASE_URL = "http://localhost:8000/api/v1";
 const REQUEST = axios.create({
-  url: BASE_URL,
+  baseURL: BASE_URL,
   headers: { "Content-Type": "application/json" },
 });
 

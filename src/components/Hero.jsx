@@ -11,7 +11,7 @@ function Hero() {
         backgroundImage: `url(${hero})`,
       }}
     >
-      <MobileNavigation />
+      {/* <MobileNavigation /> */}
       <Navigation />
       <div className="absolute flex flex-col right-[2%] max-w-[550px] bottom-[12%] md:bottom-[10%]">
         <p className="text-right font-semibold md:mb-3 mb-1 text-white uppercase text-2xl lg:text-8xl font-sans tracking-tight">
