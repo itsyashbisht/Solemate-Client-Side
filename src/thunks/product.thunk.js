@@ -8,6 +8,7 @@ export const getProductById = createAsyncThunk(
     try {
       // GET request expects params, not body
       const response = await productService.getProductById(productId);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(

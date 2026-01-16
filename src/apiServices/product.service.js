@@ -8,13 +8,13 @@ export const productService = {
 
   getProductById(productId) {
     return REQUEST.get(
-      ROUTES.PRODUCT.PRODUCT_BY_ID.replace(":productID", productId)
+      ROUTES.PRODUCT.PRODUCT_BY_ID.replace(":productId", productId)
     );
   },
 
   deleteProduct(productId) {
     return REQUEST.delete(
-      ROUTES.PRODUCT.DELETE.replaceAll(":productID", productId)
+      ROUTES.PRODUCT.DELETE.replaceAll(":productId", productId)
     );
   },
 

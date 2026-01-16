@@ -1,16 +1,10 @@
-import {
-  CircleUserRound,
-  Menu,
-  ShoppingBag,
-  ShoppingCart,
-  User,
-  X,
-} from "lucide-react";
+import { CircleUserRound, Menu, ShoppingCart, User, X } from "lucide-react";
 import { useState } from "react";
-import { Button } from "../components/ui/button";
+import { useSelector } from "react-redux";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   const navLinks = [
     { label: "Shop", href: "/shop" },
@@ -45,18 +39,24 @@ export default function Navigation() {
 
             <div className="hidden md:flex gap-4 items-center">
               <button className="relative p-2 text-black hover:bg-neutral-100 rounded-lg transition-colors">
-                <ShoppingBag size={20} />
-                <span className="absolute top-1 right-1 bg-black text-white text-xs rounded-full w-3 h-3 flex items-center justify-center">
+                <div className="flex gap-2">
+                  <ShoppingCart size={20} />
+                  <span className="group-hover:w-full transition-all duration-300">
+                    Cart
+                  </span>
+                </div>
+                <span className="absolute top-1 left-5 bg-black text-white text-xs rounded-full w-3 h-3 flex items-center justify-center">
                   0
                 </span>
               </button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-black p-2  hover:bg-neutral-100"
-              >
-                <CircleUserRound size={24} />
-              </Button>
+              <button className="relative p-2 text-black hover:bg-neutral-300 rounded-lg transition-colors">
+                <div className="flex gap-2">
+                  <CircleUserRound size={24} />
+                  <span className="  group-hover:w-full transition-all duration-300">
+                    {user ? "Profile" : "Login"}
+                  </span>
+                </div>
+              </button>
             </div>
           </div>
 

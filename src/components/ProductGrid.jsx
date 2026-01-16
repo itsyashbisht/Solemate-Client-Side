@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../thunks/product.thunk";
 import ProductCard from "./ProductCard";
+import ShoeCircularLoader from "../layouts/loader";
 
 export default function ProductGrid() {
   const dispatch = useDispatch();
@@ -11,7 +12,8 @@ export default function ProductGrid() {
     dispatch(getAllProducts());
   }, [dispatch]);
 
-  if (loading) return <p className="text-center py-10">Loading products...</p>;
+  // if (loading) return <p className="text-center py-10">Loading products...</p>;
+  if (loading) return <ShoeCircularLoader size="lg" />;
   if (error) return <p className="text-center py-10 text-red-500">{error}</p>;
 
   return (
@@ -27,7 +29,7 @@ export default function ProductGrid() {
         {/* Grid - improved spacing and responsive gaps */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
       </div>

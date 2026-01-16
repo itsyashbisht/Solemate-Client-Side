@@ -44,7 +44,7 @@ const ROUTER = createBrowserRouter([
         element: <ContactPage />,
       },
       {
-        path: "shop/product/:id",
+        path: "shop/product/:productId",
         element: <ProductDetails />,
       },
       {

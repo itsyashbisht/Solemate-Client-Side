@@ -1,11 +1,15 @@
-import ProductDetailGrid from "../components/ProductDetailGrid";
+import ProductDetail from "../components/ProductDetail";
+import Footer from "../layouts/Footer";
 import Navigation from "../layouts/Navigation";
 
 export default function ProductDetails() {
   return (
-    <div className="lg:mx-24 md:mx-16 sm:mx-12 mx-8">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
-      <ProductDetailGrid />
+      <main className="flex-grow">
+        <ProductDetail />
+      </main>
+      <Footer />
     </div>
   );
 }
