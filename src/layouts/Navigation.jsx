@@ -1,5 +1,12 @@
+import {
+  CircleUserRound,
+  Menu,
+  ShoppingBag,
+  ShoppingCart,
+  User,
+  X,
+} from "lucide-react";
 import { useState } from "react";
-import { Menu, X, ShoppingCart, User } from "lucide-react";
 import { Button } from "../components/ui/button";
 
 export default function Navigation() {
@@ -38,17 +45,17 @@ export default function Navigation() {
 
             <div className="hidden md:flex gap-4 items-center">
               <button className="relative p-2 text-black hover:bg-neutral-100 rounded-lg transition-colors">
-                <ShoppingCart size={20} />
-                <span className="absolute top-1 right-1 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <ShoppingBag size={20} />
+                <span className="absolute top-1 right-1 bg-black text-white text-xs rounded-full w-3 h-3 flex items-center justify-center">
                   0
                 </span>
               </button>
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-black hover:bg-neutral-100"
+                className="text-black p-2  hover:bg-neutral-100"
               >
-                <User size={20} />
+                <CircleUserRound size={24} />
               </Button>
             </div>
           </div>

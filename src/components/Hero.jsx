@@ -1,7 +1,6 @@
 import hero from "../data/Hero1.jpg";
 import Navigation from "../layouts/Navigation";
 import Arrow from "../layouts/Arrow";
-import MobileNavigation from "../layouts/MobileNavigation";
 
 function Hero() {
   return (

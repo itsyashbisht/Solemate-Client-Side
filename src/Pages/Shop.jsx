@@ -1,16 +1,16 @@
 import ProductGrid from "../components/ProductGrid";
 import SearchBar from "../components/SearchBar";
-import MobileNavigation from "../layouts/MobileNavigation";
-import Navigation from "../layouts/Navigation";
 import Footer from "../layouts/Footer";
+import Navigation from "../layouts/Navigation";
 
 export default function Shop() {
   return (
-    <div className="">
-      <MobileNavigation />
-      <Navigation />
-      <SearchBar />
-      <ProductGrid />
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-grow">
+        <Navigation />
+        <SearchBar />
+        <ProductGrid />
+      </main>
       <Footer />
     </div>
   );

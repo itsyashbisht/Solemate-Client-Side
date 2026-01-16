@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppLayout from "./AppLayout";
 import About from "./Pages/About";
 import Cart from "./Pages/Cart";
+import ContactPage from "./Pages/Contact";
 import Home from "./Pages/Home";
 import LoginPage from "./Pages/LoginPage";
 import ProductDetails from "./Pages/PorductDetails";
@@ -10,7 +11,6 @@ import Register from "./Pages/Register";
 import Shop from "./Pages/Shop";
 import AdminRoutes from "./Routes/AdminRoutes";
 import ProtectedRoute from "./Routes/UserRoutes";
-import ContactPage from "./Pages/contact";
 
 // ROUTING
 const ROUTER = createBrowserRouter([

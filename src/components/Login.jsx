@@ -48,9 +48,9 @@ export default function LoginForm() {
       const res = await dispatch(loginUser(payload)).unwrap();
 
       if (res.data?.user?.role === "ADMIN") {
-        navigate("/shop");
+        navigate("/cart");
       } else {
-        navigate("/shop");
+        navigate("/cart");
       }
     } catch (err) {
       //
