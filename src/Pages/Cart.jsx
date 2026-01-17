@@ -1,38 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import CartItemCard from "../components/CartItem";
 import { Button } from "../components/ui/button";
-import { Card } from "../components/ui/card";
 import ShoeCircularLoader from "../layouts/loader";
 import Navigation from "../layouts/Navigation";
-import { fetchCart } from "../thunks/cart.thunks";
+import { fetchCart, removeItemFromCart } from "../thunks/cart.thunks";
+import { Card } from "../components/ui/card";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Premium Black & White Running Shoes",
-      price: 129.99,
-      quantity: 1,
-      image: "/premium-black-and-white-running-shoes.jpg",
-    },
-    {
-      id: 2,
-      name: "White Canvas Sneaker",
-      price: 89.99,
-      quantity: 2,
-      image: "/white-canvas-sneaker-shoes.jpg",
-    },
-    {
-      id: 3,
-      name: "Black Urban Street Shoes",
-      price: 119.99,
-      quantity: 1,
-      image: "/black-urban-street-shoes.jpg",
-    },
-  ]);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -49,23 +26,12 @@ export default function Cart() {
       removeItem(id);
       return;
     }
-    setCartItems(
-      cartItems.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item,
-      ),
-    );
   };
 
-  const removeItem = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+  const removeItem = ({ productId, payload }) => {
+    dispatch(removeItemFromCart({ productId, payload }));
   };
-
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0,
-  );
-  const tax = subtotal * 0.1;
-  const total = subtotal + tax;
+  console.log(items);
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -78,9 +44,11 @@ export default function Cart() {
         {items.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-lg text-gray-600 mb-6">Your cart is empty</p>
-            <Button className="bg-black text-white hover:bg-gray-800">
-              Continue Shopping
-            </Button>
+            <Link to="/shop">
+              <Button className="bg-black text-white hover:bg-gray-800">
+                Continue Shopping
+              </Button>
+            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -97,7 +65,7 @@ export default function Cart() {
             </div>
 
             {/* Order Summary */}
-            <div className="lg:col-span-1">
+            {/* <div className="lg:col-span-1">
               <Card className="p-6 border border-gray-200 sticky top-20">
                 <h2 className="text-xl sm:text-2xl font-bold text-black mb-6">
                   Order Summary
@@ -106,7 +74,7 @@ export default function Cart() {
                 <div className="space-y-4 mb-6">
                   <div className="flex justify-between text-gray-600">
                     <span>Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
+                    <span>${cart.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-gray-600">
                     <span>Tax (10%)</span>
@@ -128,7 +96,7 @@ export default function Cart() {
                   Continue Shopping
                 </Button>
               </Card>
-            </div>
+            </div> */}
           </div>
         )}
       </main>

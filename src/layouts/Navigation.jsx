@@ -32,8 +32,6 @@ export default function Navigation() {
     }
   }, [dispatch, user?._id]);
 
-  console.log(items);
-
   return (
     <nav className="bg-white-10 border-neutral-200">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-2">

@@ -1,17 +1,25 @@
+import { Minus, Plus, Trash2 } from "lucide-react";
 import { Card } from "./ui/card";
-import { Trash2, Plus, Minus } from "lucide-react";
 
 export default function CartItemCard({ item, onUpdateQuantity, onRemoveItem }) {
+  const payload = {
+    color: item.color,
+    size: item.size,
+  };
+  const productId = item._id;
+
+  const handleRemoveCartItem = () => {
+    onRemoveItem({ productId, payload });
+  };
+
   return (
     <Card className="overflow-hidden border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 bg-white">
       <div className="flex gap-6 p-5 sm:p-6 md:p-7">
         {/* Product Image - Enhanced with subtle shadow and better proportions */}
         <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 flex-shrink-0 bg-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
           <img
-            src={
-              item.product?.images[0]?.url || item.image || "/placeholder.svg"
-            }
-            alt={item.product?.name || item.name}
+            src={item.product?.images[0]?.url || "/placeholder.svg"}
+            alt={item.product?.name}
             className="w-full h-full object-cover"
           />
         </div>
@@ -89,7 +97,7 @@ export default function CartItemCard({ item, onUpdateQuantity, onRemoveItem }) {
 
             {/* Remove Button - Premium delete action */}
             <button
-              onClick={() => onRemoveItem(item._id || item.id)}
+              onClick={handleRemoveCartItem}
               className="p-2.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 hover:scale-110"
               aria-label="Remove item"
             >

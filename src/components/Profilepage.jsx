@@ -1,7 +1,5 @@
-"use client";
-
+import { Check, Edit2, Lock, LogOut, Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
-import { Edit2, Lock, MapPin, Mail, Phone, LogOut, Check } from "lucide-react";
 
 export default function ProfilePage() {
   const [profileData, setProfileData] = useState({

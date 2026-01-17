@@ -16,9 +16,12 @@ export const cartService = {
   },
 
   // REMOVE ITEM FROM CART.
-  removeItem(productId) {
+  removeItem(productId, payload) {
     return REQUEST.delete(
       ROUTES.CART.REMOVE_ITEM.replace(":productId", productId),
+      {
+        data: payload,
+      },
     );
   },
 

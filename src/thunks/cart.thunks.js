@@ -6,7 +6,6 @@ export const fetchCart = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await cartService.getCart();
-      console.log(response.data.data);
       return response.data.data;
     } catch (error) {
       return rejectWithValue(
@@ -32,9 +31,9 @@ export const addItemToCart = createAsyncThunk(
 
 export const removeItemFromCart = createAsyncThunk(
   "cart/removeItemFromCart",
-  async ({ productId }, { rejectWithValue }) => {
+  async ({ productId, payload }, { rejectWithValue }) => {
     try {
-      const response = await cartService.removeItem(productId);
+      const response = await cartService.removeItem(productId, payload);
       return response.data;
     } catch (error) {
       return rejectWithValue(

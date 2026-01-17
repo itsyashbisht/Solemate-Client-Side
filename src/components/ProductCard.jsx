@@ -1,15 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { ShoppingCart } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
 export default function ProductCard({ product }) {
-  const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.cart);
-
-  if (error) toast.error(error.message);
-
   return (
     <div className="flex flex-col h-full">
       <Link to={`/shop/product/${product._id}`}>
@@ -53,7 +44,7 @@ export default function ProductCard({ product }) {
             </div>
 
             {/* Button - full width with better styling */}
-            <Button
+            {/* <Button
               className={`w-full py-3 text-sm font-semibold rounded-2xl transition-all duration-300 ${
                 product.stock
                   ? "bg-black hover:bg-gray-900 text-white"
@@ -63,7 +54,7 @@ export default function ProductCard({ product }) {
             >
               <ShoppingCart className="w-4 h-4 mr-2" />
               {product.stock ? "ADD TO CART" : "Out of Stock"}
-            </Button>
+            </Button> */}
           </div>
         </div>
 
