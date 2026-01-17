@@ -1,11 +1,11 @@
-import REQUEST from "../apiServices/axois";
+import REQUEST from "./axios";
 import ROUTES from "../Constants/Routes.json";
 
 export const reviewService = {
   addReview(payload, productId) {
     return REQUEST.post(
       ROUTES.REVIEW.ADD.replace(":productId", productId),
-      payload
+      payload,
     );
   },
 
@@ -15,13 +15,13 @@ export const reviewService = {
 
   getAllReviewsofProduct(productId) {
     return REQUEST.get(
-      ROUTES.REVIEW.REVIEWS_BY_PRODUCT_ID.replace(":productId", productId)
+      ROUTES.REVIEW.REVIEWS_BY_PRODUCT_ID.replace(":productId", productId),
     );
   },
 
   reviewById(reviewId) {
     return REQUEST.get(
-      ROUTES.REVIEW.REVIEW_BY_ID.replace(":reviewId", reviewId)
+      ROUTES.REVIEW.REVIEW_BY_ID.replace(":reviewId", reviewId),
     );
   },
 };

@@ -6,12 +6,11 @@ import Navigation from "../layouts/Navigation";
 export default function Shop() {
   return (
     <div className="min-h-screen flex flex-col">
+      <Navigation />
       <main className="flex-grow">
-        <Navigation />
         <SearchBar />
         <ProductGrid />
       </main>
-      <Footer />
     </div>
   );
 }

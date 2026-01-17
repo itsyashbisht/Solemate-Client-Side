@@ -1,4 +1,4 @@
-import REQUEST from "../apiServices/axois";
+import REQUEST from "./axios";
 import ROUTES from "../Constants/Routes.json";
 
 export const productService = {
@@ -8,27 +8,27 @@ export const productService = {
 
   getProductById(productId) {
     return REQUEST.get(
-      ROUTES.PRODUCT.PRODUCT_BY_ID.replace(":productId", productId)
+      ROUTES.PRODUCT.PRODUCT_BY_ID.replace(":productId", productId),
     );
   },
 
   deleteProduct(productId) {
     return REQUEST.delete(
-      ROUTES.PRODUCT.DELETE.replaceAll(":productId", productId)
+      ROUTES.PRODUCT.DELETE.replaceAll(":productId", productId),
     );
   },
 
   updateProductDetails(payload, productId) {
     return REQUEST.patch(
       ROUTES.PRODUCT.UPDATE_DETAILS.replace(":productId", productId),
-      payload
+      payload,
     );
   },
 
   updateProductImages(payload, productId) {
     return REQUEST.patch(
       ROUTES.PRODUCT.UPDATE_IMAGES.replace(":productId", productId),
-      payload
+      payload,
     );
   },
 

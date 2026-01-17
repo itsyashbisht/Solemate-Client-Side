@@ -11,6 +11,7 @@ import Register from "./Pages/Register";
 import Shop from "./Pages/Shop";
 import AdminRoutes from "./Routes/AdminRoutes";
 import ProtectedRoute from "./Routes/UserRoutes";
+import Profile from "./Pages/Profile";
 
 // ROUTING
 const ROUTER = createBrowserRouter([
@@ -54,6 +55,10 @@ const ROUTER = createBrowserRouter([
           {
             path: "cart",
             element: <Cart />,
+          },
+          {
+            path: "profile",
+            element: <Profile />,
           },
         ],
       },

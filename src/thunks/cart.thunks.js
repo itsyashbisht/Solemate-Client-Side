@@ -6,13 +6,14 @@ export const fetchCart = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await cartService.getCart();
-      return response.data;
+      console.log(response.data.data);
+      return response.data.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to fetch cart"
+        error.response?.data?.message || "Failed to fetch cart",
       );
     }
-  }
+  },
 );
 
 export const addItemToCart = createAsyncThunk(
@@ -20,13 +21,13 @@ export const addItemToCart = createAsyncThunk(
   async ({ productId, payload }, { rejectWithValue }) => {
     try {
       const response = await cartService.addItem(productId, payload);
-      return response.data;
+      return response.data.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to add item to cart"
+        error.response?.data?.message || "Failed to add item to cart",
       );
     }
-  }
+  },
 );
 
 export const removeItemFromCart = createAsyncThunk(
@@ -37,10 +38,10 @@ export const removeItemFromCart = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to remove item from the cart"
+        error.response?.data?.message || "Failed to remove item from the cart",
       );
     }
-  }
+  },
 );
 
 export const updateCartItemQuantity = createAsyncThunk(
@@ -52,10 +53,10 @@ export const updateCartItemQuantity = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message ||
-          "Failed to update Item's quantity in the cart"
+          "Failed to update Item's quantity in the cart",
       );
     }
-  }
+  },
 );
 
 export const clearUserCart = createAsyncThunk(
@@ -66,8 +67,8 @@ export const clearUserCart = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to clear cart"
+        error.response?.data?.message || "Failed to clear cart",
       );
     }
-  }
+  },
 );

@@ -13,7 +13,7 @@ function Home() {
       <ExploreNow />
       <TrendingNowComponent />
       <Checkout />
-      <Footer />
+      {/* <Footer /> */}
     </section>
   );
 }

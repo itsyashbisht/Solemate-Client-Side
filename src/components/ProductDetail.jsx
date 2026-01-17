@@ -1,5 +1,4 @@
 import {
-  ArrowLeft,
   ChevronDown,
   Heart,
   Minus,
@@ -10,19 +9,16 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "../components/ui/button";
-import Footer from "../layouts/Footer";
-import Navigation from "../layouts/Navigation";
-import { getProductById } from "../thunks/product.thunk";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Button } from "../components/ui/button";
 import ShoeCircularLoader from "../layouts/loader";
+import { addItemToCart } from "../thunks/cart.thunks";
+import { getProductById } from "../thunks/product.thunk";
 
 export default function ProductDetailPage() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const productId = useParams()?.productId;
-  console.log(productId);
 
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState(null);
@@ -31,6 +27,7 @@ export default function ProductDetailPage() {
   const [activeImage, setActiveImage] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
 
+  // FETCH PRODUCT DETAILS
   useEffect(() => {
     if (productId) {
       dispatch(getProductById(productId));
@@ -43,6 +40,7 @@ export default function ProductDetailPage() {
     currentProduct: product,
   } = useSelector((state) => state.product);
 
+  // HANDLE ERROR TOAST
   useEffect(() => {
     if (error) {
       toast.error(error);
@@ -50,6 +48,8 @@ export default function ProductDetailPage() {
   }, [error]);
 
   useEffect(() => {
+    if (!product) return;
+
     if (product?.colors?.length) {
       setSelectedColor(product.colors[0]);
     }
@@ -58,12 +58,6 @@ export default function ProductDetailPage() {
       setSelectedSize(product.sizes[0]);
     }
   }, [product]);
-
-  console.log(product);
-
-  const productImages = product
-    ? [product.image, product.image, product.image, product.image]
-    : [];
 
   if (loading) return <ShoeCircularLoader />;
 
@@ -86,13 +80,14 @@ export default function ProductDetailPage() {
 
   const handleAddToBag = () => {
     if (!selectedSize) return;
-    const cartItem = {
-      ...product,
+    const payload = {
       color: selectedColor,
       size: selectedSize,
       quantity,
     };
-    console.log("Adding to bag:", cartItem);
+    console.log("Adding to bag:", payload);
+
+    dispatch(addItemToCart({ productId, payload }));
   };
 
   return (
@@ -105,7 +100,11 @@ export default function ProductDetailPage() {
               {/* Main Image with gradient overlay */}
               <div className="relative aspect-[4/5] bg-secondary rounded-3xl overflow-hidden group">
                 <img
-                  src={product.images[0].url || "/placeholder.svg"}
+                  src={
+                    activeImage.url ||
+                    product.images[0].url ||
+                    "/placeholder.svg"
+                  }
                   alt={product.name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -128,7 +127,7 @@ export default function ProductDetailPage() {
                 {product.originalPrice && (
                   <div className="absolute top-6 left-6 bg-foreground text-background px-4 py-2 rounded-full text-sm font-semibold">
                     {Math.round(
-                      (1 - product.price / product.originalPrice) * 100
+                      (1 - product.price / product.originalPrice) * 100,
                     )}
                     % OFF
                   </div>
@@ -136,12 +135,12 @@ export default function ProductDetailPage() {
 
                 {/* Image dots indicator */}
                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-                  {productImages.map((_, index) => (
+                  {product.images.map((img, index) => (
                     <button
                       key={index}
-                      onClick={() => setActiveImage(index)}
+                      onClick={() => setActiveImage(img)}
                       className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        activeImage === index
+                        activeImage === img
                           ? "bg-foreground w-6"
                           : "bg-foreground/30 hover:bg-foreground/50"
                       }`}
@@ -151,13 +150,13 @@ export default function ProductDetailPage() {
               </div>
 
               {/* Thumbnail strip */}
-              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+              <div className="flex gap-3 overflow-x-auto py-2 px-2 scrollbar-hide">
                 {product.images.map((img, index) => (
                   <button
                     key={index}
-                    onClick={() => setActiveImage(index)}
+                    onClick={() => setActiveImage(img)}
                     className={`flex-shrink-0 w-20 h-20 rounded-2xl overflow-hidden transition-all duration-300 ${
-                      activeImage === index
+                      activeImage === img
                         ? "ring-2 ring-foreground ring-offset-2 ring-offset-background"
                         : "opacity-60 hover:opacity-100"
                     }`}
@@ -165,7 +164,7 @@ export default function ProductDetailPage() {
                     <img
                       src={img.url || "/placeholder.svg"}
                       alt={`View ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-fill"
                     />
                   </button>
                 ))}
@@ -206,9 +205,9 @@ export default function ProductDetailPage() {
                     </p>
                   </div>
                   <div className="flex gap-3">
-                    {product.colors.map((color) => (
+                    {product.colors.map((color, index) => (
                       <button
-                        key={color.name}
+                        key={index}
                         onClick={() => setSelectedColor(color)}
                         className={`w-12 h-12 rounded-full transition-all duration-300 ${
                           selectedColor === color
@@ -236,9 +235,9 @@ export default function ProductDetailPage() {
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`px-5 py-3 text-sm font-medium rounded-full transition-all duration-300 ${
+                      className={`px-5 p-3 text-sm font-medium rounded-full bg-slate-100 transition-all duration-300 ${
                         selectedSize === size
-                          ? "bg-foreground text-background"
+                          ? "bg-foreground text-background ring-2 ring-foreground ring-offset-1 ring-offset-background scale-105"
                           : "bg-secondary text-foreground hover:bg-secondary/80"
                       }`}
                     >
@@ -296,7 +295,7 @@ export default function ProductDetailPage() {
                 }`}
               >
                 {product.stock
-                  ? `Add to Bag — $${(product.price * quantity).toFixed(2)}`
+                  ? `Add to Bag —  $${(product.price * quantity).toFixed(2)}`
                   : "Out of Stock"}
               </Button>
 
@@ -380,8 +379,6 @@ export default function ProductDetailPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 // CUSTOM IMPORTS
-import REQUEST from "../apiServices/axois";
+import REQUEST from "./axios";
 import ROUTES from "../Constants/Routes.json";
 
 export const orderService = {
@@ -14,13 +14,13 @@ export const orderService = {
 
   getOrderById(orderId) {
     return REQUEST.get(
-      ROUTES.ORDER.GET_ORDER_BY_ID.replace(":orderId", orderId)
+      ROUTES.ORDER.GET_ORDER_BY_ID.replace(":orderId", orderId),
     );
   },
 
   cancelOrder(orderId) {
     return REQUEST.patch(
-      ROUTES.ORDER.CANCEL_ORDER.replace(":orderId", orderId)
+      ROUTES.ORDER.CANCEL_ORDER.replace(":orderId", orderId),
     );
   },
 
@@ -34,7 +34,7 @@ export const orderService = {
   updateOrderStatus(orderId, payload) {
     return REQUEST.patch(
       ROUTES.ORDER.UPDATE_ORDER_STATUS.replace(":orderId", orderId),
-      payload
+      payload,
     );
   },
 };

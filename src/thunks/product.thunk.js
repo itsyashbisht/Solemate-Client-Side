@@ -8,14 +8,13 @@ export const getProductById = createAsyncThunk(
     try {
       // GET request expects params, not body
       const response = await productService.getProductById(productId);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to fetch product"
+        error.response?.data?.message || "Failed to fetch product",
       );
     }
-  }
+  },
 );
 
 // GET ALL PRODUCTS
@@ -27,10 +26,10 @@ export const getAllProducts = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to fetch all products"
+        error.response?.data?.message || "Failed to fetch all products",
       );
     }
-  }
+  },
 );
 
 // ADMIN THUNKS.
@@ -43,10 +42,10 @@ export const createProduct = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to create product"
+        error.response?.data?.message || "Failed to create product",
       );
     }
-  }
+  },
 );
 
 // DELETE PRODUCT
@@ -58,10 +57,10 @@ export const deleteProduct = createAsyncThunk(
       return { productId, data: response.data };
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to delete product"
+        error.response?.data?.message || "Failed to delete product",
       );
     }
-  }
+  },
 );
 
 // UPDATE PRODUCT DETAILS
@@ -71,15 +70,15 @@ export const updateProductDetails = createAsyncThunk(
     try {
       const response = await productService.updateProductDetails(
         payload,
-        productId
+        productId,
       );
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to update product details"
+        error.response?.data?.message || "Failed to update product details",
       );
     }
-  }
+  },
 );
 
 // UPDATE PRODUCT IMAGES
@@ -89,13 +88,13 @@ export const updateProductImages = createAsyncThunk(
     try {
       const response = await productService.updateProductImages(
         payload,
-        productId
+        productId,
       );
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to update product images"
+        error.response?.data?.message || "Failed to update product images",
       );
     }
-  }
+  },
 );

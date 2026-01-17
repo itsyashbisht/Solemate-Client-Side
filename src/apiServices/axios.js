@@ -17,4 +17,20 @@ REQUEST.interceptors.request.use((config) => {
   return config;
 });
 
+// RESPONSE INTERCEPTOR
+// REQUEST.interceptors.response.use(
+//   (response) => {
+//     // ✅ unwrap ApiResponse automatically
+//     if (response?.data?.data !== undefined) {
+//       return response.data.data;
+//     }
+
+//     // fallback (just in case)
+//     return response.data;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   },
+// );
+
 export default REQUEST;

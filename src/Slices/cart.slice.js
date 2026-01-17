@@ -31,7 +31,7 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.loading = false;
-        state.items = action.payload?.data || [];
+        state.items = action.payload?.items;
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.loading = false;
@@ -40,17 +40,17 @@ const cartSlice = createSlice({
 
       // ADD TO CART.
       .addCase(addItemToCart.fulfilled, (state, action) => {
-        state.items = action.payload?.data || state.items;
+        state.items = [...state.items, action.payload.items];
       })
 
       // REMOVE ITEM.
       .addCase(removeItemFromCart.fulfilled, (state, action) => {
-        state.items = action.payload?.data || state.items;
+        state.items = action.payload?.items || state.items;
       })
 
       // UPDATE CART ITEM's QUANTITY
       .addCase(updateCartItemQuantity.fulfilled, (state, action) => {
-        state.items = action.payload?.data || state.items;
+        state.items = action.payload?.items || state.items;
       })
 
       // CLEAR CART

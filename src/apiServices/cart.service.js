@@ -1,4 +1,4 @@
-import REQUEST from "../apiServices/axois";
+import REQUEST from "./axios";
 import ROUTES from "../Constants/Routes.json";
 
 export const cartService = {
@@ -11,14 +11,14 @@ export const cartService = {
   addItem(productId, payload) {
     return REQUEST.post(
       ROUTES.CART.ADD_ITEM.replace(":productId", productId),
-      payload
+      payload,
     );
   },
 
   // REMOVE ITEM FROM CART.
   removeItem(productId) {
     return REQUEST.delete(
-      ROUTES.CART.REMOVE_ITEM.replace(":productId", productId)
+      ROUTES.CART.REMOVE_ITEM.replace(":productId", productId),
     );
   },
 
@@ -26,7 +26,7 @@ export const cartService = {
   updateItemQuantity(productId, payload) {
     return REQUEST.patch(
       ROUTES.CART.UPDATE_ITEM_QUANTITY.replace(":productId", productId),
-      payload
+      payload,
     );
   },
 

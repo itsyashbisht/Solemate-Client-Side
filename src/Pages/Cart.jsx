@@ -1,9 +1,12 @@
-import { Minus, Plus, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import CartItemCard from "../components/CartItem";
 import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
-import Footer from "../layouts/Footer";
+import ShoeCircularLoader from "../layouts/loader";
 import Navigation from "../layouts/Navigation";
+import { fetchCart } from "../thunks/cart.thunks";
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([
@@ -30,6 +33,17 @@ export default function Cart() {
     },
   ]);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, [dispatch]);
+
+  const { items, loading, error } = useSelector((state) => state.cart);
+
+  if (error) return toast.error(error.message);
+  if (loading) return <ShoeCircularLoader />;
+
   const updateQuantity = (id, newQuantity) => {
     if (newQuantity === 0) {
       removeItem(id);
@@ -37,8 +51,8 @@ export default function Cart() {
     }
     setCartItems(
       cartItems.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
+        item.id === id ? { ...item, quantity: newQuantity } : item,
+      ),
     );
   };
 
@@ -48,7 +62,7 @@ export default function Cart() {
 
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
-    0
+    0,
   );
   const tax = subtotal * 0.1;
   const total = subtotal + tax;
@@ -56,13 +70,12 @@ export default function Cart() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navigation />
-
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <h1 className="text-3xl sm:text-4xl font-bold text-black mb-8">
           Shopping Cart
         </h1>
 
-        {cartItems.length === 0 ? (
+        {items.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-lg text-gray-600 mb-6">Your cart is empty</p>
             <Button className="bg-black text-white hover:bg-gray-800">
@@ -73,66 +86,13 @@ export default function Cart() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
-              {cartItems.map((item) => (
-                <Card
-                  key={item.id}
-                  className="p-4 sm:p-6 border border-gray-200"
-                >
-                  <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-                    {/* Product Image */}
-                    <div className="w-full sm:w-24 h-32 sm:h-24 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden">
-                      <img
-                        src={item.image || "/placeholder.svg"}
-                        alt={item.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-
-                    {/* Product Details */}
-                    <div className="flex-1 flex flex-col justify-between">
-                      <div>
-                        <h3 className="text-base sm:text-lg font-semibold text-black mb-2">
-                          {item.name}
-                        </h3>
-                        <p className="text-lg sm:text-xl font-bold text-black">
-                          ${item.price.toFixed(2)}
-                        </p>
-                      </div>
-
-                      {/* Quantity and Remove */}
-                      <div className="flex items-center justify-between mt-4 sm:mt-0">
-                        <div className="flex items-center border border-gray-300 rounded-lg">
-                          <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity - 1)
-                            }
-                            className="p-2 hover:bg-gray-100"
-                          >
-                            <Minus size={16} />
-                          </button>
-                          <span className="px-4 py-2 font-semibold text-black">
-                            {item.quantity}
-                          </span>
-                          <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity + 1)
-                            }
-                            className="p-2 hover:bg-gray-100"
-                          >
-                            <Plus size={16} />
-                          </button>
-                        </div>
-
-                        <button
-                          onClick={() => removeItem(item.id)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
-                        >
-                          <Trash2 size={20} />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
+              {items.map((item, idx) => (
+                <CartItemCard
+                  key={idx}
+                  item={item}
+                  onRemoveItem={removeItem}
+                  onUpdateQuantity={updateQuantity}
+                />
               ))}
             </div>
 
@@ -172,8 +132,6 @@ export default function Cart() {
           </div>
         )}
       </main>
-
-      <Footer />
     </div>
   );
 }
