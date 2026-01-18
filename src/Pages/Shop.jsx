@@ -1,6 +1,5 @@
 import ProductGrid from "../components/ProductGrid";
 import SearchBar from "../components/SearchBar";
-import Footer from "../layouts/Footer";
 import Navigation from "../layouts/Navigation";
 
 export default function Shop() {

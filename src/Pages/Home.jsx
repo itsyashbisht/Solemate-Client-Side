@@ -1,9 +1,8 @@
-import Hero from "../components/Hero";
-import Checkout from "../layouts/Checkout";
-import ExploreNow from "../components/ExploreNow";
 import CarouselComponent from "../components/CarouselComponent";
+import ExploreNow from "../components/ExploreNow";
+import Hero from "../components/Hero";
 import TrendingNowComponent from "../components/TrendingNowComponent";
-import Footer from "../layouts/Footer";
+import Checkout from "../layouts/Checkout";
 
 function Home() {
   return (

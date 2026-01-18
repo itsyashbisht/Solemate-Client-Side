@@ -3,15 +3,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppLayout from "./AppLayout";
 import About from "./Pages/About";
 import Cart from "./Pages/Cart";
+import CheckoutPage from "./Pages/Checkout";
 import ContactPage from "./Pages/Contact";
 import Home from "./Pages/Home";
 import LoginPage from "./Pages/LoginPage";
 import ProductDetails from "./Pages/PorductDetails";
+import Profile from "./Pages/Profile";
 import Register from "./Pages/Register";
 import Shop from "./Pages/Shop";
 import AdminRoutes from "./Routes/AdminRoutes";
 import ProtectedRoute from "./Routes/UserRoutes";
-import Profile from "./Pages/Profile";
 
 // ROUTING
 const ROUTER = createBrowserRouter([
@@ -59,6 +60,10 @@ const ROUTER = createBrowserRouter([
           {
             path: "profile",
             element: <Profile />,
+          },
+          {
+            path: "cart/checkout",
+            element: <CheckoutPage />,
           },
         ],
       },

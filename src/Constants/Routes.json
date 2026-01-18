@@ -36,6 +36,7 @@
     "UPDATE_ORDER_STATUS": "/order/update-order-status/:orderId"
   },
   "PAYMENT": {
-    "VERIFY": "/payment/verify"
+    "VERIFY": "/payment/verify",
+    "GET_RAZORPAY_KEY_ID": "/payment/razorpay-key"
   }
 }

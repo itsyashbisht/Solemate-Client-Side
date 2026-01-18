@@ -9,7 +9,7 @@ import {
 
 const initialState = {
   items: [],
-  subtoal: 0,
+  subtotal: 0,
   tax: 0,
   discount: 0,
   totalAmount: 0,
@@ -34,7 +34,6 @@ const cartSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchCart.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.loading = false;
         state.items = action.payload?.items;
         state.totalAmount = action.payload?.totalAmount;

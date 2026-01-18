@@ -1,5 +1,4 @@
 import ProductDetail from "../components/ProductDetail";
-import Footer from "../layouts/Footer";
 import Navigation from "../layouts/Navigation";
 
 export default function ProductDetails() {
@@ -9,7 +8,6 @@ export default function ProductDetails() {
       <main className="flex-grow">
         <ProductDetail />
       </main>
-      <Footer />
     </div>
   );
 }

@@ -9,8 +9,22 @@ export const verifyPayment = createAsyncThunk(
       return response.data;
     } catch (error) {
       rejectWithValue(
-        error.response?.data?.message || "Failed to verify payment"
+        error.response?.data?.message || "Failed to verify payment",
       );
     }
-  }
+  },
+);
+
+export const getRazorpayKeyId = createAsyncThunk(
+  "payment/razorpaykeyId",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await paymentService.getRazorpayKeyId();
+      return response.data;
+    } catch (error) {
+      rejectWithValue(
+        error.response?.data?.message || "Failed to fetch razorpay key Id",
+      );
+    }
+  },
 );

@@ -12,7 +12,6 @@ export default function ProductGrid() {
     dispatch(getAllProducts());
   }, [dispatch]);
 
-  // if (loading) return <p className="text-center py-10">Loading products...</p>;
   if (loading) return <ShoeCircularLoader size="lg" />;
   if (error) return <p className="text-center py-10 text-red-500">{error}</p>;
 
