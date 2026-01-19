@@ -7,7 +7,7 @@ import CheckoutPage from "./Pages/Checkout";
 import ContactPage from "./Pages/Contact";
 import Home from "./Pages/Home";
 import LoginPage from "./Pages/LoginPage";
-import ProductDetails from "./Pages/PorductDetails";
+import ProductDetails from "./Pages/ProductDetails";
 import Profile from "./Pages/Profile";
 import Register from "./Pages/Register";
 import Shop from "./Pages/Shop";

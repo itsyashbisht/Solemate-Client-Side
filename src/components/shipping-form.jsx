@@ -40,11 +40,12 @@ export default function ShippingForm({ onSubmit }) {
         </div>
       </div>
 
-      {/* Shipping Address */}
+      {/* Shipping Address Container */}
       <div className="border border-gray-200 rounded-lg p-6">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-lg font-semibold text-black">Shipping Address</h3>
           <button
+            type="button"
             onClick={() => setIsEditing(!isEditing)}
             className="text-sm text-gray-600 hover:text-black transition"
           >
@@ -54,7 +55,7 @@ export default function ShippingForm({ onSubmit }) {
 
         {!isEditing ? (
           <div className="space-y-3 text-sm">
-            <p className="font-medium text-black">{formData.name}</p>
+            <p className="font-medium text-black">{formData.fullname}</p>
             <p className="text-gray-600">{formData.email}</p>
             <p className="text-gray-600">{formData.phone}</p>
             <p className="text-gray-600">{formData.address}</p>
@@ -63,13 +64,18 @@ export default function ShippingForm({ onSubmit }) {
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          /* Form without the internal button */
+          <form
+            id="shipping-form"
+            onSubmit={handleSubmit}
+            className="space-y-4"
+          >
             <div className="grid grid-cols-2 gap-4">
               <div className="floating-label">
                 <input
                   type="text"
-                  name="name"
-                  value={formData.name}
+                  name="fullname"
+                  value={formData.fullname}
                   onChange={handleChange}
                   placeholder=" "
                   className="w-full pb-2 border-b border-gray-200 focus:border-black outline-none text-sm transition"
@@ -145,15 +151,19 @@ export default function ShippingForm({ onSubmit }) {
                 <label className="text-xs text-gray-500">Pincode</label>
               </div>
             </div>
-            <button
-              type="submit"
-              className="w-full bg-black text-white py-3 rounded-lg font-medium text-sm hover:bg-gray-900 transition mt-6"
-            >
-              Continue to Payment
-            </button>
           </form>
         )}
       </div>
+
+      {/* Button placed outside the border box */}
+      <button
+        type="submit"
+        form="shipping-form"
+        onClick={!isEditing ? handleSubmit : undefined}
+        className="w-full bg-black text-white py-4 rounded-lg font-medium text-sm hover:bg-gray-900 transition shadow-lg shadow-black/5 active:scale-[0.99]"
+      >
+        Continue to Payment
+      </button>
     </div>
   );
 }

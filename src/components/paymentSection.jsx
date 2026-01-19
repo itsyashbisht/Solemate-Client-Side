@@ -61,24 +61,30 @@ export default function PaymentSection({
       order_id: razorpayOrder.id,
       amount: razorpayOrder.amount,
       currency: razorpayOrder.currency,
+      name: "Solemate",
+      description: "Order Payment",
 
-      name: "My store",
-      discription: "Order Payment",
+      handler: async function (response) {
+        // 1. DISPATCH THE VERIFICATION
+        // IF USING CREATEASYNCTHUNK, WE CAN UNWRAP THE RESULT TO HANDLE SUCCESS HERE
+        try {
+          const result = await dispatch(
+            verifyPayment({
+              paymentInfo: {
+                // Fixed typo: paymentInfor -> paymentInfo
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+              },
+            }),
+          ).unwrap();
 
-      handler: function (response) {
-        dispatch(
-          verifyPayment({
-            paymentInfor: {
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-            },
-          }),
-        );
-
-        if ((verfying, success)) {
+          // 2. ONLY RUN SUCCESS LOGIC IF THE BACKEDN VERIFICATION ACTUALLY PASSED
           setIsLoading(false);
-          onPaymentSuccess(response);
+          onPaymentSuccess(result);
+        } catch (err) {
+          setIsLoading(false);
+          onPaymentError("Payment verification failed");
         }
       },
 
@@ -90,6 +96,7 @@ export default function PaymentSection({
       },
 
       prefill: {
+        // Use fullname or name based on your data structure
         name: order.shippingAddress.fullname,
         email: order.shippingAddress.email,
         contact: order.shippingAddress.phone,

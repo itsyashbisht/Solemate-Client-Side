@@ -1,12 +1,12 @@
-import { getRazorpayKeyId } from "../thunks/payment.thunk";
-import SuccessModal from "../components/successModal";
 import { useEffect, useState } from "react";
-import PaymentSection from "../components/paymentSection";
+import { useDispatch, useSelector } from "react-redux";
 import OrderSummary from "../components/orderSummary";
 import PaymentMethodSelector from "../components/paymentMethodSelector";
+import PaymentSection from "../components/paymentSection";
 import ShippingForm from "../components/shipping-form";
+import SuccessModal from "../components/successModal";
 import Navigation from "../layouts/Navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { getRazorpayKeyId } from "../thunks/payment.thunk";
 
 export default function CheckoutPage() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -15,16 +15,14 @@ export default function CheckoutPage() {
   const [successOrder, setSuccessOrder] = useState(null);
 
   const dispatch = useDispatch();
+  const { items, subtotal, tax, totalAmount } = useSelector(
+    (state) => state.cart,
+  );
+  const { razorpayKeyId } = useSelector((state) => state.payment);
 
   useEffect(() => {
-    // Fetch Razorpay key from server action to keep it secure
     dispatch(getRazorpayKeyId());
   }, [dispatch]);
-
-  const { items, subtotal, tax, discount, totalAmount, loading, error } =
-    useSelector((state) => state.cart);
-
-  const { razorpayKeyId } = useSelector((state) => state.payment);
 
   const handleShippingSubmit = (data) => {
     setShippingData(data);
@@ -33,20 +31,15 @@ export default function CheckoutPage() {
 
   const handlePaymentMethodSelect = (method) => {
     setPaymentMethod(method);
-    if (method === "COD") {
-      // For COD, directly create order
-      handleCODSuccess();
-    } else {
-      // For online payment, proceed to payment section
-      setCurrentStep(3);
-    }
+    if (method === "COD") handleCODSuccess();
+    else setCurrentStep(3);
   };
 
   const handleCODSuccess = () => {
     setSuccessOrder({
       orderId: "ORD-" + Date.now(),
       paymentMethod: "cod",
-      message: "Your order has been placed! You will pay on delivery.",
+      message: "Placed! Pay on delivery.",
     });
   };
 
@@ -58,74 +51,63 @@ export default function CheckoutPage() {
     });
   };
 
-  const handlePaymentError = (error) => {
-    console.error("Payment error:", error);
-    alert("Payment failed: " + error);
-  };
-
   const handleCloseSuccess = () => {
     setSuccessOrder(null);
-    // Redirect to home or orders page
     window.location.href = "/";
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white font-sans antialiased">
       <Navigation />
-
-      <div className="flex flex-col lg:flex-row h-full lg:min-h-[calc(100vh-80px)]">
-        {/* Left Column - Order Summary */}
-        <OrderSummary cartItems={items} />
-
-        {/* Right Column - Shipping & Payment */}
-        <div className="w-full lg:w-1/2 bg-white overflow-y-auto">
-          <div className="p-6 lg:p-12 max-w-2xl">
-            {currentStep === 1 ? (
-              <ShippingForm onSubmit={handleShippingSubmit} />
-            ) : currentStep === 2 ? (
-              <PaymentMethodSelector
-                onMethodSelect={handlePaymentMethodSelect}
+      <div className="max-w-[1800px] mx-auto px-6 lg:px-32 pt-6 pb-20">
+        <div className="flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-12">
+          {/* LEFT: ORDER SUMMARY (60%) */}
+          <aside className="w-full lg:w-[60%] order-2 lg:order-1">
+            <div className="sticky top-6">
+              <OrderSummary
+                cartItems={items}
+                subTotal={subtotal}
+                tax={tax}
                 total={totalAmount}
               />
-            ) : (
-              <PaymentSection
-                paymentMethod={paymentMethod}
-                shippingData={shippingData}
-                total={totalAmount}
-                razorpayKeyId={razorpayKeyId}
-                onPaymentSuccess={handlePaymentSuccess}
-                onPaymentError={handlePaymentError}
-              />
-            )}
-          </div>
-
-          {/* Mobile Order Summary */}
-          <div className="lg:hidden bg-gray-50 border-t border-gray-200 p-6 mb-20">
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Subtotal</span>
-                <span className="font-medium text-black">
-                  ${subtotal.toFixed(2)}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Tax (18%)</span>
-                <span className="font-medium text-black">
-                  ${tax.toFixed(2)}
-                </span>
-              </div>
-              <div className="border-t border-gray-200 pt-3 flex justify-between">
-                <span className="font-semibold text-black">Total</span>
-                <span className="font-semibold text-black text-lg">
-                  ${totalAmount.toFixed(2)}
-                </span>
-              </div>
             </div>
-          </div>
+          </aside>
+
+          {/* RIGHT: FORMS (40%) */}
+          <main className="w-full lg:w-[40%] order-1 lg:order-2">
+            <div className="w-full">
+              {currentStep === 1 && (
+                <div className="animate-in fade-in slide-in-from-right-4 duration-700">
+                  <ShippingForm onSubmit={handleShippingSubmit} />
+                </div>
+              )}
+
+              {currentStep === 2 && (
+                <div className="animate-in fade-in slide-in-from-right-4 duration-700">
+                  <PaymentMethodSelector
+                    onMethodSelect={handlePaymentMethodSelect}
+                    total={totalAmount}
+                  />
+                </div>
+              )}
+
+              {currentStep === 3 && (
+                <div className="animate-in fade-in slide-in-from-right-4 duration-700">
+                  <PaymentSection
+                    paymentMethod={paymentMethod}
+                    shippingData={shippingData}
+                    total={totalAmount}
+                    razorpayKeyId={razorpayKeyId}
+                    onPaymentSuccess={handlePaymentSuccess}
+                    onPaymentError={(err) => console.error(err)}
+                  />
+                </div>
+              )}
+            </div>
+          </main>
         </div>
       </div>
 
-      {/* Success Modal */}
       <SuccessModal
         isOpen={!!successOrder}
         orderId={successOrder?.orderId}
