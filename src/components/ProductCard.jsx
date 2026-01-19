@@ -3,69 +3,68 @@ import { Link } from "react-router-dom";
 export default function ProductCard({ product }) {
   return (
     <div className="flex flex-col h-full">
-      <Link to={`/shop/product/${product._id}`}>
-        <div className="relative rounded-3xl overflow-hidden flex-1 bg-white border border-gray-200 hover:shadow-xl transition-all duration-500 group">
-          {/* Image Section with better aspect ratio */}
-          <div className="relative w-full aspect-square bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden flex items-center justify-center">
+      <Link
+        to={`/shop/product/${product._id}`}
+        className="group h-full flex flex-col"
+      >
+        {/* Card Container - Keeping your Rounded-3xl and Thin Border */}
+        <div className="relative rounded-[2rem] overflow-hidden flex-1 bg-white border border-gray-200 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 flex flex-col">
+          {/* Image Section - Fully occupied by the image */}
+          <div className="relative w-full aspect-square bg-[#fcfcfc] overflow-hidden">
             <img
-              src={product.images[0].url || "/placeholder.svg"}
+              src={product.images?.[0]?.url || "/placeholder.svg"}
               alt={product.name}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              /* CLEAN ZOOM: Pure center scale, no tilt. h-full w-full ensures it occupies the section */
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             />
+
+            {/* Minimalist Badge - Only if category exists */}
+            {product.category && (
+              <div className="absolute top-4 left-4">
+                <span className="text-[10px] font-medium uppercase tracking-[0.2em] bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-black border border-gray-100">
+                  {product.category}
+                </span>
+              </div>
+            )}
           </div>
 
-          {/* Content - spacious bottom section */}
-          <div className="p-6 space-y-4">
-            {/* Category tag */}
-            <div>
-              <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">
-                {product.category}
-              </p>
-              <h3 className="text-lg font-semibold text-black leading-tight">
+          {/* Content Section - Spacious and Thinner Text */}
+          <div className="p-6 flex flex-col flex-1">
+            <div className="flex justify-between items-start mb-3">
+              <h3 className="text-lg font-medium text-black leading-tight tracking-tight">
                 {product.name}
               </h3>
+              <div className="text-right">
+                <span className="text-lg font-normal text-black">
+                  ${product.price}
+                </span>
+              </div>
             </div>
 
-            {/* Description - improved spacing */}
-            <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
+            {/* Description - Thinner and spacious */}
+            <p className="text-sm text-gray-500 font-normal leading-relaxed line-clamp-2 mb-4">
               {product.description}
             </p>
 
-            {/* Pricing - cleaner layout */}
-            <div className="flex items-baseline gap-3 pt-2">
-              <span className="text-2xl font-bold text-black">
-                ${product.price}
-              </span>
-              {product.originalPrice && (
-                <span className="text-sm text-gray-400 line-through">
-                  ${product.originalPrice}
+            {/* Pricing / Original Price Logic */}
+            {product.originalPrice && (
+              <div className="mt-auto pt-2">
+                <span className="text-xs text-gray-300 line-through">
+                  Originally ${product.originalPrice}
                 </span>
-              )}
-            </div>
+              </div>
+            )}
 
-            {/* Button - full width with better styling */}
-            {/* <Button
-              className={`w-full py-3 text-sm font-semibold rounded-2xl transition-all duration-300 ${
-                product.stock
-                  ? "bg-black hover:bg-gray-900 text-white"
-                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
-              }`}
-              disabled={!product.stock || loading}
-            >
-              <ShoppingCart className="w-4 h-4 mr-2" />
-              {product.stock ? "ADD TO CART" : "Out of Stock"}
-            </Button> */}
+            {/* Subscribe text - Styled to match your Discover/Explore style */}
+            {product.badge && (
+              <div className="mt-4 pt-4 border-t border-gray-50">
+                <p className="text-[10px] text-blue-600 font-medium uppercase tracking-[0.15em]">
+                  Save 16% with subscription
+                </p>
+              </div>
+            )}
           </div>
         </div>
-
-        {/* Subscribe text - cleaner */}
-        {product.badge && (
-          <div className="text-center pt-3">
-            <p className="text-xs text-gray-500 font-medium uppercase tracking-widest">
-              Save 16% with subscription
-            </p>
-          </div>
-        )}
       </Link>
     </div>
   );
