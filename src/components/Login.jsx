@@ -1,13 +1,13 @@
+import { Eye, EyeOff } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-import { loginUser } from "../thunks/auth.thunk";
 import { Label } from "../components/ui/label";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
 import hero from "../data/Hero1.jpg";
+import { loginUser } from "../thunks/auth.thunk";
 
 export default function LoginForm() {
   const dispatch = useDispatch();

@@ -1,13 +1,13 @@
+import { Eye, EyeOff } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { registerUser } from "../thunks/auth.thunk";
-import { Eye, EyeOff } from "lucide-react";
 import hero from "../data/Hero1.jpg";
+import { registerUser } from "../thunks/auth.thunk";
 
 export default function RegisterForm() {
   const dispatch = useDispatch();
