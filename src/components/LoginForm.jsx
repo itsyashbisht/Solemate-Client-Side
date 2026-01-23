@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Label } from "../components/ui/label";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 import hero from "../data/Hero1.jpg";
 import { loginUser } from "../thunks/auth.thunk";
 
@@ -21,7 +21,13 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (error) toast.error(error);
-    if (user) navigate("/cart");
+    if (user) {
+      if (user.user?.role === "ADMIN") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/shop");
+      }
+    }
   }, [error, user, navigate]);
 
   const handleSubmit = (e) => {

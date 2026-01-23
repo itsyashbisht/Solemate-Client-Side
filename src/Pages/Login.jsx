@@ -1,7 +1,7 @@
-import Login from "../components/Login";
+import LoginForm from "../components/LoginForm";
 import hero from "../data/Hero1.jpg";
 
-function LoginPage() {
+function Login() {
   return (
     <div
       className="relative flex justify-center items-center min-h-screen bg-center bg-cover bg-no-repeat font-sans antialiased overflow-hidden"
@@ -38,7 +38,7 @@ function LoginPage() {
 
       {/* 3. LOGIN CARD */}
       <div className="relative z-20 w-full flex justify-center px-6">
-        <Login />
+        <LoginForm />
       </div>
 
       {/* 4. FOOTER */}
@@ -73,4 +73,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default Login;

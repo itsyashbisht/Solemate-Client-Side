@@ -8,7 +8,7 @@ function AdminRoutes() {
 
   if (!isAuthenticated) return <Navigate to="/login" replace />;
 
-  if (user?.role !== "ADMIN") {
+  if (user?.user.role !== "ADMIN") {
     return <Navigate to="/unauthorized" replace />;
   }
 

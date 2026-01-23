@@ -5,8 +5,9 @@ import About from "./Pages/About";
 import Cart from "./Pages/Cart";
 import CheckoutPage from "./Pages/Checkout";
 import ContactPage from "./Pages/Contact";
+import Dashboard from "./Pages/Dashboard";
 import Home from "./Pages/Home";
-import LoginPage from "./Pages/LoginPage";
+import Login from "./Pages/Login";
 import ProductDetails from "./Pages/ProductDetails";
 import Profile from "./Pages/Profile";
 import Register from "./Pages/Register";
@@ -27,7 +28,7 @@ const ROUTER = createBrowserRouter([
       },
       {
         path: "login",
-        element: <LoginPage />,
+        element: <Login />,
       },
       {
         path: "register",
@@ -69,11 +70,12 @@ const ROUTER = createBrowserRouter([
       },
       {
         // ADMIN ROUTES.
+        path: "admin",
         element: <AdminRoutes />,
         children: [
           {
-            path: "admin/dashboard",
-            // element: <Cart />,
+            path: "dashboard",
+            element: <Dashboard />,
           },
         ],
       },
