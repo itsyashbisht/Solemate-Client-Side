@@ -67,7 +67,7 @@ const productSlice = createSlice({
 
         // FIND PRODUCT AND REPLACE PRODUCT WITH UPDATED PRODUCT
         state.products = state.products.map((product) =>
-          product._id === updated._id ? updated : product
+          product._id === updated._id ? updated : product,
         );
 
         if (state.currentProduct?._id === updated._id) {
@@ -89,7 +89,7 @@ const productSlice = createSlice({
       .addCase(deleteProduct.fulfilled, (state, action) => {
         const productId = action.payload?.productId;
         state.products = state.products.filter(
-          (product) => product._id !== productId
+          (product) => product._id !== productId,
         );
 
         if (state.currentProduct?._id === productId) {

@@ -9,16 +9,16 @@ import SettingView from "../components/SettingView";
 import UserView from "../components/UserView";
 
 const AdminDashboard = () => {
-  const [currentView, setCurrentView] = useState("dashboard"); // Default tab
+  const [currentView, setCurrentView] = useState("dashboard");
 
   // Function to render the correct component
   const renderContent = () => {
     switch (currentView) {
-      case "home": //
+      case "home":
         return <OrderView />;
       case "products":
         return <ProductView />;
-      case "users": //
+      case "users":
         return <UserView />;
       case "settings":
         return <SettingView />;

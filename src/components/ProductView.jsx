@@ -1,14 +1,20 @@
 import { MoreVertical, Plus, Search } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AddProductModal } from "../components/addProductModal";
 import FilterTabs from "../components/FilterTabs";
 import Pagination from "../components/Pagination";
 import SortDropdown from "../components/SortDropdown";
+import ShoeCircularLoader from "../layouts/loader";
+import { createProduct, getAllProducts } from "../thunks/product.thunk";
 
 const ProductsView = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [sortBy, setSortBy] = useState("recent");
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isAddProductOpen, setIsAddProductOpen] = useState(false);
+  const dispatch = useDispatch();
   const itemsPerPage = 8;
 
   const statusConfig = {
@@ -29,39 +35,20 @@ const ProductsView = () => {
     },
   };
 
-  const mockProducts = [
-    {
-      id: "P-01",
-      name: "Air Max Pro 2025",
-      brand: "Nike",
-      category: "Running",
-      price: 120,
-      stock: 45,
-      img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-    },
-    {
-      id: "P-02",
-      name: "Jordan Retro 1 High OG",
-      brand: "Jordan",
-      category: "Basketball",
-      price: 190,
-      stock: 0,
-      img: "https://images.unsplash.com/photo-1597045566774-ed45ae4b304d",
-    },
-    {
-      id: "P-03",
-      name: "Yeezy Boost 350 V2 Carbon",
-      brand: "Adidas",
-      category: "Lifestyle",
-      price: 220,
-      stock: 8,
-      img: "https://images.unsplash.com/photo-1584486520270-19eca1efcce5",
-    },
-  ];
+  const { loading, error, products } = useSelector((state) => state.product);
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, [dispatch]);
+
+  const onAddProduct = (formData) => {
+    dispatch(createProduct(formData));
+  };
 
   // --- LOGIC ---
   const filteredProducts = useMemo(() => {
-    let result = [...mockProducts];
+    if (loading) return [];
+    let result = [...products];
     if (activeTab !== "all") {
       // Logic for specific status tabs can go here
     }
@@ -73,7 +60,7 @@ const ProductsView = () => {
       );
     }
     return result;
-  }, [activeTab, searchQuery]);
+  }, [activeTab, searchQuery, products, loading]);
 
   const totalItems = filteredProducts.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
@@ -82,22 +69,32 @@ const ProductsView = () => {
     currentPage * itemsPerPage,
   );
 
+  // Ensure that the loading state is handled correctly in the return statement
   return (
     <div className="space-y-5 animate-in fade-in duration-500">
       {/* Header */}
-      <div className="flex items-end justify-between px-1">
-        <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight capitalize">
-            Products
-          </h1>
-          <p className="text-slate-500 text-xs mt-1">
-            Inventory management and stock control
-          </p>
+      {loading ? (
+        <div className="flex justify-center py-4">
+          <ShoeCircularLoader />
         </div>
-        <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-lg shadow-blue-600/10 active:scale-95">
-          <Plus size={16} /> Add Product
-        </button>
-      </div>
+      ) : (
+        <div className="flex items-end justify-between px-1">
+          <div>
+            <h1 className="text-2xl font-bold text-white tracking-tight capitalize">
+              Products
+            </h1>
+            <p className="text-slate-500 text-xs mt-1">
+              Inventory management and stock control
+            </p>
+          </div>
+          <button
+            onClick={() => setIsAddProductOpen(true)}
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-lg shadow-blue-600/10 active:scale-95"
+          >
+            <Plus size={16} /> Add Product
+          </button>
+        </div>
+      )}
 
       <div className="bg-slate-800/30 backdrop-blur-md border border-slate-700/40 rounded-2xl shadow-2xl overflow-hidden">
         {/* Toolbar */}
@@ -163,13 +160,13 @@ const ProductsView = () => {
 
                 return (
                   <tr
-                    key={p.id}
+                    key={p._id}
                     className="border-t border-slate-700/30 hover:bg-slate-700/20 transition-colors group"
                   >
                     <td className="px-6 py-4">
                       <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/50 overflow-hidden shadow-inner group-hover:border-slate-500 transition-colors">
                         <img
-                          src={p.img}
+                          src={p.images[0].url}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                           alt=""
                         />
@@ -229,6 +226,13 @@ const ProductsView = () => {
           />
         </div>
       </div>
+
+      {/* MODAL */}
+      <AddProductModal
+        isOpen={isAddProductOpen}
+        onAddProduct={onAddProduct}
+        onClose={() => setIsAddProductOpen(false)}
+      />
     </div>
   );
 };

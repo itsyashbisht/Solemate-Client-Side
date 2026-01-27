@@ -1,10 +1,12 @@
 import { Search, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import FilterTabs from "../components/FilterTabs";
 import OrdersTable from "../components/OrdersTable";
 import Pagination from "../components/Pagination";
 import SortDropdown from "../components/SortDropdown";
 import StatsCards from "../components/StatsCards";
+import { getAllOrders } from "../thunks/order.thunk";
 
 const OrdersView = () => {
   // --- STATE ---
@@ -13,6 +15,7 @@ const OrdersView = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const itemsPerPage = 8;
+  const dispatch = useDispatch();
 
   // --- CONFIG ---
   const filterTabs = [
@@ -29,93 +32,17 @@ const OrdersView = () => {
     { value: "lowestPrice", label: "Lowest Price" },
   ];
 
-  // --- DATA ---
-  const mockOrders = [
-    {
-      id: "ORD-001",
-      customer: "Nina Williams",
-      email: "nina@gmail.com",
-      product: "Air Max Pro",
-      orderDate: "Jan 15, 2025",
-      amount: "$6,050.00",
-      status: "unconfirmed",
-      quantity: 1,
-    },
-    {
-      id: "ORD-002",
-      customer: "Emma Watson",
-      email: "emma@gmail.com",
-      product: "Jordan Retro 1",
-      orderDate: "Jan 12, 2025",
-      amount: "$5,325.00",
-      status: "unconfirmed",
-      quantity: 2,
-    },
-    {
-      id: "ORD-003",
-      customer: "Tara Tanaka",
-      email: "tara@gmail.com",
-      product: "Nike Ultra Boost",
-      orderDate: "Jan 10, 2025",
-      amount: "$2,950.00",
-      status: "unconfirmed",
-      quantity: 1,
-    },
-    {
-      id: "ORD-004",
-      customer: "Maria Gomez",
-      email: "maria@gmail.com",
-      product: "Puma RS-X",
-      orderDate: "Jan 5, 2025",
-      amount: "$450.00",
-      status: "confirmed",
-      quantity: 3,
-    },
-    {
-      id: "ORD-005",
-      customer: "Fatimah Al-Sayed",
-      email: "fatimah@gmail.com",
-      product: "Adidas Ultraboost",
-      orderDate: "Dec 28, 2024",
-      amount: "$3,800.00",
-      status: "shipped",
-      quantity: 2,
-    },
-    {
-      id: "ORD-006",
-      customer: "Jonathan Williams",
-      email: "jonathan@gmail.com",
-      product: "New Balance 990v5",
-      orderDate: "Dec 20, 2024",
-      amount: "$1,665.00",
-      status: "delivered",
-      quantity: 1,
-    },
-    {
-      id: "ORD-007",
-      customer: "Ahmed Hassan",
-      email: "ahmed@gmail.com",
-      product: "Yeezy Boost 350",
-      orderDate: "Dec 15, 2024",
-      amount: "$2,975.00",
-      status: "delivered",
-      quantity: 1,
-    },
-    {
-      id: "ORD-008",
-      customer: "Jonas Mueller",
-      email: "jonas@gmail.com",
-      product: "Converse Chuck Taylor",
-      orderDate: "Dec 10, 2024",
-      amount: "$1,500.00",
-      status: "confirmed",
-      quantity: 2,
-    },
-  ];
+  const { orders, loading, error } = useSelector((state) => state.order);
+
+  useEffect(() => {
+    dispatch(getAllOrders());
+  }, [dispatch]);
+
+  console.log(orders);
 
   // --- LOGIC ---
   const filteredOrders = useMemo(() => {
-    let result = [...mockOrders];
+    let result = [...orders];
 
     if (activeTab !== "all") {
       result = result.filter((o) => o.status === activeTab);
@@ -145,7 +72,7 @@ const OrdersView = () => {
     });
 
     return result;
-  }, [activeTab, searchQuery, sortBy]);
+  }, [activeTab, searchQuery, sortBy, orders]);
 
   // Derived Pagination State
   const totalItems = filteredOrders.length;

@@ -1,7 +1,15 @@
-import { MoreVertical } from "lucide-react";
+import { useState } from "react";
+import { MoreVertical, Eye, Edit, CreditCard, XCircle } from "lucide-react";
 import StatusBadge from "./StatusBadge";
 
 const OrdersTable = ({ orders = [] }) => {
+  // State to track which dropdown is currently open
+  const [activeMenu, setActiveMenu] = useState(null);
+
+  const toggleMenu = (id) => {
+    setActiveMenu(activeMenu === id ? null : id);
+  };
+
   return (
     <div className="overflow-x-auto">
       <table className="w-full">
@@ -14,7 +22,7 @@ const OrdersTable = ({ orders = [] }) => {
               CUSTOMER
             </th>
             <th className="text-left px-6 py-4 text-sm font-semibold text-slate-300">
-              PRODUCT
+              NO. OF ITEMS
             </th>
             <th className="text-left px-6 py-4 text-sm font-semibold text-slate-300">
               ORDER DATE
@@ -32,36 +40,73 @@ const OrdersTable = ({ orders = [] }) => {
         </thead>
         <tbody>
           {orders.length > 0 &&
-            orders.map((order, index) => (
+            orders.map((order) => (
               <tr
-                key={order.id}
+                key={order._id}
                 className="border-b border-slate-700 hover:bg-slate-700/50 transition-colors"
               >
+                {/* ... existing cells ... */}
                 <td className="px-6 py-4 text-sm font-medium text-white">
-                  {order.id}
+                  {order._id}
                 </td>
                 <td className="px-6 py-4 text-sm">
                   <div>
-                    <p className="text-white font-medium">{order.customer}</p>
-                    <p className="text-slate-400 text-xs">{order.email}</p>
+                    <p className="text-white font-medium">
+                      {order.shippingAddress.fullname}
+                    </p>
+                    <p className="text-slate-400 text-xs">
+                      {order.shippingAddress.email}
+                    </p>
                   </div>
                 </td>
                 <td className="px-6 py-4 text-sm text-slate-300">
-                  {order.product}
+                  {order.orderItems?.length}
                 </td>
                 <td className="px-6 py-4 text-sm text-slate-300">
-                  {order.orderDate}
+                  {order.createdAt}
                 </td>
                 <td className="px-6 py-4">
-                  <StatusBadge status={order.status} />
+                  <StatusBadge status={order.orderStatus} />
                 </td>
                 <td className="px-6 py-4 text-sm font-medium text-white text-right">
-                  {order.amount}
+                  {order.totalAmount}
                 </td>
-                <td className="px-6 py-4 text-center">
-                  <button className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors inline-flex">
+
+                {/* ACTION COLUMN */}
+                <td className="px-6 py-4 text-center relative">
+                  <button
+                    onClick={() => toggleMenu(order._id)}
+                    className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors inline-flex"
+                  >
                     <MoreVertical className="w-4 h-4" />
                   </button>
+
+                  {/* Dropdown Menu */}
+                  {activeMenu === order._id && (
+                    <>
+                      {/* Click outside to close overlay */}
+                      <div
+                        className="fixed inset-0 z-10"
+                        onClick={() => setActiveMenu(null)}
+                      ></div>
+
+                      <div className="absolute right-0 mt-2 w-48 bg-slate-800 border border-slate-700 rounded-lg shadow-xl z-20 overflow-hidden">
+                        <button className="w-full px-4 py-2.5 text-sm text-left text-slate-300 hover:bg-slate-700 flex items-center gap-2">
+                          <Eye className="w-4 h-4" /> View Details
+                        </button>
+                        <button className="w-full px-4 py-2.5 text-sm text-left text-slate-300 hover:bg-slate-700 flex items-center gap-2">
+                          <Edit className="w-4 h-4" /> Update Status
+                        </button>
+                        <button className="w-full px-4 py-2.5 text-sm text-left text-slate-300 hover:bg-slate-700 flex items-center gap-2">
+                          <CreditCard className="w-4 h-4" /> Payment Status
+                        </button>
+                        <hr className="border-slate-700" />
+                        <button className="w-full px-4 py-2.5 text-sm text-left text-red-400 hover:bg-red-500/10 flex items-center gap-2">
+                          <XCircle className="w-4 h-4" /> Cancel Order
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}

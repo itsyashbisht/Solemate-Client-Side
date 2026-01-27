@@ -3,7 +3,10 @@ import ROUTES from "../Constants/Routes.json";
 
 export const productService = {
   createProduct(payload) {
-    return REQUEST.post(ROUTES.PRODUCT.CREATE, payload);
+    console.log(payload);
+    return REQUEST.post(ROUTES.PRODUCT.CREATE, payload, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
   },
 
   getProductById(productId) {
