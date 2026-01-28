@@ -12,10 +12,10 @@ export const registerUser = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Registration failed"
+        error.response?.data?.message || "Registration failed",
       );
     }
-  }
+  },
 );
 
 // LOGIN USER
@@ -24,13 +24,14 @@ export const loginUser = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await authService.login(payload);
-      localStorage.setItem("accessToken", response.data.data.accessToken);
-
+      if (response.data.data.accessToken) {
+        localStorage.setItem("accessToken", response.data.data.accessToken);
+      }
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Login failed");
     }
-  }
+  },
 );
 
 // LOGOUT USER
@@ -43,7 +44,7 @@ export const logoutUser = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Logout failed");
     }
-  }
+  },
 );
 
 // FORGOT / CHANGE PASSWORD
@@ -55,8 +56,8 @@ export const changePassword = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Password reset failed"
+        error.response?.data?.message || "Password reset failed",
       );
     }
-  }
+  },
 );

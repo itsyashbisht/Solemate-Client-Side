@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateUserDetails } from "../thunks/user.thunk";
+import { getMe, updateUserDetails } from "../thunks/user.thunk";
 
 const initialState = {
   profile: null,
@@ -30,6 +30,21 @@ const userSlice = createSlice({
         };
       })
       .addCase(updateUserDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // GET ME
+      .addCase(getMe.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getMe.fulfilled, (state, action) => {
+        console.log(action);
+        state.loading = false;
+        state.profile = action?.payload?.data;
+      })
+      .addCase(getMe.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

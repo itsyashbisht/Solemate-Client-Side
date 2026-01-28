@@ -4,7 +4,8 @@
     "LOGIN": "/user/login",
     "LOGOUT": "/user/logout",
     "UPDATE_DETAILS": "/user/update-details",
-    "CHANGE_PASSWORD": "/user/change-password"
+    "CHANGE_PASSWORD": "/user/change-password",
+    "GET_ME": "/user/me"
   },
   "PRODUCT": {
     "GET_ALL_PRODUCT": "/product/products",

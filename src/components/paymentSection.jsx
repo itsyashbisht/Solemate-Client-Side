@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../thunks/order.thunk";
 import { verifyPayment } from "../thunks/payment.thunk";
-import { color } from "framer-motion";
 
 export default function PaymentSection({
   shippingData,
@@ -71,7 +70,6 @@ export default function PaymentSection({
           const result = await dispatch(
             verifyPayment({
               paymentInfo: {
-                // Fixed typo: paymentInfor -> paymentInfo
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_signature: response.razorpay_signature,

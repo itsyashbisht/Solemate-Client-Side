@@ -8,9 +8,24 @@ export const updateUserDetails = createAsyncThunk(
       const response = await userService.updateDetails(payload);
       return response.data;
     } catch (error) {
-      rejectWithValue(
-        error.response?.data?.message || "Failed to update user details"
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to update user details",
       );
     }
-  }
+  },
+);
+
+export const getMe = createAsyncThunk(
+  "user/getMe",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await userService.getME();
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error?.response?.data?.message || "Failed to get your details",
+      );
+    }
+  },
 );

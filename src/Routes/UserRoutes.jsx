@@ -1,8 +1,8 @@
-import { Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoute = () => {
-  const { isAuthenticated, loading } = useSelector((state) => state.auth);
+  const { profile, loading } = useSelector((state) => state.user);
 
   // WHILE AUTH IS RESOLVING
   if (loading) {
@@ -10,7 +10,7 @@ const ProtectedRoute = () => {
   }
 
   // IF NOT LOGGED IN -> RIDIRECT
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (!profile) return <Navigate to="/login" replace />;
 
   // ELSE -> ALLOW ACCES AS USER
   return <Outlet />;

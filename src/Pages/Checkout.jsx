@@ -15,10 +15,10 @@ export default function CheckoutPage() {
   const [successOrder, setSuccessOrder] = useState(null);
 
   const dispatch = useDispatch();
+  const { razorpayKeyId } = useSelector((state) => state.payment);
   const { items, subtotal, tax, totalAmount } = useSelector(
     (state) => state.cart,
   );
-  const { razorpayKeyId } = useSelector((state) => state.payment);
 
   useEffect(() => {
     dispatch(getRazorpayKeyId());

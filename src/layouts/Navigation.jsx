@@ -1,4 +1,4 @@
-import { CircleUserRound, Menu, ShoppingCart, User, X } from "lucide-react";
+import { CircleUserRound, Menu, ShoppingCart, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ export default function Navigation() {
     { label: "Contact", href: "/contact" },
   ];
 
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.user?.profile);
   const items = useSelector((state) => state.cart.items);
 
   const handleLoginNavigation = () => {
