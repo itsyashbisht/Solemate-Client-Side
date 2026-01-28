@@ -9,10 +9,10 @@ export const createOrder = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to create order"
+        error.response?.data?.message || "Failed to create order",
       );
     }
-  }
+  },
 );
 
 export const getMyOrders = createAsyncThunk(
@@ -23,10 +23,10 @@ export const getMyOrders = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to fetch your orders"
+        error.response?.data?.message || "Failed to fetch your orders",
       );
     }
-  }
+  },
 );
 
 export const getOrderById = createAsyncThunk(
@@ -37,10 +37,10 @@ export const getOrderById = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to get order by Id"
+        error.response?.data?.message || "Failed to get order by Id",
       );
     }
-  }
+  },
 );
 
 export const cancelOrder = createAsyncThunk(
@@ -48,13 +48,14 @@ export const cancelOrder = createAsyncThunk(
   async (orderId, { rejectWithValue }) => {
     try {
       const response = await orderService.cancelOrder(orderId);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to cancel the order"
+        error.response?.data?.message || "Failed to cancel the order",
       );
     }
-  }
+  },
 );
 
 export const getAllOrders = createAsyncThunk(
@@ -65,10 +66,10 @@ export const getAllOrders = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to fetch all orders"
+        error.response?.data?.message || "Failed to fetch all orders",
       );
     }
-  }
+  },
 );
 
 export const updateOrderStatus = createAsyncThunk(
@@ -79,8 +80,8 @@ export const updateOrderStatus = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to update order status"
+        error.response?.data?.message || "Failed to update order status",
       );
     }
-  }
+  },
 );
