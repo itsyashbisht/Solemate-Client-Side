@@ -3,32 +3,44 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import hero from "../data/Hero1.jpg";
+import { loginUser } from "../thunks/auth.thunk";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import hero from "../data/Hero1.jpg";
-import { loginUser } from "../thunks/auth.thunk";
 
 export default function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading, error, user } = useSelector((state) => state.auth);
+  // REDUX SELECTORS
+  const { loading, error, user, isAuthenticated } = useSelector(
+    (state) => state.auth,
+  );
+
+  // LOCAL STATE
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  // HANDLE LOGIN SUCCESS
   useEffect(() => {
-    if (error) toast.error(error);
-    if (user) {
-      if (user.user?.role === "ADMIN") {
-        navigate("/admin/dashboard");
+    if (isAuthenticated && user) {
+      if (user.role === "ADMIN") {
+        navigate("/admin/dashboard", { replace: true });
       } else {
-        navigate("/shop");
+        navigate("/", { replace: true });
       }
     }
-  }, [error, user, navigate]);
+  }, [isAuthenticated, user, navigate]);
+
+  // HANDLE LOGIN ERROR
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

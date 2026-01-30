@@ -14,24 +14,20 @@ export default function PaymentSection({
 }) {
   const dispatch = useDispatch();
 
-  // Redux Selectors - Order State
+  // REDUX SELECTORS
   const { loading: orderLoading, error: orderError } = useSelector(
     (state) => state.order,
   );
-
-  // Redux Selectors - Payment State
   const { verifying: paymentVerifying, error: paymentError } = useSelector(
     (state) => state.payment,
   );
 
-  // Local state
+  // LOCAL STATE
   const [isLoading, setIsLoading] = useState(false);
   const [localError, setLocalError] = useState(null);
 
-  // Combined loading state
+  // COMBINED STATES
   const isBusy = isLoading || orderLoading || paymentVerifying;
-
-  // Combined error state
   const displayError = localError || orderError || paymentError;
 
   // LOAD RAZORPAY SDK
@@ -39,30 +35,28 @@ export default function PaymentSection({
     return new Promise((resolve) => {
       const script = document.createElement("script");
       script.src = "https://checkout.razorpay.com/v1/checkout.js";
-
       script.onload = () => resolve(true);
       script.onerror = () => resolve(false);
-
       document.body.appendChild(script);
     });
   };
 
-  // CANCEL ORDER HELPER FUCNTION
+  // CANCEL ORDER HELPER FUNCTION
   const handleOrderCancellation = async (orderIdToCancel) => {
     try {
-      console.log("Cancelling order:", orderIdToCancel);
       await dispatch(cancelOrder(orderIdToCancel)).unwrap();
-      console.log("Order cancelled successfully");
     } catch (err) {
       console.error("Failed to cancel order:", err);
     }
   };
 
+  // HANDLE RAZORPAY PAYMENT INITIATION
   const handleRazorpayPayment = async () => {
     setIsLoading(true);
     setLocalError(null);
 
     try {
+      // LOAD RAZORPAY SCRIPT
       const isLoaded = await loadRazorpayScript();
       if (!isLoaded) {
         const errorMsg = "Razorpay SDK failed to load. Please try again.";
@@ -72,27 +66,19 @@ export default function PaymentSection({
         return;
       }
 
+      // CREATE ORDER
       const payload = {
         paymentMethod: paymentMethod,
         shippingAddress: shippingData,
       };
-      console.log("Creating order with payload:", payload);
 
-      // CREATE ORDER AND WAIT FOR IT TO COMPLETE
       const orderData = await dispatch(createOrder(payload)).unwrap();
-      console.log("Order created successfully:", orderData);
-
       const { order, razorpayOrder } = orderData.data;
-      const razorpayOrderPaylaod = {
-        order,
-        razorpayOrder,
-      };
       const createdOrderId = order?._id;
-      console.log(razorpayOrderPaylaod, createdOrderId);
 
-      // ONLY OPEN CHECKOUT AFTER ORDER IS CREATED
+      // OPEN RAZORPAY CHECKOUT
       setIsLoading(false);
-      openRazorpayCheckout(razorpayOrderPaylaod, createdOrderId);
+      openRazorpayCheckout({ order, razorpayOrder }, createdOrderId);
     } catch (err) {
       console.error("Failed to create order:", err);
       const errorMsg =
@@ -103,6 +89,7 @@ export default function PaymentSection({
     }
   };
 
+  // OPEN RAZORPAY CHECKOUT MODAL
   const openRazorpayCheckout = (orderData, createdOrderId) => {
     try {
       const { razorpayOrder, order } = orderData;
@@ -110,8 +97,6 @@ export default function PaymentSection({
       if (!razorpayOrder || !order) {
         throw new Error("Invalid order data received from server");
       }
-
-      console.log("Opening Razorpay with order:", orderData);
 
       const options = {
         key: razorpayKeyId,
@@ -121,11 +106,12 @@ export default function PaymentSection({
         name: "Solemate",
         description: "Order Payment",
 
+        // HANDLE SUCCESSFUL PAYMENT
         handler: async function (response) {
           try {
             setIsLoading(true);
-            console.log("Payment response received:", response);
 
+            // VERIFY PAYMENT WITH BACKEND
             const result = await dispatch(
               verifyPayment({
                 paymentInfo: {
@@ -136,7 +122,6 @@ export default function PaymentSection({
               }),
             ).unwrap();
 
-            // PAYMENT VERIFICATION SUCCESSFUL
             setIsLoading(false);
             setLocalError(null);
             onPaymentSuccess(result);
@@ -147,31 +132,33 @@ export default function PaymentSection({
               "Payment verification failed. Please contact support.";
             setLocalError(errorMsg);
 
-            // / PAYMENT VERIFICATION FAILED - CANCEL THE ORDER
-            console.error(
-              "Payment verification failed, cancelling order:",
-              createdOrderId,
-            );
+            // CANCEL ORDER IF PAYMENT VERIFICATION FAILS
             await handleOrderCancellation(createdOrderId);
             onPaymentError(errorMsg);
           }
         },
 
+        // HANDLE USER CANCELLATION
         modal: {
           ondismiss: () => {
             setIsLoading(false);
             const cancelMsg = "Payment cancelled by user";
             setLocalError(cancelMsg);
+
+            // CANCEL ORDER IF USER CANCELS PAYMENT
+            handleOrderCancellation(createdOrderId);
             onPaymentError(cancelMsg);
           },
         },
 
+        // PREFILL USER DATA
         prefill: {
           name: order.shippingAddress.fullname,
           email: order.shippingAddress.email,
           contact: order.shippingAddress.phone,
         },
 
+        // THEME
         theme: {
           color: "#000000",
         },
@@ -184,10 +171,8 @@ export default function PaymentSection({
       const errorMsg = err.message || "Failed to open payment modal";
       setLocalError(errorMsg);
 
-      // RAZORPAY OPEN FAILED - CANCEL THE ORDER
-      console.log("Razorpay open failed, cancelling order:", createdOrderId);
+      // CANCEL ORDER IF RAZORPAY FAILS TO OPEN
       handleOrderCancellation(createdOrderId);
-
       onPaymentError(errorMsg);
       setIsLoading(false);
     }
@@ -195,7 +180,7 @@ export default function PaymentSection({
 
   return (
     <div className="space-y-6">
-      {/* Stepper */}
+      {/* STEPPER */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center text-xs font-semibold">
@@ -223,12 +208,13 @@ export default function PaymentSection({
         </div>
       )}
 
-      {/* Payment Method */}
+      {/* PAYMENT METHOD SECTION */}
       <div className="border border-gray-200 rounded-lg p-6 bg-gray-50">
         <h3 className="text-base font-semibold text-black mb-5">
           Payment Method
         </h3>
 
+        {/* RAZORPAY CARD */}
         <div className="border border-gray-300 rounded-lg p-5 bg-white mb-5">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center flex-shrink-0">
@@ -245,7 +231,7 @@ export default function PaymentSection({
           </div>
         </div>
 
-        {/* Trust Indicators */}
+        {/* TRUST INDICATORS */}
         <div className="mb-6">
           <div className="flex items-center gap-2 px-4 py-3 bg-white border border-green-200 rounded-lg">
             <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
@@ -256,7 +242,7 @@ export default function PaymentSection({
           </div>
         </div>
 
-        {/* Payment Button */}
+        {/* PAYMENT BUTTON */}
         <button
           onClick={handleRazorpayPayment}
           disabled={isBusy || !!displayError}
@@ -281,7 +267,7 @@ export default function PaymentSection({
           )}
         </button>
 
-        {/* Payment Methods Info */}
+        {/* ACCEPTED PAYMENT METHODS */}
         <div className="text-center text-xs text-gray-500 space-y-2">
           <p>We accept all major payment methods</p>
           <div className="flex justify-center gap-2 flex-wrap">
@@ -301,7 +287,7 @@ export default function PaymentSection({
         </div>
       </div>
 
-      {/* Mobile Sticky Button */}
+      {/* MOBILE STICKY BUTTON */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-40">
         <button
           onClick={handleRazorpayPayment}
