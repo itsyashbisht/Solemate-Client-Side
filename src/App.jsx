@@ -18,6 +18,14 @@ import ProtectedRoute from "./Routes/UserRoutes";
 // ROUTING
 const ROUTER = createBrowserRouter([
   {
+    path: "login",
+    element: <Login />,
+  },
+  {
+    path: "register",
+    element: <Register />,
+  },
+  {
     // PARENT ROUTE
     path: "/",
     element: <AppLayout />,
@@ -25,14 +33,6 @@ const ROUTER = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
       },
       {
         path: "shop",

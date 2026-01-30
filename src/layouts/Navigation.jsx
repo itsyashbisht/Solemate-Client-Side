@@ -87,7 +87,7 @@ export default function Navigation() {
               >
                 <CircleUserRound size={21} strokeWidth={2} />
                 <span className="text-[14px] font-medium tracking-tight hidden lg:block">
-                  {user ? "Account" : "Login"}
+                  {user ? "Profile" : "Login"}
                 </span>
               </button>
             </div>

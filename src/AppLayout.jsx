@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -8,16 +8,26 @@ import { getMe } from "./thunks/user.thunk";
 
 export default function AppLayout() {
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.user);
+  const { loading, profile } = useSelector((state) => state.user);
 
+  // PREVENT MULTIPLE getMe CALLS
+  const hasFetchedUser = useRef(false);
+
+  // RESTORE USER SESSION ON MOUNT
   useEffect(() => {
+    // PREVENT DUPLICATE CALLS
+    if (hasFetchedUser.current) return;
+
     const token = localStorage.getItem("accessToken");
-    if (token) {
+
+    // ONLY FETCH IF: token exists AND profile not loaded
+    if (token && !profile) {
+      hasFetchedUser.current = true;
       dispatch(getMe());
     }
-  }, [dispatch]);
+  }, []); // ✅ EMPTY DEPENDENCY ARRAY
 
-  if (isLoading) return <ShoeCircularLoader />;
+  if (loading) return <ShoeCircularLoader />;
 
   return (
     <div className="min-h-screen">

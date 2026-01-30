@@ -40,7 +40,7 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(getMe.fulfilled, (state, action) => {
-        console.log(action);
+        console.log("profile:", action.payload.data);
         state.loading = false;
         state.profile = action?.payload?.data;
       })

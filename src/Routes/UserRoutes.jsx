@@ -1,18 +1,23 @@
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
+import ShoeCircularLoader from "../layouts/loader";
 
 const ProtectedRoute = () => {
+  // REDUX SELECTORS
   const { profile, loading } = useSelector((state) => state.user);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
-  // WHILE AUTH IS RESOLVING
+  // WHILE LOADING
   if (loading) {
-    return <div>Loading ...</div>;
+    return <ShoeCircularLoader size="lg" />;
   }
 
-  // IF NOT LOGGED IN -> RIDIRECT
-  if (!profile) return <Navigate to="/login" replace />;
+  // NOT AUTHENTICATED - REDIRECT TO LOGIN
+  if (!isAuthenticated || !profile) {
+    return <Navigate to="/login" replace />;
+  }
 
-  // ELSE -> ALLOW ACCES AS USER
+  // AUTHENTICATED - ALLOW ACCESS
   return <Outlet />;
 };
 
