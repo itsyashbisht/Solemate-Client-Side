@@ -73,7 +73,8 @@ export default function PaymentSection({
       };
 
       const orderData = await dispatch(createOrder(payload)).unwrap();
-      const { order, razorpayOrder } = orderData.data;
+      console.log(orderData);
+      const { order, razorpayOrder } = orderData;
       const createdOrderId = order?._id;
 
       // OPEN RAZORPAY CHECKOUT

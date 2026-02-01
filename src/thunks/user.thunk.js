@@ -15,12 +15,25 @@ export const updateUserDetails = createAsyncThunk(
   },
 );
 
+export const getAllUsers = createAsyncThunk(
+  "user/getAllUsers",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await userService.getAllUser();
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to get all users",
+      )
+    }
+  }
+)
+
 export const getMe = createAsyncThunk(
   "user/getMe",
   async (_, { rejectWithValue }) => {
     try {
       const response = await userService.getME();
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(

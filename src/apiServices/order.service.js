@@ -32,6 +32,7 @@ export const orderService = {
   },
 
   updateOrderStatus(orderId, payload) {
+    console.log(orderId, payload);
     return REQUEST.patch(
       ROUTES.ORDER.UPDATE_ORDER_STATUS.replace(":orderId", orderId),
       payload,

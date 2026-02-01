@@ -75,6 +75,8 @@ export const getAllOrders = createAsyncThunk(
 export const updateOrderStatus = createAsyncThunk(
   "order/updateOrderStatus",
   async ({ orderId, payload }, { rejectWithValue }) => {
+     console.log(orderId);
+     console.log(payload);
     try {
       const response = await orderService.updateOrderStatus(orderId, payload);
       return response.data;

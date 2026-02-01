@@ -32,7 +32,7 @@ const productSlice = createSlice({
       })
       .addCase(getAllProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload?.data || [];
+        state.products = action.payload || [];
       })
       .addCase(getAllProducts.rejected, (state, action) => {
         state.loading = false;
@@ -46,7 +46,7 @@ const productSlice = createSlice({
       })
       .addCase(getProductById.fulfilled, (state, action) => {
         state.loading = false;
-        state.currentProduct = action.payload?.data || null;
+        state.currentProduct = action.payload || null;
       })
       .addCase(getProductById.rejected, (state, action) => {
         state.loading = false;
@@ -55,14 +55,14 @@ const productSlice = createSlice({
 
       // CREATE PRODUCT (ADMIN MUTATION)
       .addCase(createProduct.fulfilled, (state, action) => {
-        if (action.payload?.data) {
+        if (action.payload) {
           state.products.unshift(action.payload.data);
         }
       })
 
       // UPDATE PRODUCT DETAILS
       .addCase(updateProductDetails.fulfilled, (state, action) => {
-        const updated = action.payload?.data;
+        const updated = action.payload;
         if (!updated) return;
 
         // FIND PRODUCT AND REPLACE PRODUCT WITH UPDATED PRODUCT
@@ -77,7 +77,7 @@ const productSlice = createSlice({
 
       // UPDATE PRODUCT IMAGES
       .addCase(updateProductImages.fulfilled, (state, action) => {
-        const updated = action.payload?.data;
+        const updated = action.payload;
         if (!updated) return;
 
         if (state.currentProduct?._id === updated._id) {

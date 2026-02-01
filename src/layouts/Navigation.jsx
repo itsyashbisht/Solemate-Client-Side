@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchCart } from "../thunks/cart.thunks";
+import UserDropdown from "@/components/userDropdown.jsx";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,11 +16,11 @@ export default function Navigation() {
     { label: "Contact", href: "/contact" },
   ];
 
-  const user = useSelector((state) => state.user?.profile);
+  const profile = useSelector((state) => state.user?.profile);
   const items = useSelector((state) => state.cart.items);
 
   const handleLoginNavigation = () => {
-    if (user) {
+    if (profile) {
       navigate("/profile");
     } else {
       navigate("/login");
@@ -27,17 +28,15 @@ export default function Navigation() {
   };
 
   useEffect(() => {
-    if (user?._id) {
+    if (profile?._id) {
       dispatch(fetchCart());
     }
-  }, [dispatch, user?._id]);
+  }, [dispatch, profile?._id]);
 
   return (
     <nav className="relative w-full bg-transparent z-50">
-      {/* Increased max-width and reduced padding to move items more to the right */}
       <div className="max-w-[1550px] mx-auto px-4 md:px-8">
         <div className="flex justify-between items-center h-24">
-          {/* Logo - Kept bold for brand identity */}
           <div className="flex-shrink-0">
             <Link
               to="/"
@@ -81,15 +80,7 @@ export default function Navigation() {
                 )}
               </button>
 
-              <button
-                onClick={handleLoginNavigation}
-                className="flex items-center gap-2 group text-black"
-              >
-                <CircleUserRound size={21} strokeWidth={2} />
-                <span className="text-[14px] font-medium tracking-tight hidden lg:block">
-                  {user ? "Profile" : "Login"}
-                </span>
-              </button>
+              <UserDropdown />
             </div>
           </div>
 

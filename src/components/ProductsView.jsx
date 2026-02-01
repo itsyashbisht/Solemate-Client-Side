@@ -1,37 +1,38 @@
-import { MoreVertical, Plus, Search } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AddProductModal } from "../components/addProductModal";
-import FilterTabs from "../components/FilterTabs";
-import Pagination from "../components/Pagination";
-import SortDropdown from "../components/SortDropdown";
-import ShoeCircularLoader from "../layouts/loader";
-import { createProduct, getAllProducts } from "../thunks/product.thunk";
+import { MoreVertical, Plus, Search } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AddProductModal } from '../components/addProductModal';
+import FilterTabs from '../components/FilterTabs';
+import Pagination from '../components/Pagination';
+import SortDropdown from '../components/SortDropdown';
+import ShoeCircularLoader from '../layouts/loader';
+import { createProduct, getAllProducts } from '../thunks/product.thunk';
+import { toast } from 'react-toastify';
 
 const ProductsView = () => {
-  const [activeTab, setActiveTab] = useState("all");
-  const [sortBy, setSortBy] = useState("recent");
+  const [activeTab, setActiveTab] = useState('all');
+  const [sortBy, setSortBy] = useState('recent');
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [isAddProductOpen, setIsAddProductOpen] = useState(false);
   const dispatch = useDispatch();
   const itemsPerPage = 8;
 
   const statusConfig = {
     inStock: {
-      bg: "bg-green-500/20",
-      text: "text-green-300",
-      label: "In Stock",
+      bg: 'bg-green-500/20',
+      text: 'text-green-300',
+      label: 'In Stock',
     },
     lowStock: {
-      bg: "bg-yellow-500/20",
-      text: "text-yellow-300",
-      label: "Low Stock",
+      bg: 'bg-yellow-500/20',
+      text: 'text-yellow-300',
+      label: 'Low Stock',
     },
     outOfStock: {
-      bg: "bg-rose-500/20",
-      text: "text-rose-300",
-      label: "Out of Stock",
+      bg: 'bg-rose-500/20',
+      text: 'text-rose-300',
+      label: 'Out of Stock',
     },
   };
 
@@ -41,6 +42,12 @@ const ProductsView = () => {
     dispatch(getAllProducts());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (error) {
+      return toast.error(error);
+    }
+  }, [error]);
+
   const onAddProduct = (formData) => {
     dispatch(createProduct(formData));
   };
@@ -49,7 +56,7 @@ const ProductsView = () => {
   const filteredProducts = useMemo(() => {
     if (loading) return [];
     let result = [...products];
-    if (activeTab !== "all") {
+    if (activeTab !== 'all') {
       // Logic for specific status tabs can go here
     }
     if (searchQuery) {
@@ -73,38 +80,37 @@ const ProductsView = () => {
   return (
     <div className="space-y-5 animate-in fade-in duration-500">
       {/* Header */}
-      {loading ? (
-        <div className="flex justify-center py-4">
-          <ShoeCircularLoader />
-        </div>
-      ) : (
-        <div className="flex items-end justify-between px-1">
-          <div>
-            <h1 className="text-2xl font-bold text-white tracking-tight capitalize">
-              Products
-            </h1>
-            <p className="text-slate-500 text-xs mt-1">
-              Inventory management and stock control
-            </p>
-          </div>
-          <button
-            onClick={() => setIsAddProductOpen(true)}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-lg shadow-blue-600/10 active:scale-95"
-          >
-            <Plus size={16} /> Add Product
-          </button>
-        </div>
-      )}
 
-      <div className="bg-slate-800/30 backdrop-blur-md border border-slate-700/40 rounded-2xl shadow-2xl overflow-hidden">
+      <div className="flex items-end justify-between px-1">
+        <div>
+          <h1 className="text-2xl font-bold text-white tracking-tight capitalize">
+            Products
+          </h1>
+          <p className="text-slate-500 text-xs mt-1">
+            Inventory management and stock control
+          </p>
+        </div>
+        <button
+          onClick={() => setIsAddProductOpen(true)}
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-lg shadow-blue-600/10 active:scale-95"
+        >
+          <Plus size={16}/> Add Product
+        </button>
+      </div>
+
+
+      <div
+        className="bg-slate-800/30 backdrop-blur-md border border-slate-700/40 rounded-2xl shadow-2xl overflow-hidden">
         {/* Toolbar */}
-        <div className="p-4 border-b border-slate-700/40 flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+        <div
+          className="p-4 border-b border-slate-700/40 flex flex-col xl:flex-row xl:items-center justify-between gap-4">
           <div className="flex items-center gap-5">
             <h2 className="text-sm font-bold text-slate-100 uppercase tracking-wider">
               Inventory
             </h2>
             <div className="relative w-72 group">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-blue-400 transition-colors" />
+              <Search
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-blue-400 transition-colors"/>
               <input
                 type="text"
                 placeholder="Search catalog..."
@@ -126,7 +132,7 @@ const ProductsView = () => {
               }}
             />
             <SortDropdown
-              options={[{ label: "Recent", value: "recent" }]}
+              options={[{ label: 'Recent', value: 'recent' }]}
               value={sortBy}
               onChange={setSortBy}
             />
@@ -135,8 +141,13 @@ const ProductsView = () => {
 
         {/* Atomic Grid Table */}
         <div className="overflow-x-auto min-h-[400px]">
-          <table className="w-full text-left border-collapse">
-            <thead className="bg-slate-900/40 text-slate-500 text-[10px] uppercase font-bold tracking-[0.1em]">
+          {loading ? (
+            <div className="flex justify-center py-4">
+              <ShoeCircularLoader/>
+            </div>
+          ) : (
+            <table className="w-full text-left border-collapse">
+              <thead className="bg-slate-900/40 text-slate-500 text-[10px] uppercase font-bold tracking-[0.1em]">
               <tr>
                 <th className="px-6 py-5">Preview</th>
                 <th className="px-6 py-5">Brand</th>
@@ -147,15 +158,15 @@ const ProductsView = () => {
                 <th className="px-6 py-5 text-center">Status</th>
                 <th className="px-6 py-5 text-right"></th>
               </tr>
-            </thead>
-            <tbody className="text-sm">
+              </thead>
+              <tbody className="text-sm">
               {paginatedProducts.map((p) => {
                 const statusKey =
                   p.stock > 10
-                    ? "inStock"
+                    ? 'inStock'
                     : p.stock > 0
-                      ? "lowStock"
-                      : "outOfStock";
+                      ? 'lowStock'
+                      : 'outOfStock';
                 const config = statusConfig[statusKey];
 
                 return (
@@ -164,7 +175,8 @@ const ProductsView = () => {
                     className="border-t border-slate-700/30 hover:bg-slate-700/20 transition-colors group"
                   >
                     <td className="px-6 py-4">
-                      <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/50 overflow-hidden shadow-inner group-hover:border-slate-500 transition-colors">
+                      <div
+                        className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/50 overflow-hidden shadow-inner group-hover:border-slate-500 transition-colors">
                         <img
                           src={p.images[0].url}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
@@ -173,7 +185,8 @@ const ProductsView = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-slate-400 font-medium uppercase text-[10px] tracking-[0.15em] bg-slate-900/50 px-2 py-1 rounded-md border border-slate-700/30">
+                      <span
+                        className="text-slate-400 font-medium uppercase text-[10px] tracking-[0.15em] bg-slate-900/50 px-2 py-1 rounded-md border border-slate-700/30">
                         {p.brand}
                       </span>
                     </td>
@@ -199,15 +212,16 @@ const ProductsView = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <button className="p-2 hover:bg-slate-700/50 rounded-lg text-slate-500 hover:text-white transition-all">
-                        <MoreVertical size={18} />
+                      <button
+                        className="p-2 hover:bg-slate-700/50 rounded-lg text-slate-500 hover:text-white transition-all">
+                        <MoreVertical size={18}/>
                       </button>
                     </td>
                   </tr>
                 );
               })}
-            </tbody>
-          </table>
+              </tbody>
+            </table>)}
         </div>
 
         {/* Pagination Section */}

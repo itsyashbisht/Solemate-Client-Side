@@ -35,13 +35,14 @@ const paymentSlice = createSlice({
         state.verfying = false;
         state.error = action.payload;
       })
+
       .addCase(getRazorpayKeyId.pending, (state) => {
         state.error = null;
         state.loading = true;
       })
       .addCase(getRazorpayKeyId.fulfilled, (state, action) => {
         state.loading = false;
-        state.razorpayKeyId = action.payload?.data?.razorpayKeyId;
+        state.razorpayKeyId = action.payload?.razorpayKeyId;
       })
       .addCase(getRazorpayKeyId.rejected, (state, action) => {
         state.loading = false;

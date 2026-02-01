@@ -9,4 +9,8 @@ export const userService = {
   getME() {
     return REQUEST.get(ROUTES.USER.GET_ME);
   },
+
+  getAllUser() {
+    return REQUEST.get(ROUTES.USER.GET_ALL_USERS);
+  }
 };

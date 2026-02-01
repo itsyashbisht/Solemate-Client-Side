@@ -3,17 +3,28 @@ import { Navigate, Outlet } from "react-router-dom";
 import ShoeCircularLoader from "../layouts/loader";
 
 const ProtectedRoute = () => {
-  // REDUX SELECTORS
-  const { profile, loading } = useSelector((state) => state.user);
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  // AUTH STATE
+  const { isAuthenticated, loading: authLoading } = useSelector(
+    (state) => state.auth,
+  );
 
-  // WHILE LOADING
-  if (loading) {
-    return <ShoeCircularLoader size="lg" />;
+  // USER PROFILE
+  const { profile, loading: profileLoading } = useSelector(
+    (state) => state.user,
+  );
+
+  // LOADING - SHOW SPINNER
+  if (authLoading || profileLoading) {
+    return <ShoeCircularLoader />;
   }
 
   // NOT AUTHENTICATED - REDIRECT TO LOGIN
-  if (!isAuthenticated || !profile) {
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // NO PROFILE DATA - REDIRECT TO LOGIN
+  if (!profile) {
     return <Navigate to="/login" replace />;
   }
 

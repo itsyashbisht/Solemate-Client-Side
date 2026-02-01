@@ -32,7 +32,7 @@ const orderSlice = createSlice({
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.loading = false;
-        state.currentOrder = action.payload?.data || null;
+        state.currentOrder = action.payload || null;
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.loading = false;
@@ -49,17 +49,17 @@ const orderSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(getMyOrders.fulfilled, (state, action) => {
-        state.orders = action.payload?.data || [];
+        state.orders = action.payload || [];
       })
 
       // GET ORDER BY ID
       .addCase(getOrderById.fulfilled, (state, action) => {
-        state.currentOrder = action.payload?.data;
+        state.currentOrder = action.payload;
       })
 
       // CANCEL ORDER
       .addCase(cancelOrder.fulfilled, (state, action) => {
-        state.currentOrder = action.payload?.data;
+        state.currentOrder = action.payload;
       })
 
       // ADMIN: ALL ORDERS
@@ -67,7 +67,8 @@ const orderSlice = createSlice({
         state.loading = true;
       })
       .addCase(getAllOrders.fulfilled, (state, action) => {
-        state.orders = action.payload?.data || [];
+        state.loading = false;
+        state.orders = action.payload;
       })
       .addCase(getAllOrders.rejected, (state, action) => {
         state.loading = false;
@@ -76,7 +77,7 @@ const orderSlice = createSlice({
 
       // ADMIN: UPDATE STATUS
       .addCase(updateOrderStatus.fulfilled, (state, action) => {
-        state.currentOrder = action.payload?.data || state.currentOrder;
+        state.currentOrder = action.payload || state.currentOrder;
       });
   },
 });

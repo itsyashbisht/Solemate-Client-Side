@@ -5,7 +5,8 @@
     "LOGOUT": "/user/logout",
     "UPDATE_DETAILS": "/user/update-details",
     "CHANGE_PASSWORD": "/user/change-password",
-    "GET_ME": "/user/me"
+    "GET_ME": "/user/me",
+    "GET_ALL_USERS": "/user/all-users"
   },
   "PRODUCT": {
     "GET_ALL_PRODUCT": "/product/products",
