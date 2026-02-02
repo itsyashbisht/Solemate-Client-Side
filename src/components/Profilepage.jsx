@@ -1,25 +1,21 @@
-"use client";
+import { MapPin, Save, ShieldCheck, User, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserDetails } from '../thunks/user.thunk';
 
-import { MapPin, Save, ShieldCheck, User, ChevronRight } from "lucide-react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateUserDetails } from "../thunks/user.thunk";
-
-export default function ProfilePage() {
-  const dispatch = useDispatch();
-  const profile = useSelector((state) => state.user.profile);
-  const { loading, error } = useSelector((state) => state.user);
-
-  const [formData, setFormData] = useState({
-    fullname: profile?.fullname || "",
-    phoneNumber: profile?.phoneNumber || "",
-    address: profile?.address || "",
-    city: profile?.city || "",
-    state: profile?.state || "",
-    pincode: profile?.pincode || "",
-  });
-
+export default function ProfilePage () {
   const [hasChanges, setHasChanges] = useState(false);
+  const [formData, setFormData] = useState({
+    fullname: profile?.fullname || '',
+    phoneNumber: profile?.phoneNumber || '',
+    address: profile?.address || '',
+    city: profile?.city || '',
+    state: profile?.state || '',
+    pincode: profile?.pincode || '',
+  });
+  const dispatch = useDispatch();
+
+  const { profile, loading, error } = useSelector((state) => state.user);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,12 +31,12 @@ export default function ProfilePage() {
 
   const handleDiscard = () => {
     setFormData({
-      fullname: profile?.fullname || "",
-      phoneNumber: profile?.phoneNumber || "",
-      address: profile?.address || "",
-      city: profile?.city || "",
-      state: profile?.state || "",
-      pincode: profile?.pincode || "",
+      fullname: profile?.fullname || '',
+      phoneNumber: profile?.phoneNumber || '',
+      address: profile?.address || '',
+      city: profile?.city || '',
+      state: profile?.state || '',
+      pincode: profile?.pincode || '',
     });
     setHasChanges(false);
   };
@@ -87,7 +83,7 @@ export default function ProfilePage() {
                 </label>
                 <input
                   type="text"
-                  value={profile?.username || ""}
+                  value={profile?.username || ''}
                   disabled
                   className="w-full px-0 py-1.5 text-sm text-gray-400 border-0 bg-transparent focus:ring-0 focus:outline-none cursor-not-allowed"
                 />
@@ -101,7 +97,7 @@ export default function ProfilePage() {
                 </label>
                 <input
                   type="email"
-                  value={profile?.email || ""}
+                  value={profile?.email || ''}
                   disabled
                   className="w-full px-0 py-1.5 text-sm text-gray-400 border-0 bg-transparent focus:ring-0 focus:outline-none cursor-not-allowed"
                 />
@@ -111,7 +107,8 @@ export default function ProfilePage() {
               </div>
 
               {/* FULL NAME */}
-              <div className="bg-white border border-gray-200 rounded-lg p-3 transition-all duration-200 focus-within:border-black focus-within:shadow-sm">
+              <div
+                className="bg-white border border-gray-200 rounded-lg p-3 transition-all duration-200 focus-within:border-black focus-within:shadow-sm">
                 <label className="block text-xs font-semibold text-gray-700 mb-1">
                   Full Name
                 </label>
@@ -126,7 +123,8 @@ export default function ProfilePage() {
               </div>
 
               {/* PHONE NUMBER */}
-              <div className="bg-white border border-gray-200 rounded-lg p-3 transition-all duration-200 focus-within:border-black focus-within:shadow-sm">
+              <div
+                className="bg-white border border-gray-200 rounded-lg p-3 transition-all duration-200 focus-within:border-black focus-within:shadow-sm">
                 <label className="block text-xs font-semibold text-gray-700 mb-1">
                   Phone Number
                 </label>
@@ -157,7 +155,8 @@ export default function ProfilePage() {
 
               <div className="space-y-3">
                 {/* STREET ADDRESS */}
-                <div className="bg-white border border-gray-200 rounded-lg p-3 transition-all duration-200 focus-within:border-black focus-within:shadow-sm">
+                <div
+                  className="bg-white border border-gray-200 rounded-lg p-3 transition-all duration-200 focus-within:border-black focus-within:shadow-sm">
                   <label className="block text-xs font-semibold text-gray-700 mb-1">
                     Street Address
                   </label>
@@ -173,7 +172,8 @@ export default function ProfilePage() {
 
                 {/* CITY, STATE, ZIP */}
                 <div className="space-y-3">
-                  <div className="bg-white border border-gray-200 rounded-lg p-3 transition-all duration-200 focus-within:border-black focus-within:shadow-sm">
+                  <div
+                    className="bg-white border border-gray-200 rounded-lg p-3 transition-all duration-200 focus-within:border-black focus-within:shadow-sm">
                     <label className="block text-xs font-semibold text-gray-700 mb-1">
                       City
                     </label>
@@ -186,7 +186,8 @@ export default function ProfilePage() {
                       placeholder="City"
                     />
                   </div>
-                  <div className="bg-white border border-gray-200 rounded-lg p-3 transition-all duration-200 focus-within:border-black focus-within:shadow-sm">
+                  <div
+                    className="bg-white border border-gray-200 rounded-lg p-3 transition-all duration-200 focus-within:border-black focus-within:shadow-sm">
                     <label className="block text-xs font-semibold text-gray-700 mb-1">
                       State
                     </label>
@@ -199,7 +200,8 @@ export default function ProfilePage() {
                       placeholder="State"
                     />
                   </div>
-                  <div className="bg-white border border-gray-200 rounded-lg p-3 transition-all duration-200 focus-within:border-black focus-within:shadow-sm">
+                  <div
+                    className="bg-white border border-gray-200 rounded-lg p-3 transition-all duration-200 focus-within:border-black focus-within:shadow-sm">
                     <label className="block text-xs font-semibold text-gray-700 mb-1">
                       Postal Code
                     </label>
@@ -232,7 +234,7 @@ export default function ProfilePage() {
                   className="flex items-center justify-center gap-2 px-4 py-2 text-xs font-medium text-black border border-gray-300 rounded-md hover:bg-gray-100 transition-all duration-200 w-full"
                 >
                   Change Password
-                  <ChevronRight size={14} />
+                  <ChevronRight size={14}/>
                 </button>
               </div>
             </div>
@@ -247,7 +249,8 @@ export default function ProfilePage() {
         </form>
 
         {/* ACTION BUTTONS - FULL WIDTH */}
-        <div className="flex flex-col-reverse md:flex-row md:items-center justify-between gap-3 mt-8 pt-6 border-t border-gray-200">
+        <div
+          className="flex flex-col-reverse md:flex-row md:items-center justify-between gap-3 mt-8 pt-6 border-t border-gray-200">
           <button
             type="button"
             onClick={handleDiscard}
@@ -262,26 +265,26 @@ export default function ProfilePage() {
             disabled={!hasChanges || loading}
             className="w-full md:w-auto px-6 py-2 text-xs font-semibold text-white bg-black rounded-md hover:bg-gray-800 active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? "Saving..." : "Save Changes"}
+            {loading ? 'Saving...' : 'Save Changes'}
           </button>
         </div>
         <div className="mt-8 pt-6 border-t border-gray-100">
           <p className="text-xs text-gray-500 text-center">
-            Last updated:{" "}
+            Last updated:{' '}
             {profile?.updatedAt
-              ? new Date(profile.updatedAt).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })
-              : "—"}{" "}
-            at{" "}
+              ? new Date(profile.updatedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })
+              : '—'}{' '}
+            at{' '}
             {profile?.updatedAt
-              ? new Date(profile.updatedAt).toLocaleTimeString("en-US", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })
-              : "—"}
+              ? new Date(profile.updatedAt).toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+              })
+              : '—'}
           </p>
         </div>
       </div>

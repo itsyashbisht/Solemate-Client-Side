@@ -1,3 +1,5 @@
+'use client';
+
 import { Upload, X } from 'lucide-react'
 import { useState } from 'react'
 
@@ -103,182 +105,191 @@ export function AddProductModal ({ isOpen, onClose, onAddProduct }) {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div
-        className="relative max-h-[95vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm p-3 sm:p-4">
+      <div className="relative max-h-[90vh] sm:max-h-[95vh] w-full max-w-sm sm:max-w-lg overflow-y-auto rounded-t-2xl sm:rounded-xl bg-slate-900 border border-slate-700/50 shadow-2xl">
         {/* Header */}
-        <div
-          className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-800 bg-slate-900 px-6 py-4">
-          <div>
-            <h2 className="text-xl font-bold text-white">Add New Product</h2>
-            <p className="text-sm text-slate-400">Inventory management and stock control</p>
+        <div className="sticky top-0 z-10 flex items-start sm:items-center justify-between border-b border-slate-700/50 bg-slate-900 px-4 sm:px-6 py-3 sm:py-4">
+          <div className="flex-1">
+            <h2 className="text-lg sm:text-xl font-bold text-white">Add Product</h2>
+            <p className="text-xs sm:text-sm text-slate-400 mt-0.5">Add new item to inventory</p>
           </div>
-          <button onClick={onClose}
-                  className="rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors">
-            <X size={20}/>
+          <button
+            onClick={onClose}
+            className="rounded-lg p-1.5 sm:p-2 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors flex-shrink-0 ml-2"
+          >
+            <X size={18} className="sm:w-5 sm:h-5" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6">
-          <div className="grid gap-6">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6">
+          <div className="space-y-4">
             {/* Product Name */}
             <div>
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">Product
-                Name</label>
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 block">Product Name</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className={`w-full rounded-lg bg-slate-800 border-2 px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all ${
-                  errors.name ? 'border-red-500/50' : 'border-slate-700'
+                className={`w-full rounded-lg bg-slate-800/50 border-2 px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-transparent transition-all ${
+                  errors.name ? 'border-red-500/50' : 'border-slate-700/50'
                 }`}
                 placeholder="Nike Revolution 6"
               />
-              {errors.name && <p className="mt-1 text-xs text-red-400 font-medium">{errors.name}</p>}
+              {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name}</p>}
             </div>
 
             {/* Brand and Category Row */}
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">Brand</label>
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 block">Brand</label>
                 <input
                   type="text"
                   name="brand"
                   value={formData.brand}
                   onChange={handleInputChange}
-                  className={`w-full rounded-lg bg-slate-800 border-2 px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all ${
-                    errors.brand ? 'border-red-500/50' : 'border-slate-700'
+                  className={`w-full rounded-lg bg-slate-800/50 border-2 px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-transparent transition-all ${
+                    errors.brand ? 'border-red-500/50' : 'border-slate-700/50'
                   }`}
                   placeholder="NIKE"
                 />
               </div>
               <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">Category</label>
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 block">Category</label>
                 <input
                   type="text"
                   name="category"
                   value={formData.category}
                   onChange={handleInputChange}
-                  className={`w-full rounded-lg bg-slate-800 border-2 px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all ${
-                    errors.category ? 'border-red-500/50' : 'border-slate-700'
+                  className={`w-full rounded-lg bg-slate-800/50 border-2 px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-transparent transition-all ${
+                    errors.category ? 'border-red-500/50' : 'border-slate-700/50'
                   }`}
-                  placeholder="sport shoes"
+                  placeholder="Shoes"
                 />
               </div>
             </div>
 
             {/* Description */}
             <div>
-              <label
-                className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">Description</label>
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 block">Description</label>
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
-                rows={3}
-                className={`w-full rounded-lg bg-slate-800 border-2 px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all ${
-                  errors.description ? 'border-red-500/50' : 'border-slate-700'
+                rows={2}
+                className={`w-full rounded-lg bg-slate-800/50 border-2 px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-transparent transition-all ${
+                  errors.description ? 'border-red-500/50' : 'border-slate-700/50'
                 }`}
-                placeholder="Details about the shoe material, fit, and technology..."
+                placeholder="Product details..."
               />
+              {errors.description && <p className="mt-1 text-xs text-red-400">{errors.description}</p>}
             </div>
 
             {/* Price and Stock Row */}
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">Price
-                  (₹)</label>
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 block">Price (₹)</label>
                 <input
                   type="number"
                   name="price"
                   value={formData.price}
                   onChange={handleInputChange}
-                  className={`w-full rounded-lg bg-slate-800 border-2 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all ${
-                    errors.price ? 'border-red-500/50' : 'border-slate-700'
+                  className={`w-full rounded-lg bg-slate-800/50 border-2 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-transparent transition-all ${
+                    errors.price ? 'border-red-500/50' : 'border-slate-700/50'
                   }`}
                   placeholder="3995"
                 />
+                {errors.price && <p className="mt-1 text-xs text-red-400">{errors.price}</p>}
               </div>
               <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">Stock
-                  Units</label>
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 block">Stock</label>
                 <input
                   type="number"
                   name="stock"
                   value={formData.stock}
                   onChange={handleInputChange}
-                  className={`w-full rounded-lg bg-slate-800 border-2 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all ${
-                    errors.stock ? 'border-red-500/50' : 'border-slate-700'
+                  className={`w-full rounded-lg bg-slate-800/50 border-2 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-transparent transition-all ${
+                    errors.stock ? 'border-red-500/50' : 'border-slate-700/50'
                   }`}
                   placeholder="90"
                 />
+                {errors.stock && <p className="mt-1 text-xs text-red-400">{errors.stock}</p>}
               </div>
             </div>
 
             {/* Upload Section */}
             <div>
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">Product Images
-                (Min 2)</label>
-              <div
-                className="rounded-xl border-2 border-dashed border-slate-700 bg-slate-800/30 p-4 transition-colors hover:border-slate-500">
-                <label className="flex cursor-pointer flex-col items-center justify-center gap-2 py-4">
-                  <div className="rounded-full bg-slate-800 p-3 text-indigo-400">
-                    <Upload size={24}/>
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 block">Images (Min 2)</label>
+              <div className="rounded-lg border-2 border-dashed border-slate-700/50 bg-slate-800/20 p-3 transition-colors hover:border-slate-600">
+                <label className="flex cursor-pointer flex-col items-center justify-center gap-2 py-3">
+                  <div className="rounded-full bg-slate-800/60 p-2 text-blue-400">
+                    <Upload size={20} />
                   </div>
-                  <span className="text-sm font-medium text-slate-300">Click to upload media</span>
+                  <span className="text-xs sm:text-sm font-medium text-slate-300">Click to upload</span>
                   <span className="text-xs text-slate-500">PNG, JPG up to 5MB</span>
-                  <input type="file" multiple accept="image/*" onChange={handleImageChange} className="hidden"/>
+                  <input type="file" multiple accept="image/*" onChange={handleImageChange} className="hidden" />
                 </label>
 
                 {imagePreviews.length > 0 && (
-                  <div className="mt-4 grid grid-cols-4 gap-3">
+                  <div className="mt-3 grid grid-cols-3 sm:grid-cols-4 gap-2">
                     {imagePreviews.map((preview, index) => (
-                      <div key={index}
-                           className="group relative aspect-square rounded-lg border border-slate-700 bg-slate-900 overflow-hidden">
-                        <img src={preview} alt="Preview" className="h-full w-full object-cover"/>
+                      <div
+                        key={index}
+                        className="group relative aspect-square rounded-lg border border-slate-700/50 bg-slate-900/50 overflow-hidden"
+                      >
+                        <img src={preview || "/placeholder.svg"} alt="Preview" className="h-full w-full object-cover" />
                         <button
                           type="button"
                           onClick={() => removeImage(index)}
-                          className="absolute top-1 right-1 rounded-full bg-red-500/80 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100"
+                          className="absolute top-0.5 right-0.5 rounded-full bg-red-500/80 p-0.5 text-white opacity-0 transition-opacity group-hover:opacity-100"
                         >
-                          <X size={12}/>
+                          <X size={14} />
                         </button>
                       </div>
                     ))}
                   </div>
                 )}
               </div>
-              {errors.images && <p className="mt-2 text-xs text-red-400 font-medium">{errors.images}</p>}
+              {errors.images && <p className="mt-1.5 text-xs text-red-400">{errors.images}</p>}
             </div>
 
             {/* Details Row */}
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">Sizes</label>
-                <input type="text" name="sizes" value={formData.sizes} onChange={handleInputChange}
-                       className="w-full rounded-lg bg-slate-800 border-2 border-slate-700 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50"/>
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 block">Sizes</label>
+                <input
+                  type="text"
+                  name="sizes"
+                  value={formData.sizes}
+                  onChange={handleInputChange}
+                  className="w-full rounded-lg bg-slate-800/50 border-2 border-slate-700/50 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-transparent transition-all"
+                />
               </div>
               <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 block">Colors</label>
-                <input type="text" name="colors" value={formData.colors} onChange={handleInputChange}
-                       className="w-full rounded-lg bg-slate-800 border-2 border-slate-700 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50"/>
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 block">Colors</label>
+                <input
+                  type="text"
+                  name="colors"
+                  value={formData.colors}
+                  onChange={handleInputChange}
+                  className="w-full rounded-lg bg-slate-800/50 border-2 border-slate-700/50 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-transparent transition-all"
+                />
               </div>
             </div>
           </div>
 
           {/* Footer Actions */}
-          <div className="mt-10 flex items-center justify-end gap-3 border-t border-slate-800 pt-6">
+          <div className="mt-6 sm:mt-8 flex items-center justify-end gap-2 sm:gap-3 border-t border-slate-700/50 pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="px-6 py-2.5 text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-colors"
+              className="flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wide text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="rounded-lg bg-indigo-600 px-8 py-2.5 text-sm font-bold uppercase tracking-widest text-white shadow-lg shadow-indigo-500/20 hover:bg-indigo-500 transition-all active:scale-95"
+              className="flex-1 sm:flex-none rounded-lg bg-blue-600 hover:bg-blue-500 active:bg-blue-700 px-4 sm:px-8 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wide text-white shadow-lg hover:shadow-blue-600/50 transition-all active:scale-95"
             >
               Add Product
             </button>

@@ -56,7 +56,7 @@ const productSlice = createSlice({
       // CREATE PRODUCT (ADMIN MUTATION)
       .addCase(createProduct.fulfilled, (state, action) => {
         if (action.payload) {
-          state.products.unshift(action.payload.data);
+          state.products.unshift(action.payload);
         }
       })
 

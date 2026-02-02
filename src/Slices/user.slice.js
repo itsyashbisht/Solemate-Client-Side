@@ -32,7 +32,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.profile = {
           ...state.profile,
-          ...action.payload?.data,
+          ...action.payload,
         };
       })
       .addCase(updateUserDetails.rejected, (state, action) => {
