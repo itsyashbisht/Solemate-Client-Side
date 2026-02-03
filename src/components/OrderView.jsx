@@ -91,7 +91,7 @@ const OrdersView = () => {
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
         <div>
           <h1 className="text-3xl font-bold text-white tracking-tight">
-            Dashboard
+            Orders
           </h1>
           <p className="text-slate-400 text-sm mt-2">
             Real-time orders and statistics

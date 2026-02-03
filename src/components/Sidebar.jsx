@@ -11,7 +11,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const menuItems = [
-    { path: '/admin/dashboard', label: 'Dashboard', icon: Home },
+    { path: '/admin/dashboard', label: 'Orders', icon: Home },
     { path: '/admin/products', label: 'Products', icon: LayoutDashboard },
     { path: '/admin/users', label: 'Users', icon: Users },
     { path: '/admin/settings', label: 'Settings', icon: Settings },

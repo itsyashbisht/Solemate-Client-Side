@@ -5,13 +5,13 @@ import { getAllOrders } from '@/thunks/order.thunk.js';
 import { getAllUsers } from '@/thunks/user.thunk.js';
 import ShoeCircularLoader from '@/layouts/loader.jsx';
 
-const Header = ({ userName }) => {
-
+const Header = () => {
+const { profile } = useSelector((state) => state.user);
 
   return (
     <header className="bg-slate-800 border-b border-slate-700 px-6 py-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">Orders Dashboard</h1>
+        <h1 className="text-2xl font-bold text-white">Dashboard</h1>
 
         <div className="flex items-center gap-4">
           {/* Notifications */}
@@ -24,7 +24,7 @@ const Header = ({ userName }) => {
           {/* User Menu */}
           <div className="flex items-center gap-3 pl-4 border-l border-slate-700">
             <div className="text-right">
-              <p className="text-sm font-medium text-white">{userName}</p>
+              <p className="text-sm font-medium text-white">{profile.fullname}</p>
               <p className="text-xs text-slate-400">Admin</p>
             </div>
             <div
