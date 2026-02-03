@@ -189,7 +189,7 @@ const ProductsView = () => {
                         </span>
                     </td>
                     <td className="px-6 py-4 text-slate-400 font-medium text-sm">
-                      {p.category}
+                      {p.category.charAt(0).toUpperCase() + p.category.slice(1)}
                     </td>
                     <td className="px-6 py-4 text-white font-semibold text-sm">
                      ₹ {p.price.toFixed(2)}

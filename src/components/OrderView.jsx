@@ -10,6 +10,7 @@ import SortDropdown from '../components/SortDropdown';
 import StatsCards from '../components/StatsCards';
 import { getAllOrders } from '../thunks/order.thunk';
 import ShoeCircularLoader from '@/layouts/loader.jsx';
+import { toast } from 'react-toastify';
 
 const OrdersView = () => {
   // --- STATE ---
@@ -40,15 +41,23 @@ const OrdersView = () => {
   const { orders, loading, error } = useSelector((state) => state.order);
 
   useEffect(() => {
-    dispatch(getAllOrders());
+    if (!orders.length || !orders) {
+      dispatch(getAllOrders());
+    }
   }, [dispatch]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message);
+    }
+  }, [error]);
 
   // --- LOGIC ---
   const filteredOrders = useMemo(() => {
     let result = [...orders];
 
     if (activeTab !== 'ALL') {
-      result = result.filter((o) => o.orderStatus === activeTab);
+      result = result.filter((o) => o?.orderStatus === activeTab);
     }
 
     if (searchQuery) {

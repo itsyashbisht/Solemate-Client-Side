@@ -1,5 +1,3 @@
-'use client';
-
 import { MapPin, MoreVertical, Search, UserPlus } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import FilterTabs from '../components/FilterTabs';
@@ -9,9 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../thunks/user.thunk.js';
 import { toast } from 'react-toastify';
 import ShoeCircularLoader from '../layouts/loader.jsx';
+import CreateUserModal from '@/components/createUserModal.jsx';
+import { registerUser } from '@/thunks/auth.thunk.js';
 
 const UserView = () => {
   const [activeTab, setActiveTab] = useState('ALL');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [sortBy, setSortBy] = useState('newest');
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -45,6 +46,10 @@ const UserView = () => {
       toast.error(error);
     }
   }, [error]);
+
+  const handleCreateUser = (formData) => {
+    dispatch(registerUser(formData));
+  }
 
   // Logic for filtering
   const filteredUsers = useMemo(() => {
@@ -80,26 +85,30 @@ const UserView = () => {
             Directory of registered accounts and roles
           </p>
         </div>
-        <button className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-blue-600/50 active:scale-95">
-          <UserPlus size={18} />
+        <button
+          onClick={() =>  setIsModalOpen(true)}
+          className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-blue-600/50 active:scale-95">
+          <UserPlus size={18}/>
           Add User
         </button>
       </div>
 
       {loading ? (
         <div className="flex items-center justify-center py-20">
-          <ShoeCircularLoader />
+          <ShoeCircularLoader/>
         </div>
       ) : (
         <div className="bg-slate-800/40 backdrop-blur border border-slate-700/50 rounded-xl shadow-xl overflow-hidden">
           {/* Toolbar */}
-          <div className="p-4 border-b border-slate-700/50 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div
+            className="p-4 border-b border-slate-700/50 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <h2 className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
                 Directory
               </h2>
               <div className="relative w-full sm:w-72 group">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-blue-400 transition-colors" />
+                <Search
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-blue-400 transition-colors"/>
                 <input
                   type="text"
                   placeholder="Search users..."
@@ -153,20 +162,22 @@ const UserView = () => {
                     className="hover:bg-slate-700/30 transition-colors duration-150 group"
                   >
                     <td className="px-6 py-4">
-                      <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 border border-blue-400/30 flex items-center justify-center text-white font-semibold text-sm shadow-md">
+                      <div
+                        className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 border border-blue-400/30 flex items-center justify-center text-white font-semibold text-sm shadow-md">
                         {u.fullname.charAt(0)}
                       </div>
                     </td>
                     <td className="px-6 py-4">
                         <span className="text-slate-400 font-medium text-sm">
-                          @{u.username}
+                          @ {u.username}
                         </span>
                     </td>
                     <td className="px-6 py-4 text-slate-200 font-medium">
                       {u.fullname}
                     </td>
                     <td className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide ${config.bg} ${config.text}`}>
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide ${config.bg} ${config.text}`}>
                           {config.label}
                         </span>
                     </td>
@@ -175,16 +186,21 @@ const UserView = () => {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-1.5 text-slate-400 text-sm">
-                        <MapPin size={14} className="text-slate-500 flex-shrink-0" />
+                        <MapPin size={14} className="text-slate-500 flex-shrink-0"/>
                         {u.city}
                       </div>
                     </td>
                     <td className="px-6 py-4 text-slate-500 text-sm">
-                      {new Date(u.createdAt).toLocaleDateString("en-US", { month: 'short', day: 'numeric', year: 'numeric' })}
+                      {new Date(u.createdAt).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                      })}
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <button className="p-2 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-slate-700/50 transition-all duration-150">
-                        <MoreVertical size={18} />
+                      <button
+                        className="p-2 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-slate-700/50 transition-all duration-150">
+                        <MoreVertical size={18}/>
                       </button>
                     </td>
                   </tr>
@@ -207,6 +223,8 @@ const UserView = () => {
           </div>
         </div>
       )}
+
+      <CreateUserModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onCreateUser={handleCreateUser}/>
     </div>
   );
 };
