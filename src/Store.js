@@ -1,11 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./slices/auth.slice";
-import cartReducer from "./slices/cart.slice";
-import orderReducer from "./slices/order.slice";
-import paymentReducer from "./slices/payment.slice";
-import productReducer from "./Slices/product.slice";
-import reviewReducer from "./slices/review.slice";
-import userReducer from "./slices/user.slice";
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from './Slices/auth.slice.js';
+import cartReducer from './Slices/cart.slice.js';
+import orderReducer from './Slices/order.slice.js';
+import paymentReducer from './Slices/payment.slice.js';
+import productReducer from './Slices/product.slice.js';
+import reviewReducer from './Slices/review.slice.js';
+import userReducer from './Slices/user.slice.js';
 
 const store = configureStore({
   reducer: {
