@@ -36,7 +36,7 @@ export default function ProductCard({ product }) {
               </h3>
               <div className="text-right">
                 <span className="text-lg font-normal text-black">
-                  ${product.price}
+                  ₹{product.price}
                 </span>
               </div>
             </div>

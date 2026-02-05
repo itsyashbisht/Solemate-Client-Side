@@ -1,5 +1,3 @@
-'use client';
-
 import { Search, X } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

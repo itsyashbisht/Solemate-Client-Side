@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [activeView, setActiveView] = useState('Dashboard');
+  const [activeView, setActiveView] = useState('Orders');
   const navigate = useNavigate();
 
   const menuItems = [

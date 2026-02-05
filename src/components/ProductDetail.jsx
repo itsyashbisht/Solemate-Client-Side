@@ -120,7 +120,7 @@ export default function ProductDetailPage() {
                 {product.name}
               </h1>
               <p className="text-xl font-medium tracking-tighter mt-1">
-                ${product.price.toFixed(2)}
+                ₹{product.price.toFixed(2)}
               </p>
             </div>
 
