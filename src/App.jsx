@@ -4,7 +4,7 @@ import AppLayout from './AppLayout';
 import About from './Pages/About';
 import Cart from './Pages/Cart';
 import CheckoutPage from './Pages/Checkout';
-import ContactPage from './Pages/Contact';
+import ContactPage from './Pages/ContactPage.jsx';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import ProductDetails from './Pages/ProductDetails';
