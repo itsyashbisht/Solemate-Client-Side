@@ -1,15 +1,15 @@
-import axios from "axios";
+import axios from 'axios';
 
 // API CONSTANTS
-const BASE_URL = process.env.REACT_APP_API_URL;
+const BASE_URL = import.meta.env.VITE_API_URL;
 const REQUEST = axios.create({
   baseURL: BASE_URL,
-  headers: { "Content-Type": "application/json" },
+  headers: { 'Content-Type': 'application/json' },
 });
 
 // ATTACH TOKEN
 REQUEST.interceptors.request.use((config) => {
-  const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem('accessToken');
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -48,21 +48,21 @@ REQUEST.interceptors.response.use(
   },
   (error) => {
     // ERROR HANDLING
-    console.error("API Error:", error.message);
+    console.error('API Error:', error.message);
 
     // AUTO-LOGOUT ON 401
     if (error.response?.status === 401) {
-      console.log("❌ Unauthorized - logging out");
-      localStorage.removeItem("accessToken");
-      window.location.href = "/login";
+      console.log('❌ Unauthorized - logging out');
+      localStorage.removeItem('accessToken');
+      window.location.href = '/login';
     }
 
     if (error.response?.status === 403) {
-      console.error("❌ Forbidden access");
+      console.error('❌ Forbidden access');
     }
 
     if (error.response?.status === 500) {
-      console.error("❌ Server error");
+      console.error('❌ Server error');
     }
 
     return Promise.reject(error);
