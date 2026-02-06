@@ -6,21 +6,22 @@ import {
   RotateCcw,
   Shield,
   Truck,
-} from "lucide-react";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import { Button } from "../components/ui/button";
-import ShoeCircularLoader from "../layouts/loader";
-import { addItemToCart } from "../thunks/cart.thunks";
-import { getProductById } from "../thunks/product.thunk";
+} from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Button } from '../components/ui/button';
+import ShoeCircularLoader from '../layouts/loader';
+import { addItemToCart } from '../thunks/cart.thunks';
+import { getProductById } from '../thunks/product.thunk';
 
-export default function ProductDetailPage() {
+export default function ProductDetailPage () {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const productId = useParams()?.productId;
 
-  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -37,7 +38,8 @@ export default function ProductDetailPage() {
     error,
     currentProduct: product,
   } = useSelector((state) => state.product);
-  const { loadingToCart, errorCart } = useSelector((state) => state.cart);
+  const { loading: loadingToCart, error: errorCart } = useSelector((state) => state.cart);
+  const { profile } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (error) toast.error(error);
@@ -51,7 +53,7 @@ export default function ProductDetailPage() {
     if (product?.images?.length) setActiveImage(product.images[0]);
   }, [product]);
 
-  if (loading) return <ShoeCircularLoader />;
+  if (loading) return <ShoeCircularLoader/>;
 
   if (!product) {
     return (
@@ -63,6 +65,7 @@ export default function ProductDetailPage() {
 
   const handleAddToBag = () => {
     if (!selectedSize) return;
+    if (!profile) navigate('/login');
     const payload = { color: selectedColor, size: selectedSize, quantity };
     dispatch(addItemToCart({ productId, payload }));
   };
@@ -73,9 +76,10 @@ export default function ProductDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
           {/* LEFT: IMAGE SECTION */}
           <div className="space-y-4">
-            <div className="relative aspect-square w-full bg-[#f6f6f6] rounded-2xl overflow-hidden group border border-neutral-100">
+            <div
+              className="relative aspect-square w-full bg-[#f6f6f6] rounded-2xl overflow-hidden group border border-neutral-100">
               <img
-                src={activeImage?.url || "/placeholder.svg"}
+                src={activeImage?.url || '/placeholder.svg'}
                 alt={product.name}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -86,7 +90,7 @@ export default function ProductDetailPage() {
                 <Heart
                   size={16}
                   className={
-                    isFavorite ? "fill-red-500 text-red-500" : "text-black"
+                    isFavorite ? 'fill-red-500 text-red-500' : 'text-black'
                   }
                 />
               </button>
@@ -100,11 +104,11 @@ export default function ProductDetailPage() {
                   onClick={() => setActiveImage(img)}
                   className={`w-14 h-14 rounded-xl border-2 transition-all flex-shrink-0 overflow-hidden ${
                     activeImage?.url === img.url
-                      ? "border-black bg-white shadow-sm"
-                      : "border-transparent opacity-40"
+                      ? 'border-black bg-white shadow-sm'
+                      : 'border-transparent opacity-40'
                   }`}
                 >
-                  <img src={img.url} className="w-full h-full object-cover" />
+                  <img src={img.url} className="w-full h-full object-cover"/>
                 </button>
               ))}
             </div>
@@ -140,8 +144,8 @@ export default function ProductDetailPage() {
                       onClick={() => setSelectedSize(size)}
                       className={`h-10 text-[11px] font-bold rounded-lg border transition-all ${
                         selectedSize === size
-                          ? "bg-black text-white border-black"
-                          : "bg-white border-neutral-200 text-neutral-500 hover:border-black hover:text-black"
+                          ? 'bg-black text-white border-black'
+                          : 'bg-white border-neutral-200 text-neutral-500 hover:border-black hover:text-black'
                       }`}
                     >
                       {size}
@@ -153,19 +157,20 @@ export default function ProductDetailPage() {
               {/* Interaction Stack */}
               <div className="space-y-3">
                 {/* Quantity - Slimmed Down */}
-                <div className="flex items-center justify-between w-32 h-10 bg-neutral-50 rounded-lg border border-neutral-100 p-1">
+                <div
+                  className="flex items-center justify-between w-32 h-10 bg-neutral-50 rounded-lg border border-neutral-100 p-1">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     className="w-8 h-full flex items-center justify-center hover:bg-white rounded-md transition-colors"
                   >
-                    <Minus size={12} />
+                    <Minus size={12}/>
                   </button>
                   <span className="text-xs font-bold">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
                     className="w-8 h-full flex items-center justify-center hover:bg-white rounded-md transition-colors"
                   >
-                    <Plus size={12} />
+                    <Plus size={12}/>
                   </button>
                 </div>
 
@@ -176,23 +181,23 @@ export default function ProductDetailPage() {
                   className="w-full h-12 rounded-lg bg-black text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-black/5 hover:bg-neutral-800 transition-all active:scale-[0.98]"
                 >
                   {loadingToCart
-                    ? "Adding..."
-                    : `Add to Bag — $${(product.price * quantity).toFixed(2)}`}
+                    ? 'Adding...'
+                    : `Add to Bag — ₹${(product.price * quantity).toFixed(2)}`}
                 </Button>
               </div>
 
               {/* Enhanced Trust Icons */}
               <div className="grid grid-cols-3 gap-2 py-5 border-y border-neutral-100">
                 {[
-                  { icon: Truck, label: "Fast Ship", sub: "2-3 Business Days" },
-                  { icon: RotateCcw, label: "Returns", sub: "30-Day Policy" },
-                  { icon: Shield, label: "Verified", sub: "100% Authentic" },
+                  { icon: Truck, label: 'Fast Ship', sub: '2-3 Business Days' },
+                  { icon: RotateCcw, label: 'Returns', sub: '30-Day Policy' },
+                  { icon: Shield, label: 'Verified', sub: '100% Authentic' },
                 ].map((item, i) => (
                   <div
                     key={i}
                     className="flex flex-col items-center text-center space-y-1"
                   >
-                    <item.icon size={14} className="text-blue-600" />
+                    <item.icon size={14} className="text-blue-600"/>
                     <div className="flex flex-col">
                       <span className="text-[9px] font-bold uppercase tracking-tight">
                         {item.label}

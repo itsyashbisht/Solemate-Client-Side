@@ -21,76 +21,77 @@ import OrdersView from '@/components/OrderView.jsx';
 // ROUTING
 const ROUTER = createBrowserRouter([
   {
-    path: "login",
-    element: <Login />,
+    path: 'login',
+    element: <Login/>,
   },
   {
-    path: "register",
-    element: <Register />,
+    path: 'register',
+    element: <Register/>,
+  },
+  {
+    path: 'shop',
+    element: <Shop/>,
   },
   {
     // PARENT ROUTE
-    path: "/",
-    element: <AppLayout />,
+    path: '/',
+    element: <AppLayout/>,
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Home/>,
+      },
+
+      {
+        path: 'about',
+        element: <About/>,
       },
       {
-        path: "shop",
-        element: <Shop />,
+        path: 'contact',
+        element: <ContactPage/>,
       },
       {
-        path: "about",
-        element: <About />,
-      },
-      {
-        path: "contact",
-        element: <ContactPage />,
-      },
-      {
-        path: "shop/product/:productId",
-        element: <ProductDetails />,
+        path: 'shop/product/:productId',
+        element: <ProductDetails/>,
       },
       {
         // ROUTES FOR LOGGED IN USER.
-        element: <ProtectedRoute />,
+        element: <ProtectedRoute/>,
         children: [
           {
-            path: "cart",
-            element: <Cart />,
+            path: 'cart',
+            element: <Cart/>,
           },
           {
-            path: "profile",
-            element: <Profile />,
+            path: 'profile',
+            element: <Profile/>,
           },
           {
-            path: "cart/checkout",
-            element: <CheckoutPage />,
+            path: 'cart/checkout',
+            element: <CheckoutPage/>,
           },
         ],
       },
       {
         // ADMIN ROUTES.
-        path: "admin",
-        element: <AdminRoutes />,
+        path: 'admin',
+        element: <AdminRoutes/>,
         children: [
           {
-            path: "dashboard",
-            element: <OrdersView />,
+            path: 'dashboard',
+            element: <OrdersView/>,
           },
           {
-            path: "products",
-            element: <ProductsView />
+            path: 'products',
+            element: <ProductsView/>
           },
           {
-            path: "users",
-            element: <UserView />,
+            path: 'users',
+            element: <UserView/>,
           },
           {
-            path: "settings",
-            element: <SettingView />,
+            path: 'settings',
+            element: <SettingView/>,
           }
         ],
       },
@@ -98,8 +99,8 @@ const ROUTER = createBrowserRouter([
   },
 ]);
 
-function App() {
-  return <RouterProvider router={ROUTER} />;
+function App () {
+  return <RouterProvider router={ROUTER}/>;
 }
 
 export default App;
