@@ -1,44 +1,44 @@
 {
   "USER": {
-    "REGISTER": "/user/register",
-    "LOGIN": "/user/login",
-    "LOGOUT": "/user/logout",
-    "UPDATE_DETAILS": "/user/update-details",
-    "CHANGE_PASSWORD": "/user/change-password",
-    "GET_ME": "/user/me",
-    "GET_ALL_USERS": "/user/all-users"
+    "REGISTER": "/api/v1/user/register",
+    "LOGIN": "/api/v1/user/login",
+    "LOGOUT": "/api/v1/user/logout",
+    "UPDATE_DETAILS": "/api/v1/user/update-details",
+    "CHANGE_PASSWORD": "/api/v1/user/change-password",
+    "GET_ME": "/api/v1/user/me",
+    "GET_ALL_USERS": "/api/v1/user/all-users"
   },
   "PRODUCT": {
-    "GET_ALL_PRODUCT": "/product/products",
-    "PRODUCT_BY_ID": "/product/:productId",
-    "CREATE": "/product/create",
-    "DELETE": "/product/delete/:productId",
-    "UPDATE_DETAILS": "/product/update/:productId",
-    "UPDATE_IMAGES": "/product/update/:productId/image"
+    "GET_ALL_PRODUCT": "/api/v1/product/products",
+    "PRODUCT_BY_ID": "/api/v1/product/:productId",
+    "CREATE": "/api/v1/product/create",
+    "DELETE": "/api/v1/product/delete/:productId",
+    "UPDATE_DETAILS": "/api/v1/product/update/:productId",
+    "UPDATE_IMAGES": "/api/v1/product/update/:productId/image"
   },
   "REVIEW": {
-    "ADD": "/review/:productId/add-review",
-    "REMOVE": "/review/remove/:reviewId",
-    "REVIEWS_BY_PRODUCT_ID": "/review/:productId/reviews",
-    "REVIEW_BY_ID": "/review/:reviewId"
+    "ADD": "/api/v1/review/:productId/add-review",
+    "REMOVE": "/api/v1/review/remove/:reviewId",
+    "REVIEWS_BY_PRODUCT_ID": "/api/v1/review/:productId/reviews",
+    "REVIEW_BY_ID": "/api/v1/review/:reviewId"
   },
   "CART": {
-    "GET_CART": "/cart/",
-    "ADD_ITEM": "/cart/addItem/:productId",
-    "REMOVE_ITEM": "/cart/removeItem/:productId",
-    "UPDATE_ITEM_QUANTITY": "/cart/update-item-quantity/:productId",
-    "CLEAR_CART": "/cart/clear-cart"
+    "GET_CART": "/api/v1/cart/",
+    "ADD_ITEM": "/api/v1/cart/addItem/:productId",
+    "REMOVE_ITEM": "/api/v1/cart/removeItem/:productId",
+    "UPDATE_ITEM_QUANTITY": "/api/v1/cart/update-item-quantity/:productId",
+    "CLEAR_CART": "/api/v1/cart/clear-cart"
   },
   "ORDER": {
-    "GET_MY_ORDERS": "/order/orders",
-    "CREATE_ORDER": "/order/create-order",
-    "GET_ORDER_BY_ID": "/order/:orderId",
-    "CANCEL_ORDER": "/order/cancel-order/:orderId",
-    "GET_ALL_ORDERS": "/order/all-orders",
-    "UPDATE_ORDER_STATUS": "/order/update-order-status/:orderId"
+    "GET_MY_ORDERS": "/api/v1/order/orders",
+    "CREATE_ORDER": "/api/v1/order/create-order",
+    "GET_ORDER_BY_ID": "/api/v1/order/:orderId",
+    "CANCEL_ORDER": "/api/v1/order/cancel-order/:orderId",
+    "GET_ALL_ORDERS": "/api/v1/order/all-orders",
+    "UPDATE_ORDER_STATUS": "/api/v1/order/update-order-status/:orderId"
   },
   "PAYMENT": {
-    "VERIFY": "/payment/verify",
-    "GET_RAZORPAY_KEY_ID": "/payment/razorpay-key"
+    "VERIFY": "/api/v1/payment/verify",
+    "GET_RAZORPAY_KEY_ID": "/api/v1/payment/razorpay-key"
   }
 }
