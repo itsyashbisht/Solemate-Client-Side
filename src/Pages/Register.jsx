@@ -1,34 +1,39 @@
-import RegisterForm from "../components/registerForm";
-import hero from "../data/Hero1.jpg";
+import RegisterForm from '../components/registerForm';
 
-function RegisterPage() {
+function RegisterPage () {
   return (
     <div
-      className="relative flex justify-center items-center min-h-screen bg-center bg-cover bg-no-repeat font-sans antialiased overflow-hidden"
-      style={{
-        backgroundImage: `url(${hero})`,
-      }}
+      className="relative flex justify-center items-center min-h-screen bg-[#F2F2F2] font-sans antialiased overflow-x-hidden py-6 md:py-12 px-4"
     >
-      {/* 1. DARK OVERLAY */}
-      <div className="absolute inset-0 bg-black/60 z-0"></div>
-
-      {/* 2. MOVING BACKGROUND TEXT (MARQUEE) */}
-      <div className="absolute inset-0 z-10 pointer-events-none flex flex-col justify-center gap-12 opacity-20 select-none">
-        <div className="whitespace-nowrap animate-marquee flex gap-20">
+      {/* 1. DIMMED BACKGROUND MARQUEE */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none flex flex-col justify-center gap-6 md:gap-10 opacity-[0.06] select-none overflow-hidden"
+      >
+        <div className="whitespace-nowrap animate-marquee flex gap-8 md:gap-20">
           {[...Array(4)].map((_, i) => (
             <span
               key={i}
-              className="text-[12vw] font-black uppercase tracking-tighter text-white"
+              className="text-5xl md:text-9xl lg:text-[14vw] font-black uppercase tracking-tighter text-black"
             >
               Solemate Solemate Solemate
             </span>
           ))}
         </div>
-        <div className="whitespace-nowrap animate-marquee-reverse flex gap-20">
+        <div className="whitespace-nowrap animate-marquee-reverse flex gap-8 md:gap-20">
           {[...Array(4)].map((_, i) => (
             <span
               key={i}
-              className="text-[12vw] font-black uppercase tracking-tighter text-white"
+              className="text-5xl md:text-9xl lg:text-[14vw] font-black uppercase tracking-tighter text-black"
+            >
+              Solemate Solemate Solemate
+            </span>
+          ))}
+        </div>
+        <div className="whitespace-nowrap animate-marquee flex gap-8 md:gap-20">
+          {[...Array(4)].map((_, i) => (
+            <span
+              key={i}
+              className="text-5xl md:text-9xl lg:text-[14vw] font-black uppercase tracking-tighter text-black"
             >
               Solemate Solemate Solemate
             </span>
@@ -36,14 +41,18 @@ function RegisterPage() {
         </div>
       </div>
 
-      {/* 3. LOGIN CARD */}
-      <div className="relative z-20 w-full flex justify-center px-6">
-        <RegisterForm />
+      {/* 2. OVERLAY GRADIENT (Creates depth behind the form) */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-neutral-200/20 to-neutral-300/30 z-1"/>
+
+      {/* 3. REGISTER CARD */}
+      <div className="relative z-20 w-full flex justify-center items-center">
+        <RegisterForm/>
       </div>
 
       {/* 4. FOOTER */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
-        <p className="text-[10px] font-bold text-white/40 uppercase tracking-[0.4em]">
+      <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-20 hidden xs:block">
+        <p
+          className="text-[9px] md:text-[10px] font-bold text-neutral-500 uppercase tracking-[0.4em] whitespace-nowrap">
           Solemate Performance © 2026
         </p>
       </div>
@@ -61,10 +70,10 @@ function RegisterPage() {
           100% { transform: translateX(0); }
         }
         .animate-marquee {
-          animation: marquee 60s linear infinite;
+          animation: marquee 80s linear infinite;
         }
         .animate-marquee-reverse {
-          animation: marquee-reverse 60s linear infinite;
+          animation: marquee-reverse 80s linear infinite;
         }
       `,
         }}

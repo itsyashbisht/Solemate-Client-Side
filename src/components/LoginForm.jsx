@@ -1,131 +1,122 @@
-import { Eye, EyeOff } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import hero from "../data/Hero1.jpg";
-import { loginUser } from "../thunks/auth.thunk";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Eye, EyeOff } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
+import hero from '../data/Hero1.jpg';
+import { loginUser } from '../thunks/auth.thunk';
+import { Button } from '../components/ui/button.jsx';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
 
-export default function LoginForm() {
+export default function LoginForm () {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // REDUX SELECTORS
-  const { loading, error, user, isAuthenticated } = useSelector(
-    (state) => state.auth,
-  );
+  const { loading, error, user, isAuthenticated } = useSelector((state) => state.auth);
 
-  // LOCAL STATE
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  // HANDLE LOGIN SUCCESS
   useEffect(() => {
     if (isAuthenticated && user) {
-      if (user.role === "ADMIN") {
-        navigate("/admin/dashboard", { replace: true });
-      } else {
-        navigate("/", { replace: true });
-      }
+      user.role === 'ADMIN' ? navigate('/admin/dashboard', { replace: true }) : navigate('/', { replace: true });
     }
   }, [isAuthenticated, user, navigate]);
 
-  // HANDLE LOGIN ERROR
   useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
+    if (error) toast.error(error);
   }, [error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!email || !username || !password)
-      return toast.error("All fields required");
+    if (!email || !username || !password) return toast.error('All fields required');
     dispatch(loginUser({ email, password, username }));
   };
 
   return (
-    <div className="z-20 w-full max-w-[1050px] h-[650px] bg-white rounded-[2.5rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)] flex overflow-hidden p-3 border border-neutral-100 mx-auto transition-all">
-      {/* LEFT SECTION: LOGIN (Minimalist focus) */}
-      <div className="w-full lg:w-[45%] flex flex-col p-10 lg:p-14 justify-between bg-white">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      /* FIXED HEIGHT AND WIDTH FOR COMPACT LOOK */
+      className="z-20 w-full max-w-[850px] lg:h-[620px] bg-white rounded-[2.5rem] shadow-2xl flex flex-col lg:flex-row overflow-hidden border border-neutral-100 mx-auto my-10"
+    >
+      {/* LEFT SECTION: LOGIN (Shrinked Padding) */}
+      <div className="w-full lg:w-[45%] flex flex-col justify-between bg-white px-8 py-10 lg:px-12">
         {/* Brand/Logo */}
         <div className="flex items-center gap-2.5">
           <div className="h-7 w-7 bg-neutral-900 rounded-lg flex items-center justify-center">
-            <span className="text-white text-[10px] font-medium">S</span>
+            <span className="text-white text-[10px] font-bold">S</span>
           </div>
-          <span className="font-semibold tracking-tight text-neutral-900">
+          <span className="font-bold tracking-tight text-sm text-neutral-900">
             Solemate
           </span>
         </div>
 
         {/* Login Form Content */}
-        <div className="max-w-[320px] mx-auto w-full">
-          <div className="mb-10">
-            <h2 className="text-3xl font-light text-neutral-900 tracking-tight mb-2">
+        <div className="w-full">
+          <div className="mb-6">
+            <h2 className="text-3xl font-semibold text-neutral-900 tracking-tight mb-1">
               Sign in
             </h2>
-            <p className="text-neutral-400 text-sm font-normal">
+            <p className="text-neutral-500 text-xs">
               Please enter your details to continue.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <Label className="text-xs font-medium text-neutral-500 ml-1">
+              <Label className="text-[10px] uppercase tracking-widest font-bold text-neutral-400 ml-0.5">
                 Username
               </Label>
               <Input
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="solemate_id"
-                className="h-11 border-neutral-100 bg-neutral-50/50 rounded-xl px-4 focus-visible:ring-1 focus-visible:ring-neutral-200 focus-visible:border-neutral-300 transition-all text-sm placeholder:text-neutral-300 shadow-none"
+                placeholder="itssolemate"
+                className="h-10 border-neutral-100 bg-neutral-50 rounded-xl px-4 focus:bg-white transition-all text-sm shadow-none"
               />
             </div>
 
             <div className="space-y-1.5">
-              <Label className="text-xs font-medium text-neutral-500 ml-1">
-                Email address
+              <Label className="text-[10px] uppercase tracking-widest font-bold text-neutral-400 ml-0.5">
+                Email
               </Label>
               <Input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@email.com"
-                className="h-11 border-neutral-100 bg-neutral-50/50 rounded-xl px-4 focus-visible:ring-1 focus-visible:ring-neutral-200 focus-visible:border-neutral-300 transition-all text-sm placeholder:text-neutral-300 shadow-none"
+                placeholder="john@email.com"
+                className="h-10 border-neutral-100 bg-neutral-50 rounded-xl px-4 focus:bg-white transition-all text-sm shadow-none"
               />
             </div>
 
             <div className="space-y-1.5">
-              <div className="flex justify-between items-center px-1">
-                <Label className="text-xs font-medium text-neutral-500">
+              <div className="flex justify-between items-center px-0.5">
+                <Label className="text-[10px] uppercase tracking-widest font-bold text-neutral-400">
                   Password
                 </Label>
-                <button
-                  type="button"
-                  className="text-[11px] font-normal text-neutral-400 hover:text-neutral-900 transition-colors"
-                >
+                <button type="button" className="text-[10px] font-semibold text-neutral-400 hover:text-neutral-900">
                   Forgot?
                 </button>
               </div>
-              <div className="relative">
+              <div className="relative group">
                 <Input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="h-11 border-neutral-100 bg-neutral-50/50 rounded-xl px-4 pr-12 focus-visible:ring-1 focus-visible:ring-neutral-200 focus-visible:border-neutral-300 transition-all text-sm placeholder:text-neutral-300 shadow-none"
+                  className="h-10 border-neutral-100 bg-neutral-50 rounded-xl px-4 pr-10 focus:bg-white transition-all text-sm shadow-none"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-300 hover:text-neutral-900 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-300"
                 >
-                  {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+                  {showPassword ? <EyeOff size={16}/> : <Eye size={16}/>}
                 </button>
               </div>
             </div>
@@ -133,54 +124,44 @@ export default function LoginForm() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full h-12 bg-neutral-900 hover:bg-neutral-800 text-white font-medium rounded-xl transition-all mt-4 text-sm shadow-none"
+              className="w-full h-11 bg-neutral-900 hover:bg-black text-white font-bold rounded-xl transition-all active:scale-95 mt-2 text-sm"
             >
-              {loading ? "Authenticating..." : "Continue"}
+              {loading ? 'Authenticating...' : 'Continue'}
             </Button>
           </form>
         </div>
 
-        {/* Footer Navigation */}
-        <div className="flex justify-center items-center text-xs font-normal text-neutral-400">
+        {/* Footer */}
+        <div className="text-center text-xs text-neutral-400 mt-4">
           <p>
-            New here?{" "}
-            <Link
-              to="/register"
-              className="text-neutral-900 font-medium hover:underline underline-offset-4 ml-1"
-            >
-              Create an account
+            New here?{' '}
+            <Link to="/register" className="text-neutral-900 font-bold hover:underline">
+              Create account
             </Link>
           </p>
         </div>
       </div>
 
-      {/* RIGHT SECTION: HERO IMAGE CARD (Minimal overlay) */}
+      {/* RIGHT SECTION: HERO IMAGE (Fixed Height handled by parent) */}
       <div className="hidden lg:block relative w-[55%] h-full">
-        <div className="relative w-full h-full rounded-[2rem] overflow-hidden">
+        <div className="relative w-full h-full">
           <img
-            src={hero}
+            src={hero || '/placeholder.svg'}
             alt="Solemate Visual"
             className="absolute inset-0 w-full h-full object-cover"
           />
-          {/* Subtle gradient for depth without being too dark */}
-          <div className="absolute inset-0 bg-neutral-900/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"/>
 
-          {/* Minimal Status Indicator */}
-          <div className="absolute top-8 left-8 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2 border border-white/20 shadow-sm">
-            <div className="h-1.5 w-1.5 bg-neutral-400 rounded-full" />
-            <p className="text-neutral-900 font-medium text-[10px] tracking-tight">
-              Active session
-            </p>
-          </div>
-
-          {/* Simple Bottom Text */}
-          <div className="absolute bottom-10 left-10">
-            <h3 className="text-white text-3xl font-light tracking-tight leading-tight">
-              Built for <br /> every step.
+          <div className="absolute bottom-10 left-10 right-10">
+            <h3 className="text-white text-4xl font-semibold tracking-tight leading-tight mb-2">
+              Built for <br/> every step.
             </h3>
+            <p className="text-white/60 text-xs max-w-[200px]">
+              The premium collection for those who move differently.
+            </p>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
