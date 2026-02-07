@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import CartItemCard from "../components/CartItem";
-import { Button } from "../components/ui/button";
-import ShoeCircularLoader from "../layouts/loader";
-import { fetchCart, removeItemFromCart } from "../thunks/cart.thunks";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import CartItemCard from '../components/CartItem';
+import { Button } from '../components/ui/button';
+import ShoeCircularLoader from '../layouts/loader';
+import { fetchCart, removeItemFromCart } from '../thunks/cart.thunks';
 
-export default function CartSection() {
+export default function CartSection () {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,10 +19,10 @@ export default function CartSection() {
   );
 
   useEffect(() => {
-    if (error) toast.error(error.message || "Failed to load cart");
+    if (error) toast.error(error.message || 'Failed to load cart');
   }, [error]);
 
-  if (loading) return <ShoeCircularLoader />;
+  if (loading) return <ShoeCircularLoader/>;
 
   const updateQuantity = (id, newQuantity) => {
     // Logic for updating quantity
@@ -41,17 +41,19 @@ export default function CartSection() {
             Your Bag
           </h1>
           <span className="text-sm font-medium text-gray-400">
-            {items.length} {items.length === 1 ? "Unit" : "Units"}
+            {items.length} {items.length === 1 ? 'Unit' : 'Units'}
           </span>
         </header>
 
         {items.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 border border-gray-200 rounded-lg bg-gray-50/50">
+          <div
+            className="flex flex-col items-center justify-center py-20 border border-gray-200 rounded-lg bg-gray-50/50">
             <p className="text-sm font-medium text-gray-400 mb-6">
               Your inventory is currently empty
             </p>
             <Link to="/shop">
-              <Button className="bg-black text-white px-8 py-6 rounded-lg text-sm font-medium hover:bg-gray-900 transition-all">
+              <Button
+                className="bg-black text-white px-8 py-6 rounded-lg text-sm font-medium hover:bg-gray-900 transition-all">
                 Return to Shop
               </Button>
             </Link>
@@ -117,7 +119,8 @@ export default function CartSection() {
               {/* Action Buttons: Placed outside the card to match ShippingForm pattern */}
               <div className="space-y-4">
                 <Link to="/cart/checkout" className="block">
-                  <Button className="w-full py-7 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-900 transition-all active:scale-[0.98] shadow-lg shadow-black/5">
+                  <Button
+                    className="w-full py-7 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-900 transition-all active:scale-[0.98] shadow-lg shadow-black/5">
                     Checkout Now
                   </Button>
                 </Link>

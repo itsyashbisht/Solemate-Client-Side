@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { useEffect, useMemo, useState } from 'react';
+import { Search } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useSelector } from 'react-redux';
+import ShoeCircularLoader from '@/layouts/loader.jsx';
+import { toast } from 'react-toastify';
 
-export default function SearchBar() {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function SearchBar ( { searchTerm, setSearchTerm } ) {
 
   return (
     <div className="w-full bg-transparent">
@@ -41,7 +43,8 @@ export default function SearchBar() {
             />
           </div>
 
-          <Button className="absolute right-1.5 h-8 md:h-9 px-4 bg-black hover:bg-neutral-800 text-white text-[8px] font-black uppercase tracking-widest rounded-full transition-all active:scale-95">
+          <Button
+            className="absolute right-1.5 h-8 md:h-9 px-4 bg-black hover:bg-neutral-800 text-white text-[8px] font-black uppercase tracking-widest rounded-full transition-all active:scale-95">
             Search
           </Button>
         </div>
@@ -51,7 +54,7 @@ export default function SearchBar() {
           <span className="text-[7px] font-bold text-neutral-300 uppercase tracking-[0.2em]">
             Trending:
           </span>
-          {["Series 01", "Carbon Flux", "Aero Stealth"].map((tag) => (
+          {['Series 01', 'Carbon Flux', 'Aero Stealth'].map((tag) => (
             <button
               key={tag}
               className="text-[10px] font-medium text-neutral-500 hover:text-blue-600 transition-colors"

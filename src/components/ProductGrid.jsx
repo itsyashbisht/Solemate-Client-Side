@@ -1,10 +1,11 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../thunks/product.thunk";
-import ProductCard from "./ProductCard";
-import ShoeCircularLoader from "../layouts/loader";
+import { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProducts } from '../thunks/product.thunk';
+import ProductCard from './ProductCard';
+import ShoeCircularLoader from '../layouts/loader';
+import { toast } from 'react-toastify';
 
-export default function ProductGrid() {
+export default function ProductGrid ({ searchTerm }) {
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.product);
 
@@ -12,13 +13,34 @@ export default function ProductGrid() {
     dispatch(getAllProducts());
   }, [dispatch]);
 
-  if (loading) return <ShoeCircularLoader size="lg" />;
-  if (error)
-    return (
-      <p className="text-center py-10 text-red-500 font-medium text-xs">
-        {error}
-      </p>
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message || 'Something went wrong while fetching products.');
+    }
+  });
+
+  console.log(products);
+
+  const filteredProducts = useMemo(() => {
+    if (!products) return [];
+    if (!searchTerm) return products;
+
+    const searchQuery = searchTerm.toLowerCase();
+
+    // SEARCH RESULT
+    let result = [...products];
+    result = result.filter((p) =>
+      p.name.toLowerCase().includes(searchQuery) ||
+      p.brand.toLowerCase().includes(searchQuery) ||
+      p.category.toLowerCase().includes(searchQuery)
     );
+    return result;
+
+  }, [products, searchTerm]);
+
+  console.log(filteredProducts);
+
+  if (loading) return <ShoeCircularLoader size="lg"/>;
 
   return (
     /* SPACE COMPRESSION: pt-0 ensures it sits right under SearchBar trending tags */
@@ -30,7 +52,8 @@ export default function ProductGrid() {
             <h2 className="text-xl font-black tracking-tighter text-neutral-900 uppercase">
               Our Collection
             </h2>
-            <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
+            <span
+              className="text-[8px] font-bold uppercase tracking-[0.3em] text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
               Catalog
             </span>
           </div>
@@ -40,12 +63,21 @@ export default function ProductGrid() {
           </p>
         </div>
 
-        {/* Grid - Standardized gap-y-8 keeps the products compact */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-8">
-          {products.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
-        </div>
+        {/* PRODUCT GRID */}
+        {filteredProducts.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product._id} product={product}/>
+            ))}
+          </div>
+        ) : (
+          /* Search No Results State */
+          <div className="py-24 text-center">
+            <p className="text-neutral-400 text-[10px] font-bold uppercase tracking-[0.5em]">
+              No matches found for "{searchTerm}"
+            </p>
+          </div>
+        )}
 
         {/* Empty State */}
         {products && products.length === 0 && (

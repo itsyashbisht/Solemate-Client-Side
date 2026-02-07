@@ -51,7 +51,7 @@ const cartSlice = createSlice({
       // REMOVE ITEM.
       .addCase(removeItemFromCart.fulfilled, (state, action) => {
         state.items = state.items.filter(
-          (item) => item._id !== action.payload.data[0]._id,
+          (item) => item._id !== action.payload?.removedItem?._id,
         );
       })
 
