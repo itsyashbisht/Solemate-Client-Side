@@ -11,44 +11,44 @@ import { useRef } from "react";
 const bestSHOES = [
   {
     name: "Nike Gato",
-    price: "$110.00",
-    imageURL: "/carousel/shoe-1.avif", // Points to public/carousel/shoe-1.avif
+    price: "₹11000.00",
+    imageURL: "/carousel/shoe-1.avif",
     series: "Series 01 / Court",
   },
   {
     name: "Adidas Forum Blue",
-    price: "$140.00",
+    price: "₹14000.00",
     imageURL: "/carousel/shoe-2.avif",
     series: "Series 02 / Urban",
   },
   {
     name: "Air Jordan 11 Retro 'Gamma'",
-    price: "$165.00",
+    price: "₹16500.00",
     imageURL: "/carousel/shoe-3.avif",
     series: "Series 03 / Classic",
   },
   {
     name: "Nike AF1 '07",
-    price: "$115.00",
+    price: "₹11500.00",
     imageURL: "/carousel/shoe-4.avif",
     series: "Series 04 / Icon",
   },
   {
     name: "Nike Dunk Low Retro",
-    price: "$130.00",
+    price: "₹13000.00",
     imageURL: "/carousel/shoe-5.avif",
     series: "Series 05 / Essential",
   },
   {
     name: "NB 2002R Steel",
-    price: "$150.00",
+    price: "₹15000.00",
     imageURL: "/carousel/shoe-6.avif",
     series: "Series 06 / Heritage",
   },
 ];
 
 function CarouselComponent() {
-  const plugin = useRef(Autoplay({ delay: 4000, stopOnInteraction: true }));
+  const plugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
 
   return (
     <section className="py-20 lg:py-24 bg-[#f8f8f8] overflow-hidden">

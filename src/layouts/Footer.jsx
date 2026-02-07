@@ -1,30 +1,33 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, MapPin, Phone } from 'lucide-react';
 
-export default function Footer() {
+export default function Footer () {
   return (
     <footer className="bg-black text-white w-full">
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-12">
-          <div className="col-span-1">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4">
+      <div className="max-w-7xl mx-auto px-10 lg:px-8 py-24 md:py-32">
+
+        {/* Grid: items-center for mobile centering, sm:items-start for desktop alignment */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-8 mb-16">
+
+          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4 tracking-tighter uppercase">
               Solemate
             </h3>
-            <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
+            <p className="text-gray-400 text-sm leading-relaxed max-w-[280px]">
               Discover premium footwear that combines style, comfort, and
               innovation for every step of your journey.
             </p>
           </div>
 
-          <div>
-            <h4 className="text-sm sm:text-base md:text-lg font-semibold mb-3 sm:mb-4">
+          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+            <h4 className="text-xs font-bold uppercase tracking-[0.4em] mb-6">
               Quick Links
             </h4>
-            <ul className="space-y-1.5 sm:space-y-2">
-              {["Shop", "About", "Contact", "Returns"].map((link) => (
+            <ul className="space-y-3">
+              {['Shop', 'About', 'Contact', 'Returns'].map((link) => (
                 <li key={link}>
                   <a
                     href="#"
-                    className="text-gray-400 hover:text-white transition-colors duration-200 text-xs sm:text-sm"
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm"
                   >
                     {link}
                   </a>
@@ -33,21 +36,21 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-sm sm:text-base md:text-lg font-semibold mb-3 sm:mb-4">
+          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+            <h4 className="text-xs font-bold uppercase tracking-[0.4em] mb-6">
               Information
             </h4>
-            <ul className="space-y-1.5 sm:space-y-2">
+            <ul className="space-y-3">
               {[
-                "Privacy Policy",
-                "Terms of Service",
-                "Shipping Info",
-                "FAQ",
+                'Privacy Policy',
+                'Terms of Service',
+                'Shipping Info',
+                'FAQ',
               ].map((link) => (
                 <li key={link}>
                   <a
                     href="#"
-                    className="text-gray-400 hover:text-white transition-colors duration-200 text-xs sm:text-sm"
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm"
                   >
                     {link}
                   </a>
@@ -56,26 +59,26 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-sm sm:text-base md:text-lg font-semibold mb-3 sm:mb-4">
+          <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+            <h4 className="text-xs font-bold uppercase tracking-[0.4em] mb-6">
               Contact Us
             </h4>
-            <div className="space-y-2 sm:space-y-3">
-              <div className="flex items-start gap-2">
-                <Phone className="w-4 sm:w-5 h-4 sm:h-5 text-white mt-0.5 flex-shrink-0" />
-                <span className="text-gray-400 text-xs sm:text-sm break-words">
+            <div className="space-y-3">
+              <div className="flex items-center sm:items-start gap-3">
+                <Phone className="w-4 h-4 text-white flex-shrink-0"/>
+                <span className="text-gray-400 text-sm">
                   +1 (555) 123-4567
                 </span>
               </div>
-              <div className="flex items-start gap-2">
-                <Mail className="w-4 sm:w-5 h-4 sm:h-5 text-white mt-0.5 flex-shrink-0" />
-                <span className="text-gray-400 text-xs sm:text-sm break-words">
+              <div className="flex items-center sm:items-start gap-3">
+                <Mail className="w-4 h-4 text-white flex-shrink-0"/>
+                <span className="text-gray-400 text-sm break-all">
                   hello@solemate.com
                 </span>
               </div>
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 sm:w-5 h-4 sm:h-5 text-white mt-0.5 flex-shrink-0" />
-                <span className="text-gray-400 text-xs sm:text-sm break-words">
+              <div className="flex items-center sm:items-start gap-3">
+                <MapPin className="w-4 h-4 text-white flex-shrink-0"/>
+                <span className="text-gray-400 text-sm">
                   123 Fashion Street, NY 10001
                 </span>
               </div>
@@ -83,17 +86,17 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 pt-6 sm:pt-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
-            <p className="text-gray-400 text-xs sm:text-sm text-center sm:text-left">
-              &copy; 2025 Solemate. All rights reserved.
+        <div className="border-t border-gray-800 pt-10">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
+            <p className="text-gray-400 text-[10px] uppercase tracking-widest text-center sm:text-left">
+              &copy; 2026 Solemate. All rights reserved.
             </p>
-            <div className="flex gap-3 sm:gap-4 flex-wrap justify-center">
-              {["Facebook", "Twitter", "Instagram"].map((social) => (
+            <div className="flex gap-8 justify-center">
+              {['Facebook', 'Twitter', 'Instagram'].map((social) => (
                 <a
                   key={social}
                   href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-200 text-xs sm:text-sm"
+                  className="text-gray-400 hover:text-white transition-colors duration-200 text-[10px] uppercase tracking-widest"
                 >
                   {social}
                 </a>

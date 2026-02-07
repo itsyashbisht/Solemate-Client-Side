@@ -1,9 +1,12 @@
-import hero from "../data/Hero1.jpg";
-import Navigation from "../layouts/Navigation";
-import Arrow from "../layouts/Arrow";
-import { motion } from "framer-motion";
+import hero from '../data/Hero1.jpg';
+import Navigation from '../layouts/Navigation';
+import Arrow from '../layouts/Arrow';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
-function Hero() {
+function Hero () {
+  const { scrollY } = useScroll();
+  const textY = useTransform(scrollY, [0, 500], [0, 150]); // Moves text slower than scroll
+
   return (
     <section
       className="h-[70vh] md:h-screen w-full relative bg-cover bg-no-repeat bg-center md:bg-fixed overflow-hidden"
@@ -12,7 +15,7 @@ function Hero() {
         backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%), url(${hero})`,
       }}
     >
-      <Navigation />
+      <Navigation/>
 
       {/* 1. HERO TITLE: Asymmetrical & Massive 
           Positioned lower and slightly off-right for a boutique look
@@ -20,6 +23,7 @@ function Hero() {
       <div className="absolute inset-0 flex flex-col justify-end pb-20 md:pb-32 px-6 md:px-16 lg:px-24">
         <div className="flex flex-col items-end w-full">
           <motion.h1
+            style={{ y: textY }}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
@@ -37,7 +41,8 @@ function Hero() {
             <p className="text-[10px] md:text-xs font-bold text-blue-400 uppercase tracking-[0.5em] mb-3">
               Elite Series / 2026
             </p>
-            <p className="text-sm md:text-lg font-medium text-neutral-300 leading-snug uppercase tracking-tight opacity-80">
+            <p
+              className="text-sm md:text-lg font-medium text-neutral-300 leading-snug uppercase tracking-tight opacity-80">
               Crafting the perfect silhouette for your daily movement.
               Engineering comfort into every thread.
             </p>
@@ -50,16 +55,18 @@ function Hero() {
       */}
       <div className="absolute left-6 md:left-16 lg:left-24 bottom-10 md:bottom-16">
         <button className="group flex flex-col items-start gap-4">
-          <div className="relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full border border-white/20 hover:border-white transition-all duration-500 overflow-hidden">
+          <div
+            className="relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full border border-white/20 hover:border-white transition-all duration-500 overflow-hidden">
             {/* Hover Fill Effect */}
-            <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+            <div
+              className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
             <Arrow
               size={32}
               className="relative z-10 text-white group-hover:text-black transition-colors duration-500"
             />
           </div>
           <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-white">
-            Explore <br /> Collection
+            Explore <br/> Collection
           </span>
         </button>
       </div>

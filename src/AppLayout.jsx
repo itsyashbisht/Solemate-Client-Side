@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import Footer from "./layouts/Footer";
-import ShoeCircularLoader from "./layouts/loader";
-import { getMe } from "./thunks/user.thunk";
-import { setInitialized } from "./Slices/user.slice";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import Footer from './layouts/Footer';
+import ShoeCircularLoader from './layouts/loader';
+import { getMe } from './thunks/user.thunk';
+import { setInitialized } from './Slices/user.slice';
 
-export default function AppLayout() {
+export default function AppLayout () {
   const dispatch = useDispatch();
 
   // AUTH STATE - Check if authenticated
@@ -22,7 +22,7 @@ export default function AppLayout() {
 
   // RESTORE USER SESSION ON MOUNT
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem('accessToken');
 
     // IF TOKEN EXISTS BUT PROFILE NOT LOADED - FETCH USER DATA
     if (token && !profile) {
@@ -35,16 +35,16 @@ export default function AppLayout() {
 
   // SHOW LOADING WHILE FETCHING
   if (authLoading || profileLoading) {
-    return <ShoeCircularLoader />;
+    return <ShoeCircularLoader/>;
   }
 
   return (
     <div className="min-h-screen bg-white">
-      <ToastContainer />
+      <ToastContainer/>
       <main>
-        <Outlet />
+        <Outlet/>
       </main>
-      <Footer />
+      <Footer/>
     </div>
   );
 }

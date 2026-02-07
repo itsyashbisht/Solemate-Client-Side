@@ -1,22 +1,23 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
-const ShoeCircularLoader = ({
-  size = "lg",
-  fullscreen = false,
-  text = "Lacing Up...",
-}) => {
+export default function ShoeCircularLoader ({
+  size = 'lg',
+  fullscreen = true,
+  text = 'Lacing Up...',
+}) {
   const sizes = {
-    sm: "h-8 w-8 border-2",
-    md: "h-16 w-16 border-4",
-    lg: "h-24 w-24 border-8",
+    sm: 'h-8 w-8 border-2',
+    md: 'h-16 w-16 border-4',
+    lg: 'h-24 w-24 border-8',
   };
 
+  // Centering classes for Fullscreen vs. Inline
+  const containerClasses = fullscreen
+    ? 'fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm'
+    : 'flex flex-col items-center justify-center w-full py-10';
+
   return (
-    <div
-      className={`flex flex-col items-center justify-center w-full ${
-        fullscreen ? "min-h-screen" : "py-10"
-      }`}
-    >
+    <div className={containerClasses}>
       <div className="relative">
         {/* Outer Ring */}
         <motion.div
@@ -29,7 +30,7 @@ const ShoeCircularLoader = ({
           transition={{
             repeat: Infinity,
             duration: 1,
-            ease: "linear",
+            ease: 'linear',
           }}
         />
 
@@ -46,23 +47,17 @@ const ShoeCircularLoader = ({
           transition={{
             repeat: Infinity,
             duration: 1.5,
-            ease: "easeInOut",
+            ease: 'easeInOut',
           }}
         />
       </div>
 
-      {/* Text */}
-      <p
-        className="
-          mt-6 text-xs font-bold tracking-widest uppercase
-          text-slate-500 dark:text-slate-400
-          animate-pulse
-        "
-      >
-        {text}
-      </p>
+      {text && (
+        <p
+          className="mt-6 text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400 animate-pulse">
+          {text}
+        </p>
+      )}
     </div>
   );
 };
-
-export default ShoeCircularLoader;
