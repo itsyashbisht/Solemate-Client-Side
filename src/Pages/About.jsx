@@ -1,57 +1,43 @@
-import { useRef } from "react";
-import Navigation from "../layouts/Navigation";
-import { Button } from "../components/ui/button";
-import { ArrowRight, Zap, Users, Truck } from "lucide-react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import Navigation from '../layouts/Navigation';
+import { Button } from '../components/ui/button';
+import { ArrowRight, Truck, Users, Zap } from 'lucide-react';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
-export default function AboutPage() {
+export default function AboutPage () {
   const { scrollYProgress } = useScroll();
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-  });
-
-  const textX = useTransform(smoothProgress, [0, 1], ["0%", "-50%"]);
-  const reverseTextX = useTransform(smoothProgress, [0, 1], ["-50%", "0%"]);
-  const imageY = useTransform(smoothProgress, [0, 1], [0, -120]);
-  const secondaryImageY = useTransform(smoothProgress, [0, 1], [0, 80]);
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  const textX = useTransform(smoothProgress, [0, 1], ['0%', '-30%']);
 
   const values = [
     {
-      id: "01",
+      id: '01',
       icon: Zap,
-      title: "Authenticity",
-      description:
-        "We source directly from brands. Every stitch, sole, and lace is verified by our experts before it reaches your door.",
+      title: 'Authenticity',
+      description: 'Direct brand sourcing with expert verification of every single pair.'
     },
     {
-      id: "02",
+      id: '02',
       icon: Users,
-      title: "Community",
-      description:
-        "More than a marketplace. We host events, drops, and discussions for those who live and breathe sneaker culture.",
+      title: 'Community',
+      description: 'Exclusive events, drops, and discussions for the culture.'
     },
     {
-      id: "03",
+      id: '03',
       icon: Truck,
-      title: "Speed",
-      description:
-        "Our logistics network is built for the modern age. Fast shipping and a return process that doesn't give you a headache.",
+      title: 'Speed',
+      description: 'Logistics built for the modern age. Fast, trackable, and painless.'
     },
   ];
 
   return (
     <div className="min-h-screen bg-white overflow-hidden selection:bg-black selection:text-white">
-      <Navigation />
+      <Navigation/>
 
       {/* BACKGROUND MARQUEE */}
-      <div className="fixed top-32 left-0 w-full pointer-events-none z-0 opacity-[0.05] select-none">
+      <div className="fixed top-40 left-0 w-full pointer-events-none z-0 opacity-[0.04] select-none">
         <motion.div style={{ x: textX }} className="flex whitespace-nowrap">
-          {[...Array(10)].map((_, i) => (
-            <span
-              key={i}
-              className="text-[15vw] font-black uppercase tracking-tighter mx-10"
-            >
+          {[...Array(8)].map((_, i) => (
+            <span key={i} className="text-[18vw] font-black uppercase tracking-tighter mx-10">
               Solemate
             </span>
           ))}
@@ -59,95 +45,81 @@ export default function AboutPage() {
       </div>
 
       <main className="relative z-10 pt-32 sm:pt-48 pb-24">
-        {/* Hero Section */}
-        <section className="max-w-6xl mx-auto px-4 mb-40 text-center">
-          <h1 className="text-6xl sm:text-7xl lg:text-9xl font-black text-black mb-8 tracking-tighter leading-[0.85]">
-            More than just
-            <br />a step
-          </h1>
-          <p className="text-lg sm:text-xl lg:text-2xl text-neutral-500 max-w-2xl mx-auto font-light leading-relaxed">
-            Every great journey starts with the perfect pair. We bridge the gap
-            between street culture and elite performance.
-          </p>
+
+        {/* 1. HERO SECTION */}
+        <section className="max-w-6xl mx-auto px-6 mb-24 md:mb-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-left"
+          >
+            <h1
+              className="text-5xl sm:text-7xl lg:text-[10rem] font-black text-black mb-8 tracking-tighter leading-[0.8]">
+              More than
+              <br/>
+              just a step
+            </h1>
+            <p className="text-lg md:text-2xl text-neutral-800 max-w-2xl font-light leading-relaxed">
+              Solemate is a modern, full-featured platform for browsing, purchasing, and managing footwear.
+              We offer a seamless shopping experience crafted for both the community and the creators.
+            </p>
+          </motion.div>
         </section>
 
-        {/* DUAL IMAGE SECTION */}
-        <section className="max-w-7xl mx-auto px-4 mb-64 relative grid lg:grid-cols-2 gap-24 items-center">
-          <div className="space-y-10 relative z-20">
-            <h2 className="text-5xl sm:text-7xl font-black tracking-tighter uppercase">
-              The Origin
-            </h2>
-            <p className="text-xl text-neutral-700 leading-relaxed font-light max-w-md">
-              Born from a simple idea: finding the perfect shoe shouldn't be
-              complicated. We started Solemate because we were tired of endless
-              browsing.
-            </p>
-          </div>
+        {/* 2. THE ORIGIN SECTION */}
+        <section className="max-w-6xl mx-auto px-6 mb-32 md:mb-44">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5 space-y-8 order-2 lg:order-1">
+              <div className="space-y-2">
+                <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none">The Origin</h2>
+                <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tighter text-neutral-300">Curating
+                  Craft</h3>
+              </div>
+              <div className="h-1.5 w-20 bg-black"/>
+              <p className="text-lg text-neutral-900 font-medium leading-relaxed max-w-sm">
+                Finding the perfect shoe shouldn't be complicated. We curate comfort and style into every single thread.
+              </p>
+            </div>
 
-          <div className="relative h-[600px] flex items-center justify-center">
-            <motion.div
-              style={{ y: imageY }}
-              className="absolute w-[90%] h-[450px] lg:h-[550px] rounded-[2.5rem] overflow-hidden shadow-2xl z-10 border-[12px] border-white"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=2070"
-                className="w-full h-full object-cover"
-                alt="Craft"
-              />
-            </motion.div>
-            <motion.div
-              style={{ y: secondaryImageY }}
-              className="absolute -bottom-16 -left-12 w-3/5 h-[320px] rounded-[2rem] overflow-hidden shadow-2xl z-20 border-[8px] border-white hidden sm:block"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=1964"
-                className="w-full h-full object-cover grayscale"
-                alt="Detail"
-              />
-            </motion.div>
+            <div className="lg:col-span-7 order-1 lg:order-2">
+              <div
+                className="bg-neutral-50 p-4 md:p-10 rounded-[3rem] md:rounded-[4rem] border border-neutral-100 shadow-xl">
+                <div className="aspect-[4/3] md:aspect-video overflow-hidden rounded-[2.5rem] md:rounded-[3rem]">
+                  <img
+                    src="https://images.unsplash.com/photo-1630981495756-875fec48af03?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 ease-out"
+                    alt="The Craft"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* IMPROVED UX CORE VALUES SECTION */}
-        <section className="max-w-6xl mx-auto px-4 mb-56">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-4">
-            <h2 className="text-5xl sm:text-7xl font-black tracking-tighter uppercase">
-              Our Values
-            </h2>
-            <p className="text-neutral-400 font-medium uppercase tracking-[0.2em] text-sm pb-2">
-              / How we roll
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {values.map((value, index) => (
+        {/* 3. ROLES / VALUES SECTION (Clean Editorial Style) */}
+        <section className="max-w-6xl mx-auto px-6 mb-32 md:mb-44">
+          <p className="text-[10px] uppercase tracking-[0.4em] text-neutral-400 font-bold mb-12">/ Core Philosophy</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {values.map((v, i) => (
               <motion.div
-                key={index}
-                whileHover={{ y: -10 }}
-                className="group relative p-10 rounded-[3rem] bg-neutral-50 border border-neutral-100 overflow-hidden transition-all duration-500 hover:bg-black hover:border-black"
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="group p-10 rounded-[2.5rem] bg-neutral-50 border border-neutral-100 hover:bg-black transition-all duration-500"
               >
-                {/* ID Number Watermark */}
-                <span className="absolute top-8 right-10 text-5xl font-black opacity-[0.03] group-hover:opacity-10 group-hover:text-white transition-opacity italic">
-                  {value.id}
-                </span>
-
-                <div className="relative z-10 space-y-12">
-                  <div className="w-14 h-14 bg-white text-black rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500">
-                    <value.icon size={24} />
+                <div className="space-y-8">
+                  <div
+                    className="w-14 h-14 bg-white text-black rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <v.icon size={24}/>
                   </div>
-
                   <div className="space-y-4">
-                    <h3 className="text-3xl font-bold tracking-tight group-hover:text-white transition-colors">
-                      {value.title}
-                    </h3>
-                    <p className="text-neutral-500 font-light leading-relaxed group-hover:text-neutral-400 transition-colors">
-                      {value.description}
+                    <h3
+                      className="text-3xl font-black uppercase tracking-tighter group-hover:text-white transition-colors">{v.title}</h3>
+                    <p
+                      className="text-neutral-600 font-medium leading-snug group-hover:text-neutral-400 transition-colors">
+                      {v.description}
                     </p>
-                  </div>
-
-                  {/* Interactive Footer */}
-                  <div className="pt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 group-hover:text-white transition-all translate-y-4 group-hover:translate-y-0">
-                    Learn more <ArrowRight size={14} />
                   </div>
                 </div>
               </motion.div>
@@ -155,42 +127,53 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Numbers Section */}
-        <section className="max-w-6xl mx-auto px-4 mb-48">
-          <div className="bg-black text-white rounded-[4rem] p-16 sm:p-24 relative overflow-hidden group">
-            <h2 className="text-5xl sm:text-7xl font-black mb-20 tracking-tighter italic">
-              By the Numbers
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 relative z-10">
-              {[
-                { n: "50K+", l: "Happy Feet" },
-                { n: "15K+", l: "Shoe Styles" },
-                { n: "24/7", l: "Support" },
-                { n: "99%", l: "Satisfaction" },
-              ].map((s, i) => (
-                <div key={i}>
-                  <p className="text-5xl sm:text-7xl font-black tracking-tighter mb-2">
-                    {s.n}
-                  </p>
-                  <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-500 font-black">
-                    {s.l}
-                  </p>
+        {/* 4. IMPACT NUMBERS */}
+        <section className="max-w-6xl mx-auto px-4 mb-32">
+          <div className="bg-black text-white rounded-[3rem] p-10 md:p-24 relative overflow-hidden group">
+            <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
+              <div className="space-y-4">
+                <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic">Impact</h2>
+                <p className="text-[10px] uppercase tracking-[0.4em] text-neutral-500 font-bold">/ Global Reach 2026</p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-8 md:gap-16 border-l border-neutral-800 pl-8 md:pl-16">
+                <div>
+                  <p className="text-4xl md:text-6xl font-black tracking-tighter mb-1">50K+</p>
+                  <p className="text-[9px] uppercase tracking-widest text-neutral-500 font-bold">Community</p>
                 </div>
-              ))}
+                <div>
+                  <p className="text-4xl md:text-6xl font-black tracking-tighter mb-1">15K+</p>
+                  <p className="text-[9px] uppercase tracking-widest text-neutral-500 font-bold">Drops</p>
+                </div>
+                <div>
+                  <p className="text-4xl md:text-6xl font-black tracking-tighter mb-1">24/7</p>
+                  <p className="text-[9px] uppercase tracking-widest text-neutral-500 font-bold">Support</p>
+                </div>
+                <div>
+                  <p className="text-4xl md:text-6xl font-black tracking-tighter mb-1">99%</p>
+                  <p className="text-[9px] uppercase tracking-widest text-neutral-500 font-bold">Verified</p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className="absolute right-[-2%] bottom-[-10%] opacity-10 pointer-events-none group-hover:scale-110 transition-transform duration-1000">
+              <span className="text-[25vw] font-black italic text-white tracking-tighter leading-none">-26</span>
             </div>
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="text-center py-24 px-4">
-          <Button className="bg-black text-white hover:bg-neutral-900 rounded-full px-16 h-20 text-xl font-black uppercase tracking-widest group shadow-2xl transition-transform hover:scale-105">
-            Start Your Journey
-            <ArrowRight
-              className="ml-3 group-hover:translate-x-2 transition-transform"
-              size={24}
-            />
+        {/* 5. CTA SECTION - Responsive Button Sizes */}
+        <section className="text-center px-6">
+          <Button
+            className="w-full md:w-auto h-16 md:h-20 px-10 md:px-16 bg-black text-white hover:bg-neutral-800 rounded-2xl text-lg md:text-xl font-bold transition-all hover:scale-105 active:scale-95 shadow-2xl">
+            <span className="flex items-center gap-3 uppercase tracking-widest">
+              Join the Movement
+              <ArrowRight size={20} className="md:w-6 md:h-6"/>
+            </span>
           </Button>
         </section>
+
       </main>
     </div>
   );

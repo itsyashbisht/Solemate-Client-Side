@@ -9,7 +9,7 @@ function Hero () {
 
   return (
     <section
-      className="h-[70vh] md:h-screen w-full relative bg-cover bg-no-repeat bg-center md:bg-fixed overflow-hidden"
+      className="h-[75vh] md:h-screen w-full relative bg-cover bg-no-repeat bg-center md:bg-fixed overflow-hidden"
       style={{
         // Added a deeper gradient at the bottom for better text contrast
         backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%), url(${hero})`,
@@ -20,14 +20,14 @@ function Hero () {
       {/* 1. HERO TITLE: Asymmetrical & Massive 
           Positioned lower and slightly off-right for a boutique look
       */}
-      <div className="absolute inset-0 flex flex-col justify-end pb-20 md:pb-32 px-6 md:px-16 lg:px-24">
+      <div className="absolute inset-0 flex flex-col justify-end py-12 md:pb-32 px-6 md:px-16 lg:px-24">
         <div className="flex flex-col items-end w-full">
           <motion.h1
             style={{ y: textY }}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
-            className="font-black text-white uppercase text-7xl md:text-[12rem] lg:text-[16rem] leading-[0.75] tracking-tighter"
+            className="font-black text-white uppercase text-6xl md:text-[12rem] lg:text-[16rem] leading-[0.75] tracking-tighter"
           >
             Solemate
           </motion.h1>
@@ -36,9 +36,9 @@ function Hero () {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="max-w-[320px] md:max-w-[450px] mt-6 text-right"
+            className="max-w-[320px] md:max-w-[450px] mt-6 pl-4 text-right"
           >
-            <p className="text-[10px] md:text-xs font-bold text-blue-400 uppercase tracking-[0.5em] mb-3">
+            <p className="text-[10px] md:text-xs font-semibold  md:font-bold text-blue-400 uppercase tracking-[0.5em] mb-3">
               Elite Series / 2026
             </p>
             <p

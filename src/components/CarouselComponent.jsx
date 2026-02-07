@@ -51,7 +51,7 @@ function CarouselComponent() {
   const plugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
 
   return (
-    <section className="py-20 lg:py-24 bg-[#f8f8f8] overflow-hidden">
+    <section className="py-12 lg:py-24 bg-[#f8f8f8] overflow-hidden">
       {/* 1. Header Section */}
       <div className="max-w-[1400px] mx-auto px-6 mb-10">
         <div className="flex flex-col md:flex-row justify-between items-baseline border-b border-neutral-100 pb-8">

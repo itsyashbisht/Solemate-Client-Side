@@ -2,6 +2,7 @@ import ProductGrid from '../components/ProductGrid';
 import SearchBar from '../components/SearchBar';
 import Navigation from '../layouts/Navigation';
 import { useState } from 'react';
+import Footer from '@/layouts/Footer.jsx';
 
 export default function Shop () {
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,6 +14,7 @@ export default function Shop () {
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
         <ProductGrid searchTerm={searchTerm}/>
       </main>
+      <Footer />
     </div>
   );
 }

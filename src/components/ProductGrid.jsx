@@ -19,8 +19,6 @@ export default function ProductGrid ({ searchTerm }) {
     }
   });
 
-  console.log(products);
-
   const filteredProducts = useMemo(() => {
     if (!products) return [];
     if (!searchTerm) return products;
@@ -38,8 +36,6 @@ export default function ProductGrid ({ searchTerm }) {
 
   }, [products, searchTerm]);
 
-  console.log(filteredProducts);
-
   if (loading) return <ShoeCircularLoader size="lg"/>;
 
   return (
@@ -47,21 +43,25 @@ export default function ProductGrid ({ searchTerm }) {
     <div className="w-full bg-white pt-0 pb-16">
       <div className="max-w-[1400px] mx-auto px-6">
         {/* Sleek Line Header - High visual density */}
-        <div className="mb-6 flex items-center justify-between border-b border-neutral-100 pb-3">
-          <div className="flex items-center gap-3">
-            <h2 className="text-xl font-black tracking-tighter text-neutral-900 uppercase">
+        <div className="mb-6 flex flex-row items-center justify-between border-b border-neutral-100 pb-3 gap-4">
+          {/* Left Side: Title & Badge */}
+          <div className="flex items-center gap-2 md:gap-3 shrink-0">
+            <h2 className="text-lg md:text-xl font-black tracking-tighter text-neutral-900 uppercase">
               Our Collection
             </h2>
             <span
-              className="text-[8px] font-bold uppercase tracking-[0.3em] text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
-              Catalog
-            </span>
+              className="text-[7px] md:text-[8px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">
+      Catalog
+    </span>
           </div>
 
-          <p className="text-[9px] font-mono text-neutral-300 uppercase tracking-widest">
+          {/* Right Side: Product Count (Improved Visibility) */}
+          <p
+            className="text-[10px] md:text-[11px] font-mono text-neutral-500 font-medium uppercase tracking-wider text-right">
             {products.length} Models Available
           </p>
         </div>
+
 
         {/* PRODUCT GRID */}
         {filteredProducts.length > 0 ? (

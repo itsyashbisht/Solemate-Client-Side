@@ -24,7 +24,7 @@ const CATEGORY = [
 
 function TrendingNowComponent () {
   return (
-    <section className="py-24 bg-[#f8f8f8] px-4 sm:px-8 lg:px-24 overflow-hidden">
+    <section className="py-10 md:py-24 bg-[#f8f8f8] px-4 sm:px-8 lg:px-24 overflow-hidden">
       {/* Header Section with Reveal Effect */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}

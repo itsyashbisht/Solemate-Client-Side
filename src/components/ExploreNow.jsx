@@ -23,7 +23,7 @@ function ExploreNow () {
   };
 
   return (
-    <section className="py-12 lg:py-20 bg-[#f8f8f8] px-6 sm:px-12 lg:px-24 overflow-hidden">
+    <section className="py-10 lg:py-20 bg-[#f8f8f8] px-6 sm:px-12 lg:px-24 overflow-hidden">
       {/* Header - Added Reveal Animation */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
